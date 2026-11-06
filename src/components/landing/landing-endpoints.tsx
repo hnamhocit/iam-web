@@ -1,0 +1,75 @@
+import React from "react";
+
+export function LandingEndpoints() {
+  return (
+    <section
+      id="endpoints"
+      className="mx-auto max-w-6xl px-6 py-16 border-t border-black/[0.04] dark:border-white/[0.04]"
+    >
+      <div className="text-center max-w-2xl mx-auto mb-10">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          3 Endpoints Chuẩn REST Tích hợp Độc lập
+        </h2>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Không cần cài đặt SDK nặng nề. Bất kỳ ngôn ngữ lập trình nào hỗ trợ HTTP request đều có thể kết nối ngay lập tức.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Endpoint 1 */}
+        <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-[#0c121e]/80 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-bold px-2 py-0.5">
+                GET
+              </span>
+              <span className="text-[11px] font-mono text-slate-500">Bước 1</span>
+            </div>
+            <h4 className="font-mono text-sm font-bold text-slate-900 dark:text-white">
+              /oauth/authorize
+            </h4>
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+              Chuyển hướng người dùng sang trang cấp quyền kèm <code>client_id</code>, <code>redirect_uri</code> và <code>code_challenge</code> PKCE.
+            </p>
+          </div>
+        </div>
+
+        {/* Endpoint 2 */}
+        <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-[#0c121e]/80 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="rounded-md bg-[#fb291a]/10 text-[#fb291a] font-mono text-xs font-bold px-2 py-0.5">
+                POST
+              </span>
+              <span className="text-[11px] font-mono text-slate-500">Bước 2</span>
+            </div>
+            <h4 className="font-mono text-sm font-bold text-slate-900 dark:text-white">
+              /oauth/token
+            </h4>
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+              Gửi payload gồm <code>code</code> và <code>code_verifier</code>. Cổng VNTEZ ID xác thực băm SHA-256 và cấp phát JWT Access Token.
+            </p>
+          </div>
+        </div>
+
+        {/* Endpoint 3 */}
+        <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-[#0c121e]/80 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-bold px-2 py-0.5">
+                GET
+              </span>
+              <span className="text-[11px] font-mono text-slate-500">Bước 3</span>
+            </div>
+            <h4 className="font-mono text-sm font-bold text-slate-900 dark:text-white">
+              /oauth/userinfo
+            </h4>
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+              Đính kèm header <code>Authorization: Bearer &lt;access_token&gt;</code> để nhận JSON thông tin định danh: <code>sub</code>, <code>email</code>, <code>name</code>, <code>avatar</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
