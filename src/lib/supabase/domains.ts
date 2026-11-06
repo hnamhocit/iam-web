@@ -32,13 +32,14 @@ export function cookieDomain(host?: string | null): string | undefined {
  */
 export function normalizeSupabaseUrl(url?: string): string {
   if (!url) return "";
-  let clean = url.trim();
+  let clean = url.trim().replace(/\/+$/, "");
   if (!clean) return "";
   if (!clean.startsWith("http://") && !clean.startsWith("https://")) {
     clean = `https://${clean}`;
   }
-  if (!clean.includes(".supabase.co") && !clean.includes("localhost") && !clean.includes("127.0.0.1") && !clean.includes(".")) {
-    clean = `${clean}.supabase.co`;
+  const withoutProtocol = clean.replace(/^https?:\/\//, "");
+  if (!withoutProtocol.includes(".")) {
+    clean = `https://${withoutProtocol}.supabase.co`;
   }
   return clean;
 }
