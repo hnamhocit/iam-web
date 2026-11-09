@@ -5,6 +5,7 @@ import { Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CANONICAL_GATEWAY_URL } from "../developer-hub-data";
+import { CodeHighlighter } from "../code-highlighter";
 
 interface Props {
   copiedKey: string | null;
@@ -89,16 +90,17 @@ export function AuthorizeEndpointCard({ copiedKey, onCopy }: Props) {
         </div>
       </div>
 
-      <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200 overflow-x-auto">
-        <pre className="whitespace-pre">
-{`GET https://vntez-iam.vercel.app/oauth/authorize
-  ?client_id=vntez_c18f43a315d368109d4d8aca
-  &redirect_uri=https://your-app.com/callback
-  &response_type=code
-  &state=xyz123abc
-  &code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM
+      <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-5 sm:p-6 overflow-x-auto">
+        <CodeHighlighter
+          language="curl"
+          code={`GET https://vntez-iam.vercel.app/oauth/authorize \\
+  ?client_id=vntez_c18f43a315d368109d4d8aca \\
+  &redirect_uri=https://your-app.com/callback \\
+  &response_type=code \\
+  &state=xyz123abc \\
+  &code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM \\
   &code_challenge_method=S256`}
-        </pre>
+        />
       </div>
     </div>
   );

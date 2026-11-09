@@ -52,7 +52,7 @@ export function DeveloperHub({ user }: DeveloperHubProps) {
         onTabChange={changeTab}
       />
 
-      <main className="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-16 space-y-12">
+      <main className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-16 space-y-12">
         {/* Page Hero Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <Badge

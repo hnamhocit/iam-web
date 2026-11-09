@@ -55,7 +55,7 @@ export function AiPromptsTab() {
         </CardHeader>
 
         <CardContent className="pt-4 space-y-3">
-          <div className="relative rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 border border-slate-800 max-h-96 overflow-y-auto leading-relaxed scrollbar-thin">
+          <div className="relative rounded-xl bg-[#080d16] p-6 font-mono text-[18px] text-slate-200 border border-white/[0.08] max-h-[680px] overflow-y-auto leading-[1.75] scrollbar-thin select-text">
             <pre className="whitespace-pre-wrap">{MASTER_PROMPT}</pre>
           </div>
         </CardContent>

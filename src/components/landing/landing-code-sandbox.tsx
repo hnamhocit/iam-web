@@ -5,6 +5,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ExternalLink, Copy, Check } from "lucide-react";
 import { CODE_EXAMPLES } from "./code-examples-data";
+import { CodeHighlighter } from "@/components/developers/code-highlighter";
 
 export function LandingCodeSandbox() {
   const [activeTab, setActiveTab] =
@@ -20,7 +21,7 @@ export function LandingCodeSandbox() {
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
+    <section className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#fb291a] mb-2">
@@ -105,8 +106,14 @@ export function LandingCodeSandbox() {
         </div>
 
         {/* Code Viewer */}
-        <div className="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed max-h-[360px] overflow-y-auto scrollbar-thin">
-          <pre className="whitespace-pre-wrap text-slate-300">{activeSnippet.code}</pre>
+        <div className="p-5 sm:p-6 font-mono text-[18px] leading-[1.75] max-h-[520px] overflow-y-auto scrollbar-thin">
+          {activeTab === "curl" ? (
+            <CodeHighlighter code={activeSnippet.code} language="curl" />
+          ) : (
+            <pre className="whitespace-pre-wrap text-slate-300 font-mono text-[18px] leading-[1.75]">
+              {activeSnippet.code}
+            </pre>
+          )}
         </div>
       </div>
     </section>

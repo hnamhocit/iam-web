@@ -37,18 +37,25 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
      "access_token": "eyJhbGciOi...",
      "token_type": "Bearer",
      "expires_in": 3600,
-     "scope": "openid profile email"
+     "scope": "openid profile email roles permissions"
    }
 
-3. Endpoint Lấy Thông Tin Người Dùng (GET):
+3. Endpoint Lấy Thông Tin Người Dùng & Phân Quyền (GET):
    URL: ${CANONICAL_GATEWAY_URL}/oauth/userinfo
    Header: Authorization: Bearer <access_token>
+   Optional Header: X-App-Id: <app_id> (hoặc query ?app_id=<app_id>)
    Response (200 OK):
    {
-     "sub": "user-uuid",
-     "email": "user@example.com",
-     "name": "Nguyễn Văn A",
-     "avatar": "https://..."
+     "sub": "usr_94e21a8c-7f5b-42b1",
+     "email": "developer@vntez.com",
+     "email_verified": true,
+     "name": "Hoàng Nam",
+     "avatar": "https://avatars.githubusercontent.com/u/102873",
+     "picture": "https://avatars.githubusercontent.com/u/102873",
+     "app_id": null, // null nếu là Root Console, hoặc ID app vệ tinh (ví dụ: "solotype")
+     "role": "admin", // Vai trò chính trong app này
+     "roles": ["admin"], // Danh sách vai trò trong app này
+     "permissions": ["*:*"] // Quyền hạn tương ứng trong app này
    }
 
 4. OpenID Connect Discovery:
@@ -64,4 +71,4 @@ Bước 3: Tạo route callback nhận 'code' và 'state' từ URL query:
    - So khớp 'state' với state đã lưu trong cookie (nếu không khớp -> từ chối request để chống CSRF).
    - Đọc 'code_verifier' đã lưu.
    - Gửi POST request tới ${CANONICAL_GATEWAY_URL}/oauth/token để nhận 'access_token'.
-Bước 4: Gửi GET request tới ${CANONICAL_GATEWAY_URL}/oauth/userinfo với header Authorization: Bearer <access_token> để lấy hồ sơ { sub, email, name, avatar }, sau đó khởi tạo session đăng nhập cho ứng dụng của bạn.`;
+Bước 4: Gửi GET request tới ${CANONICAL_GATEWAY_URL}/oauth/userinfo với header Authorization: Bearer <access_token> (kèm query ?app_id=<app_id> hoặc header X-App-Id nếu cần phân quyền riêng cho app vệ tinh) để lấy hồ sơ { sub, email, name, avatar, app_id, role, roles, permissions }, sau đó khởi tạo session và phân quyền tính năng cho ứng dụng.`;

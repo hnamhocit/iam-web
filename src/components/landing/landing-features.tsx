@@ -3,7 +3,7 @@ import { KeyRound, ShieldCheck, Zap } from "lucide-react";
 
 export function LandingFeatures() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12">
+    <section className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
       <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           Được thiết kế cho Hệ sinh thái Doanh nghiệp Hiện đại

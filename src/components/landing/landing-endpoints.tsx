@@ -4,7 +4,7 @@ export function LandingEndpoints() {
   return (
     <section
       id="endpoints"
-      className="mx-auto max-w-6xl px-6 py-16 border-t border-black/[0.04] dark:border-white/[0.04]"
+      className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 border-t border-black/[0.04] dark:border-white/[0.04]"
     >
       <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -65,7 +65,7 @@ export function LandingEndpoints() {
               /oauth/userinfo
             </h4>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
-              Đính kèm header <code>Authorization: Bearer &lt;access_token&gt;</code> để nhận JSON thông tin định danh: <code>sub</code>, <code>email</code>, <code>name</code>, <code>avatar</code>.
+              Đính kèm header <code>Authorization: Bearer &lt;access_token&gt;</code> (kèm <code>?app_id=&lt;app&gt;</code> hoặc <code>X-App-Id</code>) để nhận JSON hồ sơ OIDC và ma trận quyền hạn: <code>sub</code>, <code>email</code>, <code>name</code>, <code>avatar</code>, <code>app_id</code>, <code>role</code>, <code>roles</code>, <code>permissions</code>.
             </p>
           </div>
         </div>

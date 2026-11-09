@@ -9,7 +9,7 @@ import { VntezLogo } from "@/components/ui/vntez-logo";
 export function LandingHeader() {
   return (
     <header className="sticky top-0 z-40 bg-white/85 dark:bg-[#080c14]/85 backdrop-blur-md border-b border-black/[0.04] dark:border-white/[0.04] transition-all">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+      <div className="mx-auto flex w-full max-w-[1700px] items-center justify-between px-4 sm:px-8 lg:px-12 xl:px-16 py-3.5">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <VntezLogo size={28} />

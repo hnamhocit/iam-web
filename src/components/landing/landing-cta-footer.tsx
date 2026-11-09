@@ -42,7 +42,7 @@ export function LandingCtaFooter() {
 
       {/* 7. FOOTER */}
       <footer className="bg-slate-50/70 dark:bg-[#060a10] py-16 text-slate-600 dark:text-slate-400 border-t border-black/[0.04] dark:border-white/[0.04] transition-colors">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             {/* Col 1: Brand & Status */}
             <div className="space-y-4">

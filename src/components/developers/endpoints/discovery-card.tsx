@@ -4,6 +4,7 @@ import React from "react";
 import { Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CodeHighlighter } from "../code-highlighter";
 
 interface Props {
   copiedKey: string | null;
@@ -54,10 +55,11 @@ export function DiscoveryEndpointCard({ copiedKey, onCopy }: Props) {
         xác thực.
       </p>
 
-      <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200 overflow-x-auto">
-        <pre className="whitespace-pre">
-{`curl -X GET https://vntez-iam.vercel.app/.well-known/openid-configuration`}
-        </pre>
+      <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-5 sm:p-6 overflow-x-auto">
+        <CodeHighlighter
+          language="curl"
+          code="curl -X GET https://vntez-iam.vercel.app/.well-known/openid-configuration"
+        />
       </div>
     </div>
   );

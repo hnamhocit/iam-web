@@ -25,7 +25,7 @@ export function DeveloperHubHeader({
 }: DeveloperHubHeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6 gap-3">
+      <div className="w-full max-w-[1700px] mx-auto flex h-14 items-center justify-between px-4 sm:px-8 lg:px-12 xl:px-16 gap-3">
         {/* Left: Brand & Breadcrumb */}
         <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
           <a
