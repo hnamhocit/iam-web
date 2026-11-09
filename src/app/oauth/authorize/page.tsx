@@ -27,6 +27,7 @@ interface AuthorizePageProps {
     code_challenge?: string;
     code_challenge_method?: string;
     scope?: string;
+    app_id?: string;
   }>;
 }
 
@@ -41,6 +42,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     code_challenge,
     code_challenge_method,
     scope,
+    app_id,
   } = params;
 
   // 1. Kiểm tra tham số bắt buộc
@@ -119,6 +121,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     if (code_challenge_method)
       currentQuery.set("code_challenge_method", code_challenge_method);
     if (scope) currentQuery.set("scope", scope);
+    if (app_id !== undefined) currentQuery.set("app_id", app_id);
 
     const fullAuthorizeUrl = `/oauth/authorize?${currentQuery.toString()}`;
     redirect(`/login?redirect_url=${encodeURIComponent(fullAuthorizeUrl)}`);
@@ -143,6 +146,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     const targetUrl = new URL(redirect_uri);
     targetUrl.searchParams.set("code", authCode);
     if (state) targetUrl.searchParams.set("state", state);
+    if (app_id !== undefined) targetUrl.searchParams.set("app_id", app_id);
 
     redirect(targetUrl.toString());
   }

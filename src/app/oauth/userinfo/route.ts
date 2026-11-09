@@ -127,7 +127,14 @@ async function handleUserInfo(req: Request) {
       (payload as any).app_id ||
       (payload.aud && payload.aud !== "vntez-console-app" && payload.aud !== "root" ? payload.aud : null);
 
-    const targetAppId = rawAppId && rawAppId.trim() ? rawAppId.trim() : null;
+    const targetAppId =
+      rawAppId &&
+      rawAppId.trim() &&
+      rawAppId.trim() !== "null" &&
+      rawAppId.trim() !== "undefined" &&
+      rawAppId.trim() !== "root"
+        ? rawAppId.trim()
+        : null;
 
     // Query thông tin user từ Supabase auth qua admin API
     const user = await getUserById(payload.sub);
@@ -190,14 +197,6 @@ async function handleUserInfo(req: Request) {
       { status: 401, headers: corsHeaders },
     );
   }
-}
-
-export async function GET(req: Request) {
-  return handleUserInfo(req);
-}
-
-export async function POST(req: Request) {
-  return handleUserInfo(req);
 }
 
 export async function GET(req: Request) {
