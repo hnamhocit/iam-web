@@ -49,7 +49,7 @@ export function LandingCtaFooter() {
               <Link href="/" className="flex items-center gap-2.5 group w-fit">
                 <VntezLogo size={26} />
                 <span className="font-display text-xl font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-[#fb291a] transition-colors">
-                  vntez <span className="text-[#fb291a] font-mono text-sm ml-0.5">id</span>
+                  vntez <span className="text-[#fb291a] font-mono text-sm ml-0.5">iam</span>
                 </span>
               </Link>
 

@@ -10,10 +10,21 @@ import { LandingCtaFooter } from "./landing/landing-cta-footer";
 
 export { MASTER_AI_INTEGRATION_PROMPT } from "./landing/code-examples-data";
 
-export function LandingPage() {
+export interface LandingUser {
+  id: string;
+  email: string;
+  name: string;
+  avatar: string | null;
+}
+
+interface LandingPageProps {
+  user?: LandingUser | null;
+}
+
+export function LandingPage({ user }: LandingPageProps = {}) {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors selection:bg-[#fb291a]/20 selection:text-[#fb291a]">
-      <LandingHeader />
+      <LandingHeader user={user} />
       <LandingHero />
       <LandingFeatures />
       <LandingCodeSandbox />

@@ -90,10 +90,7 @@ export async function proxy(request: NextRequest) {
         : returnTo;
       return NextResponse.redirect(destination);
     }
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    url.search = "";
-    return NextResponse.redirect(url);
+    return NextResponse.redirect("https://vntez.vercel.app");
   }
 
   return response;

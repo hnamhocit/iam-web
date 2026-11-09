@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { LandingPage } from "@/components/landing-page";
 import { createClient } from "@/lib/supabase/server";
-import { safeReturnTo } from "@/lib/redirect";
 
 export const metadata: Metadata = {
   title: "VNTEZ IAM — Unified Identity & OAuth 2.0 SSO",
@@ -25,32 +25,38 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ redirect_url?: string }>;
-}) {
+async function HomeContent() {
   await connection();
-  const params = await searchParams;
-  const returnTo = safeReturnTo(params.redirect_url);
-
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Đã đăng nhập: nếu có returnTo thì chuyển tiếp, nếu không có thì trả về VNTEZ Portal
+  let mappedUser = null;
   if (user) {
-    if (returnTo) {
-      redirect(returnTo);
-    }
-    redirect("https://vntez.vercel.app");
+    const meta = user.user_metadata ?? {};
+    mappedUser = {
+      id: user.id,
+      name: meta.full_name || meta.name || user.email?.split("@")[0] || "User",
+      email: user.email ?? "",
+      avatar: meta.avatar_url || meta.picture || null,
+    };
   }
 
-  // Chưa đăng nhập: chuyển hướng vào trang Login chuyên dụng
-  if (returnTo) {
-    redirect(`/login?redirect_url=${encodeURIComponent(returnTo)}`);
-  }
+  // Luôn hiển thị LandingPage / tài liệu cho người dùng dù đã đăng nhập hay chưa (không tự ý redirect)
+  return <LandingPage user={mappedUser} />;
+}
 
-  redirect("/login");
+export default function HomePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center bg-background">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
+  );
 }
