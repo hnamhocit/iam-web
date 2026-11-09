@@ -69,6 +69,11 @@ export async function getUserInfo(accessToken: string, appId?: string) {
   });
 
   return res.json(); // { sub, email, email_verified, name, avatar, picture, app_id, role, roles, permissions }
+}
+
+// 4. Đăng xuất SSO tập trung (KHÔNG kết nối Supabase thủ công)
+export function getVntezLogoutUrl(redirectUrl = 'https://your-app.com/login') {
+  return \`https://vntez-iam.vercel.app/auth/logout?redirect_url=\${encodeURIComponent(redirectUrl)}\`;
 }`,
   },
   curl: {
@@ -94,7 +99,10 @@ curl -X GET "https://vntez-iam.vercel.app/oauth/userinfo" \\
 curl -X GET "https://vntez-iam.vercel.app/oauth/userinfo?app_id=solotype" \\
   -H "Authorization: Bearer <access_token>"
 
-# 3. Khám phá cấu hình OpenID Connect
+# 3. Đăng xuất SSO tập trung (Single Sign-Out)
+curl -X GET "https://vntez-iam.vercel.app/auth/logout?redirect_url=https://your-app.com/login"
+
+# 4. Khám phá cấu hình OpenID Connect
 curl -X GET "https://vntez-iam.vercel.app/.well-known/openid-configuration"`,
   },
 };

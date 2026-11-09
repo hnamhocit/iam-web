@@ -8,14 +8,14 @@ export function LandingEndpoints() {
     >
       <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-          3 Endpoints Chuẩn REST Tích hợp Độc lập
+          4 Endpoints Chuẩn REST Tích hợp Độc lập
         </h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
           Không cần cài đặt SDK nặng nề. Bất kỳ ngôn ngữ lập trình nào hỗ trợ HTTP request đều có thể kết nối ngay lập tức.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Endpoint 1 */}
         <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-[#0c121e]/80 p-6 shadow-xs flex flex-col justify-between">
           <div>
@@ -65,7 +65,25 @@ export function LandingEndpoints() {
               /oauth/userinfo
             </h4>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
-              Đính kèm header <code>Authorization: Bearer &lt;access_token&gt;</code> (kèm <code>?app_id=&lt;app&gt;</code> hoặc <code>X-App-Id</code>) để nhận JSON hồ sơ OIDC và ma trận quyền hạn: <code>sub</code>, <code>email</code>, <code>name</code>, <code>avatar</code>, <code>app_id</code>, <code>role</code>, <code>roles</code>, <code>permissions</code>.
+              Header <code>Authorization: Bearer &lt;token&gt;</code> (kèm <code>?app_id=&lt;app&gt;</code>) nhận hồ sơ OIDC và ma trận quyền hạn: <code>sub</code>, <code>email</code>, <code>name</code>, <code>avatar</code>, <code>role</code>, <code>permissions</code>.
+            </p>
+          </div>
+        </div>
+
+        {/* Endpoint 4 */}
+        <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-[#0c121e]/80 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 font-mono text-xs font-bold px-2 py-0.5">
+                GET / POST
+              </span>
+              <span className="text-[11px] font-mono text-slate-500">Bước 4</span>
+            </div>
+            <h4 className="font-mono text-sm font-bold text-slate-900 dark:text-white">
+              /auth/logout
+            </h4>
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+              Đăng xuất SSO tập trung (RP-Initiated). Kèm <code>redirect_url</code> để điều hướng người dùng trở lại app. Tuyệt đối không cần gọi Supabase thủ công.
             </p>
           </div>
         </div>

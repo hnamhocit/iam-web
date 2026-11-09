@@ -100,6 +100,12 @@ export function DeveloperHub({ user }: DeveloperHubProps) {
               GET /oauth/userinfo
             </a>
             <a
+              href="#ep-logout"
+              className="rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary/40 hover:text-primary transition-all"
+            >
+              GET/POST /auth/logout
+            </a>
+            <a
               href="#ep-discovery"
               className="rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary/40 hover:text-primary transition-all"
             >

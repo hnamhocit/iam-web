@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { AuthorizeEndpointCard } from "./endpoints/authorize-card";
 import { TokenEndpointCard } from "./endpoints/token-card";
 import { UserinfoEndpointCard } from "./endpoints/userinfo-card";
+import { LogoutEndpointCard } from "./endpoints/logout-card";
 import { DiscoveryEndpointCard } from "./endpoints/discovery-card";
 
 export function EndpointsSpecCards() {
@@ -20,6 +21,7 @@ export function EndpointsSpecCards() {
       <AuthorizeEndpointCard copiedKey={copiedKey} onCopy={copy} />
       <TokenEndpointCard copiedKey={copiedKey} onCopy={copy} />
       <UserinfoEndpointCard copiedKey={copiedKey} onCopy={copy} />
+      <LogoutEndpointCard copiedKey={copiedKey} onCopy={copy} />
       <DiscoveryEndpointCard copiedKey={copiedKey} onCopy={copy} />
     </div>
   );

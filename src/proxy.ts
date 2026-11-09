@@ -14,6 +14,9 @@ const PUBLIC_PREFIXES = [
   "/developers",
   "/.well-known",
   "/auth/callback",
+  "/auth/logout",
+  "/oauth/logout",
+  "/logout",
 ];
 
 export async function proxy(request: NextRequest) {

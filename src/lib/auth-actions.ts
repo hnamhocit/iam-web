@@ -47,9 +47,13 @@ export async function signInWithOAuth(provider: Provider, returnTo?: string) {
   return { url: data?.url ?? null };
 }
 
-export async function signOut() {
+export async function signOut(returnTo?: string) {
   const supabase = await createClient();
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
+  const safe = safeReturnTo(returnTo);
+  if (safe) {
+    redirect(safe);
+  }
   redirect("/login");
 }

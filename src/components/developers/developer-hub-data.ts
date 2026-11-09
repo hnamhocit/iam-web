@@ -58,10 +58,16 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
      "permissions": ["*:*"] // Quyền hạn tương ứng trong app này
    }
 
-4. OpenID Connect Discovery:
+4. Endpoint Đăng Xuất Tập Trung Single Sign-Out (GET hoặc POST):
+   URL: ${CANONICAL_GATEWAY_URL}/auth/logout (hoặc /oauth/logout)
+   Tham số Query hoặc Body JSON:
+   * redirect_url (hoặc post_logout_redirect_uri): URL chuyển hướng sau khi đăng xuất
+   * LƯU Ý BẢO MẬT: Ứng dụng vệ tinh TUYỆT ĐỐI KHÔNG kết nối trực tiếp vào Supabase để gọi supabase.auth.signOut(). Chỉ cần điều hướng người dùng hoặc gọi API tới ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<YOUR_APP_LOGIN_URL> để xóa phiên làm việc đồng bộ trên toàn bộ hệ thống SSO.
+
+5. OpenID Connect Discovery:
    URL: ${CANONICAL_GATEWAY_URL}/.well-known/openid-configuration
 
-=== 3. QUY TRÌNH 4 BƯỚC CẦN THỰC HIỆN ===
+=== 3. QUY TRÌNH 5 BƯỚC CẦN THỰC HIỆN ===
 Bước 1: Viết hàm sinh 'code_verifier' ngẫu nhiên (43-128 ký tự base64url) và băm SHA-256 để sinh 'code_challenge'. Sinh thêm 'state' ngẫu nhiên (32 ký tự).
 Bước 2: Khi người dùng bấm "Đăng nhập bằng VNTEZ IAM":
    - Lưu 'state' và 'code_verifier' vào HTTP-only cookie (hoặc session bảo mật).
@@ -71,4 +77,7 @@ Bước 3: Tạo route callback nhận 'code' và 'state' từ URL query:
    - So khớp 'state' với state đã lưu trong cookie (nếu không khớp -> từ chối request để chống CSRF).
    - Đọc 'code_verifier' đã lưu.
    - Gửi POST request tới ${CANONICAL_GATEWAY_URL}/oauth/token để nhận 'access_token'.
-Bước 4: Gửi GET request tới ${CANONICAL_GATEWAY_URL}/oauth/userinfo với header Authorization: Bearer <access_token> (kèm query ?app_id=<app_id> hoặc header X-App-Id nếu cần phân quyền riêng cho app vệ tinh) để lấy hồ sơ { sub, email, name, avatar, app_id, role, roles, permissions }, sau đó khởi tạo session và phân quyền tính năng cho ứng dụng.`;
+Bước 4: Gửi GET request tới ${CANONICAL_GATEWAY_URL}/oauth/userinfo với header Authorization: Bearer <access_token> (kèm query ?app_id=<app_id> hoặc header X-App-Id nếu cần phân quyền riêng cho app vệ tinh) để lấy hồ sơ { sub, email, name, avatar, app_id, role, roles, permissions }, sau đó khởi tạo session và phân quyền tính năng cho ứng dụng.
+Bước 5: Xử lý Đăng xuất (Single Sign-Out):
+   - Xóa session/cookie lưu access token ở app vệ tinh.
+   - Chuyển hướng người dùng tới: ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<APP_LOGIN_OR_HOME_URL> (hoặc gọi POST) để huỷ sạch phiên SSO ở IAM.`;

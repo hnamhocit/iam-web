@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { LogIn, FileCode, Sparkles } from "lucide-react";
+import { LogIn, LogOut, FileCode, Sparkles } from "lucide-react";
 import { ModeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { VntezLogo } from "@/components/ui/vntez-logo";
@@ -90,30 +90,43 @@ export function DeveloperHubHeader({
         {/* Right Actions */}
         <div className="flex items-center gap-2 shrink-0">
           {user ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="gap-2 px-2.5 h-8 rounded-lg border border-border/60 hover:bg-secondary/60"
-            >
-              <a href="https://vntez-console.vercel.app">
-                {user.avatar ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={user.avatar}
-                    alt={user.name}
-                    className="h-4 w-4 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="h-4 w-4 rounded-full bg-primary/15 text-primary text-[10px] font-bold flex items-center justify-center">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                <span className="text-xs font-semibold text-foreground max-w-[90px] sm:max-w-[120px] truncate">
-                  {user.name}
-                </span>
-              </a>
-            </Button>
+            <div className="flex items-center gap-1.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="gap-2 px-2.5 h-8 rounded-lg border border-border/60 hover:bg-secondary/60"
+              >
+                <a href="https://vntez-console.vercel.app">
+                  {user.avatar ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="h-4 w-4 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-4 w-4 rounded-full bg-primary/15 text-primary text-[10px] font-bold flex items-center justify-center">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <span className="text-xs font-semibold text-foreground max-w-[90px] sm:max-w-[120px] truncate">
+                    {user.name}
+                  </span>
+                </a>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="gap-1.5 text-xs text-muted-foreground hover:text-destructive h-8 px-2.5 rounded-lg"
+              >
+                <a href="/auth/logout" title="Đăng xuất khỏi IAM">
+                  <LogOut className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">Đăng xuất</span>
+                </a>
+              </Button>
+            </div>
           ) : (
             <Button
               size="sm"
