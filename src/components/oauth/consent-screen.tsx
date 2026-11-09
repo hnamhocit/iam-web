@@ -119,7 +119,7 @@ export function ConsentScreen({ client, user, params }: ConsentScreenProps) {
             Ủy quyền cho <span className="text-primary">{client.name}</span>
           </CardTitle>
           <CardDescription className="text-xs sm:text-sm mt-1">
-            Ứng dụng yêu cầu quyền truy cập vào danh tính tài khoản VNTEZ ID của bạn.
+            Ứng dụng yêu cầu quyền truy cập vào danh tính tài khoản VNTEZ IAM của bạn.
           </CardDescription>
         </CardHeader>
 

@@ -108,7 +108,7 @@ function CallbackContent() {
               OAuth 2.0 Callback Tester
             </h1>
             <p className="text-xs text-muted-foreground">
-              Nhận phản hồi từ VNTEZ ID Authorization Server
+              Nhận phản hồi từ VNTEZ IAM Authorization Server
             </p>
           </div>
         </div>
@@ -253,7 +253,7 @@ function CallbackContent() {
             href="/"
             className="text-muted-foreground hover:text-foreground"
           >
-            Trang chủ VNTEZ ID
+            Trang chủ VNTEZ IAM
           </Link>
         </div>
       </div>

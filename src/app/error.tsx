@@ -13,7 +13,7 @@ export default function ErrorPage({
     <ErrorBoundaryView
       error={error}
       reset={reset}
-      appName="VNTEZ ID"
+      appName="VNTEZ IAM"
       homeHref="/"
     />
   );

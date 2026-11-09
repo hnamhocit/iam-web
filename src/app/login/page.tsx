@@ -8,21 +8,21 @@ import { safeReturnTo } from "@/lib/redirect";
 export const metadata: Metadata = {
   title: "Đăng nhập",
   description:
-    "Đăng nhập một lần an toàn vào VNTEZ ID bằng Google, GitHub hoặc Facebook để truy cập toàn bộ hệ sinh thái VNTEZ Cloud.",
+    "Đăng nhập một lần an toàn vào VNTEZ IAM bằng Google, GitHub hoặc Facebook để truy cập toàn bộ hệ sinh thái VNTEZ Cloud.",
   alternates: {
     canonical: "/login",
   },
   openGraph: {
-    title: "Đăng nhập | VNTEZ ID",
+    title: "Đăng nhập | VNTEZ IAM",
     description:
-      "Đăng nhập một lần an toàn vào VNTEZ ID bằng Google, GitHub hoặc Facebook.",
+      "Đăng nhập một lần an toàn vào VNTEZ IAM bằng Google, GitHub hoặc Facebook.",
     url: "/login",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Đăng nhập | VNTEZ ID",
+    title: "Đăng nhập | VNTEZ IAM",
     description:
-      "Đăng nhập một lần an toàn vào VNTEZ ID bằng Google, GitHub hoặc Facebook.",
+      "Đăng nhập một lần an toàn vào VNTEZ IAM bằng Google, GitHub hoặc Facebook.",
   },
 };
 
@@ -44,7 +44,7 @@ export default async function LoginPage({
     if (returnTo) {
       redirect(returnTo);
     }
-    redirect("https://vntez-console.vercel.app");
+    redirect("https://vntez.vercel.app");
   }
 
   return <LoginContent />;

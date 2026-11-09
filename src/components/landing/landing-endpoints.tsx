@@ -47,7 +47,7 @@ export function LandingEndpoints() {
               /oauth/token
             </h4>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
-              Gửi payload gồm <code>code</code> và <code>code_verifier</code>. Cổng VNTEZ ID xác thực băm SHA-256 và cấp phát JWT Access Token.
+              Gửi payload gồm <code>code</code> và <code>code_verifier</code>. Cổng VNTEZ IAM xác thực băm SHA-256 và cấp phát JWT Access Token.
             </p>
           </div>
         </div>

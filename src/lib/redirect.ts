@@ -23,6 +23,9 @@ export function safeReturnTo(raw: string | null | undefined): string | null {
 
     const isLocalDev = u.hostname === "localhost" || u.hostname === "127.0.0.1";
     const isAllowedDomain =
+      u.hostname === "vntez-iam.vercel.app" ||
+      u.hostname === "vntez.vercel.app" ||
+      u.hostname === "vntez-console.vercel.app" ||
       u.hostname === "vntez-id.vercel.app" ||
       u.hostname === "vntez.cloud" ||
       u.hostname === "vntez.com" ||

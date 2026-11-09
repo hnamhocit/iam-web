@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
-    short_name: "VNTEZ ID",
+    name: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
+    short_name: "VNTEZ IAM",
     description:
       "Cổng định danh và xác thực tập trung cho toàn bộ hệ sinh thái kỹ thuật số VNTEZ.",
     start_url: "/",

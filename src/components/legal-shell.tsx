@@ -118,7 +118,7 @@ export function LegalShell({
 
         <header className="mb-12">
           <div className="mb-4 flex items-center gap-3">
-            <img src="/logo.svg" alt="VNTEZ ID" className="h-7 w-7 rounded-md" />
+            <img src="/logo.svg" alt="VNTEZ IAM" className="h-7 w-7 rounded-md" />
             <span
               className={`font-mono text-xs uppercase tracking-[0.22em] font-bold ${a.badge}`}
             >

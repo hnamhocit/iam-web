@@ -3,10 +3,10 @@ import { NotFoundView } from "@/components/ui/not-found-view";
 export default function NotFound() {
   return (
     <NotFoundView
-      appName="VNTEZ ID"
+      appName="VNTEZ IAM"
       homeHref="/"
-      docsHref="https://vntez.cloud/docs"
-      consoleHref="https://console.vntez.cloud"
+      docsHref="https://vntez.vercel.app/docs"
+      consoleHref="https://vntez-console.vercel.app"
       idHref="/"
     />
   );

@@ -2,7 +2,7 @@
  * Suy ra cookie domain cho SSO multi-subdomain.
  * - Deploy trên custom domain (ví dụ *.vntez.cloud): share cookie ".vntez.cloud".
  * - Lưu ý: Trên vercel.app (Public Suffix List), cookie không được phép đặt cho ".vercel.app"
- *   nên ta để undefined để cookie bind trực tiếp vào host hiện tại (vntez-id.vercel.app).
+ *   nên ta để undefined để cookie bind trực tiếp vào host hiện tại (vntez-iam.vercel.app).
  * - Dev (localhost): trả undefined -> cookie bind host hiện tại.
  */
 export function cookieDomain(host?: string | null): string | undefined {

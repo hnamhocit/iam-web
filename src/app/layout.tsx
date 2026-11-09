@@ -54,7 +54,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-id.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-iam.vercel.app";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -70,15 +70,16 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "VNTEZ ID — Unified Identity & OAuth 2.0 Platform",
-    template: "%s | VNTEZ ID",
+    default: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
+    template: "%s | VNTEZ IAM",
   },
   description:
     "Một định danh cho toàn bộ hệ sinh thái kỹ thuật VNTEZ. Nền tảng xác thực tập trung OAuth 2.0 PKCE, bảo mật và liền mạch.",
-  applicationName: "VNTEZ ID",
+  applicationName: "VNTEZ IAM",
   authors: [{ name: "VNTEZ Cloud", url: siteUrl }],
   generator: "Next.js",
   keywords: [
+    "VNTEZ IAM",
     "VNTEZ ID",
     "VNTEZ Cloud",
     "SSO",
@@ -117,8 +118,8 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     alternateLocale: ["en_US"],
     url: "/",
-    siteName: "VNTEZ ID",
-    title: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+    siteName: "VNTEZ IAM",
+    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
     description:
       "Một định danh cho toàn bộ hệ sinh thái của bạn. Xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
     images: [
@@ -126,14 +127,14 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+        alt: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
     description:
       "Một định danh cho toàn bộ hệ sinh thái của bạn. Xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
     images: ["/opengraph-image"],
@@ -172,7 +173,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
-      name: "VNTEZ ID",
+      name: "VNTEZ IAM",
       description:
         "Unified Identity Provider & Single Sign-On for the VNTEZ Cloud ecosystem.",
       publisher: {

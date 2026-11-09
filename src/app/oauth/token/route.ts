@@ -161,7 +161,7 @@ export async function POST(req: Request) {
       .update({ used: true })
       .eq("code", code);
 
-    // 5. Cấp Access Token (JWT được ký bởi VNTEZ ID Key)
+    // 5. Cấp Access Token (JWT được ký bởi VNTEZ IAM Key)
     const { accessToken, expiresIn } = signAccessToken({
       userId: codeRecord.user_id,
       clientId: client_id,

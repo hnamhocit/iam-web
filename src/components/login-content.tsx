@@ -69,11 +69,11 @@ export function LoginContent() {
         <Link href="/" className="relative z-10 flex items-center gap-3 transition-opacity hover:opacity-85">
           <img
             src="/logo.svg"
-            alt="VNTEZ ID"
+            alt="VNTEZ IAM"
             className="h-8 w-8 rounded-lg shadow-md"
           />
           <span className="text-lg font-bold tracking-tight">
-            VNTEZ <span className="text-primary font-mono text-sm">ID</span>
+            VNTEZ <span className="text-primary font-mono text-sm">IAM</span>
           </span>
         </Link>
 
@@ -121,17 +121,17 @@ export function LoginContent() {
             <Link href="/" className="mb-6 flex items-center gap-2.5 lg:hidden transition-opacity hover:opacity-85">
               <img
                 src="/logo.svg"
-                alt="VNTEZ ID"
+                alt="VNTEZ IAM"
                 className="h-7 w-7 rounded-lg"
               />
-              <span className="text-base font-bold">VNTEZ ID</span>
+              <span className="text-base font-bold">VNTEZ IAM</span>
             </Link>
             <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
               Đăng nhập
             </h1>
             <p className="text-sm text-muted-foreground">
               {isOAuthLogin
-                ? "Đăng nhập tài khoản VNTEZ ID để tiếp tục ủy quyền ứng dụng."
+                ? "Đăng nhập tài khoản VNTEZ IAM để tiếp tục ủy quyền ứng dụng."
                 : "Chọn phương thức xác thực an toàn của bạn."}
             </p>
           </div>

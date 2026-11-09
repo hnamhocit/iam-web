@@ -43,12 +43,12 @@ export async function GET(request: Request) {
     const supabase = await createClient(request);
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // internal path ("/terms") -> prepend origin; absolute ("https://pomoduo…") -> dùng nguyên; nếu không có -> trực tiếp về VNTEZ Console
+      // internal path ("/terms") -> prepend origin; absolute ("https://pomoduo…") -> dùng nguyên; nếu không có -> trực tiếp về VNTEZ Portal
       const target = returnTo
         ? returnTo.startsWith("/")
           ? `${origin}${returnTo}`
           : returnTo
-        : "https://vntez-console.vercel.app";
+        : "https://vntez.vercel.app";
       return NextResponse.redirect(target);
     }
 

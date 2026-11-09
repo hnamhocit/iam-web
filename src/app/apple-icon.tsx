@@ -28,7 +28,7 @@ export default function AppleIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>VNTEZ ID</title>
+        <title>VNTEZ IAM</title>
         <defs>
           <linearGradient
             id="vntez-grad-apple"

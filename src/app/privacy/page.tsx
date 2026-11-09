@@ -9,19 +9,19 @@ import {
 export const metadata: Metadata = {
   title: "Chính sách bảo mật",
   description:
-    "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ ID và toàn bộ hệ sinh thái VNTEZ.",
+    "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Chính sách bảo mật | VNTEZ ID",
-    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ ID và toàn bộ hệ sinh thái VNTEZ.",
+    title: "Chính sách bảo mật | VNTEZ IAM",
+    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
     url: "/privacy",
   },
   twitter: {
     card: "summary",
-    title: "Chính sách bảo mật | VNTEZ ID",
-    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ ID và toàn bộ hệ sinh thái VNTEZ.",
+    title: "Chính sách bảo mật | VNTEZ IAM",
+    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
   },
 };
 

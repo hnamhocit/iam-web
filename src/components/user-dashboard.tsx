@@ -75,7 +75,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs font-mono text-sm">
                 V
               </div>
-              <span className="text-sm font-semibold">VNTEZ ID</span>
+              <span className="text-sm font-semibold">VNTEZ IAM</span>
             </Link>
             <span className="text-muted-foreground/40 hidden sm:inline">/</span>
             <Badge variant="outline" size="sm" className="hidden sm:inline-flex gap-1.5">
@@ -144,7 +144,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
                     Xin chào, {user.name}!
                   </CardTitle>
                   <CardDescription className="text-sm truncate">
-                    {user.email || "Tài khoản VNTEZ ID"}
+                    {user.email || "Tài khoản VNTEZ IAM"}
                   </CardDescription>
                 </div>
               </div>
@@ -231,7 +231,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
             <CardFooter className="pt-0">
               <p className="text-[11px] text-muted-foreground text-center sm:text-left leading-relaxed w-full">
-                💡 Cổng định danh trung tâm VNTEZ ID bảo vệ tài khoản và phiên làm việc của bạn trên toàn bộ ứng dụng trong hệ sinh thái.
+                💡 Cổng định danh trung tâm VNTEZ IAM bảo vệ tài khoản và phiên làm việc của bạn trên toàn bộ ứng dụng trong hệ sinh thái.
               </p>
             </CardFooter>
           </Card>
@@ -241,7 +241,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
       {/* Footer */}
       <footer className="border-t border-border py-4 text-center text-xs text-muted-foreground">
         <div className="mx-auto flex max-w-5xl flex-col sm:flex-row items-center justify-between gap-2 px-4">
-          <p>© {new Date().getFullYear()} VNTEZ ID — Single Sign-On Platform</p>
+          <p>© {new Date().getFullYear()} VNTEZ IAM — Single Sign-On Platform</p>
           <div className="flex items-center gap-4 text-xs">
             <Link href="/developers" className="hover:text-foreground transition-colors">
               Developers

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function DiscoveryEndpointCard({ copiedKey, onCopy }: Props) {
-  const url = "https://vntez-id.vercel.app/.well-known/openid-configuration";
+  const url = "https://vntez-iam.vercel.app/.well-known/openid-configuration";
 
   return (
     <div
@@ -56,7 +56,7 @@ export function DiscoveryEndpointCard({ copiedKey, onCopy }: Props) {
 
       <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200 overflow-x-auto">
         <pre className="whitespace-pre">
-{`curl -X GET https://vntez-id.vercel.app/.well-known/openid-configuration`}
+{`curl -X GET https://vntez-iam.vercel.app/.well-known/openid-configuration`}
         </pre>
       </div>
     </div>

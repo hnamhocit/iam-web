@@ -1,6 +1,6 @@
 import { createClient as createSupabaseClient, SupabaseClient } from "@supabase/supabase-js";
 
-const DEFAULT_SUPABASE_URL = "https://placeholder-vntez-id.supabase.co";
+const DEFAULT_SUPABASE_URL = "https://placeholder-vntez-iam.supabase.co";
 const DEFAULT_SUPABASE_KEY = "placeholder-anon-key";
 
 let _supabaseAdmin: SupabaseClient | null = null;

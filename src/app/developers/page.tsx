@@ -7,21 +7,21 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = {
   title: "Tài liệu Kỹ thuật & OAuth 2.0 API",
   description:
-    "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ ID.",
+    "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ IAM.",
   alternates: {
     canonical: "/developers",
   },
   openGraph: {
-    title: "Tài liệu Kỹ thuật & OAuth 2.0 API | VNTEZ ID",
+    title: "Tài liệu Kỹ thuật & OAuth 2.0 API | VNTEZ IAM",
     description:
-      "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ ID.",
+      "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ IAM.",
     url: "/developers",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tài liệu Kỹ thuật & OAuth 2.0 API | VNTEZ ID",
+    title: "Tài liệu Kỹ thuật & OAuth 2.0 API | VNTEZ IAM",
     description:
-      "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ ID.",
+      "Tài liệu tích hợp và hướng dẫn kết nối Single Sign-On OAuth 2.0 PKCE & OpenID Connect cho hệ sinh thái VNTEZ IAM.",
   },
 };
 
@@ -32,7 +32,7 @@ async function DevelopersContent() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-id.vercel.app";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-iam.vercel.app";
 
   let mappedUser = null;
   if (user) {

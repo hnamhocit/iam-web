@@ -12,7 +12,7 @@ export function getIssuerUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   }
-  return "https://vntez-id.vercel.app";
+  return "https://vntez-iam.vercel.app";
 }
 
 export interface AccessTokenClaims {

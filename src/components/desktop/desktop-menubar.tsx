@@ -28,8 +28,8 @@ export function DesktopMenubar({
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight text-slate-800 transition-opacity hover:opacity-80 dark:text-white/90"
         >
-          <img src="/logo.svg" alt="VNTEZ ID" className="h-5 w-5" />
-          <span className="text-sm font-bold tracking-tight">VNTEZ ID</span>
+          <img src="/logo.svg" alt="VNTEZ IAM" className="h-5 w-5" />
+          <span className="text-sm font-bold tracking-tight">VNTEZ IAM</span>
         </Link>
         <span className="hidden text-xs text-slate-400 dark:text-white/30 sm:inline">
           • Desktop

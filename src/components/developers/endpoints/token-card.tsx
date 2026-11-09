@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function TokenEndpointCard({ copiedKey, onCopy }: Props) {
-  const curlCmd = `curl -X POST "https://vntez-id.vercel.app/oauth/token" \\
+  const curlCmd = `curl -X POST "https://vntez-iam.vercel.app/oauth/token" \\
   -H "Content-Type: application/json" \\
   -d '{
     "grant_type": "authorization_code",
@@ -68,7 +68,7 @@ export function TokenEndpointCard({ copiedKey, onCopy }: Props) {
             {"// Request cURL:"}
           </span>
           <pre className="whitespace-pre">
-{`curl -X POST https://vntez-id.vercel.app/oauth/token \\
+{`curl -X POST https://vntez-iam.vercel.app/oauth/token \\
   -H "Content-Type: application/json" \\
   -d '{
     "grant_type": "authorization_code",

@@ -10,7 +10,7 @@ export function LandingCtaFooter() {
       {/* 6. PRE-FOOTER CTA SECTION */}
       <section className="mx-auto max-w-4xl px-6 py-24 sm:py-28 text-center">
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-          Sẵn sàng kết nối ứng dụng với VNTEZ ID?
+          Sẵn sàng kết nối ứng dụng với VNTEZ IAM?
         </h2>
         <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-sans max-w-2xl mx-auto">
           Tạo tài khoản OAuth Client, cấu hình Redirect URI và bắt đầu xác thực người dùng trong hệ sinh thái VNTEZ trong chưa đầy 5 phút.

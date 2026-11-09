@@ -1,45 +1,56 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import { Suspense } from "react";
-import { LandingPage } from "@/components/landing-page";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { safeReturnTo } from "@/lib/redirect";
 
 export const metadata: Metadata = {
-  title: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+  title: "VNTEZ IAM — Unified Identity & OAuth 2.0 SSO",
   description:
-    "Một định danh cho toàn bộ hệ sinh thái của bạn. Nền tảng xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
+    "Cổng xác thực định danh và phân quyền tập trung OAuth 2.0 PKCE cho toàn bộ hệ sinh thái VNTEZ.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 SSO",
     description:
-      "Một định danh cho toàn bộ hệ sinh thái của bạn. Nền tảng xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
+      "Cổng xác thực định danh và phân quyền tập trung OAuth 2.0 PKCE cho toàn bộ hệ sinh thái VNTEZ.",
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VNTEZ ID — Nền tảng Định danh Tập trung & OAuth 2.0 SSO",
+    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 SSO",
     description:
-      "Một định danh cho toàn bộ hệ sinh thái của bạn. Nền tảng xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
+      "Cổng xác thực định danh và phân quyền tập trung OAuth 2.0 PKCE cho toàn bộ hệ sinh thái VNTEZ.",
   },
 };
 
-async function AccountContent() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirect_url?: string }>;
+}) {
   await connection();
-  // Luôn hiển thị LandingPage để người dùng có thể tra cứu tài liệu, copy AI Prompt & code mẫu
-  return <LandingPage />;
-}
+  const params = await searchParams;
+  const returnTo = safeReturnTo(params.redirect_url);
 
-export default function AccountPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex h-screen w-full items-center justify-center bg-background">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-        </div>
-      }
-    >
-      <AccountContent />
-    </Suspense>
-  );
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Đã đăng nhập: nếu có returnTo thì chuyển tiếp, nếu không có thì trả về VNTEZ Portal
+  if (user) {
+    if (returnTo) {
+      redirect(returnTo);
+    }
+    redirect("https://vntez.vercel.app");
+  }
+
+  // Chưa đăng nhập: chuyển hướng vào trang Login chuyên dụng
+  if (returnTo) {
+    redirect(`/login?redirect_url=${encodeURIComponent(returnTo)}`);
+  }
+
+  redirect("/login");
 }

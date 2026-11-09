@@ -8,19 +8,19 @@ import {
 export const metadata: Metadata = {
   title: "Điều khoản sử dụng",
   description:
-    "Điều khoản sử dụng dịch vụ VNTEZ ID và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
+    "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
-    title: "Điều khoản sử dụng | VNTEZ ID",
-    description: "Điều khoản sử dụng dịch vụ VNTEZ ID và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
+    title: "Điều khoản sử dụng | VNTEZ IAM",
+    description: "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
     url: "/terms",
   },
   twitter: {
     card: "summary",
-    title: "Điều khoản sử dụng | VNTEZ ID",
-    description: "Điều khoản sử dụng dịch vụ VNTEZ ID và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
+    title: "Điều khoản sử dụng | VNTEZ IAM",
+    description: "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
   },
 };
 

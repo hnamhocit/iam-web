@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "VNTEZ ID — Nền tảng Định danh & SSO Hợp nhất";
+export const alt = "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform";
 export const size = {
   width: 1200,
   height: 630,
@@ -61,7 +61,7 @@ export default function OpenGraphImage() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title>VNTEZ ID Logo</title>
+              <title>VNTEZ IAM Logo</title>
               <defs>
                 <linearGradient
                   id="vntez-og-grad"
@@ -101,7 +101,7 @@ export default function OpenGraphImage() {
                 letterSpacing: "-0.02em",
               }}
             >
-              VNTEZ ID
+              VNTEZ IAM
             </span>
           </div>
 
@@ -119,7 +119,7 @@ export default function OpenGraphImage() {
               fontFamily: "monospace",
             }}
           >
-            <span>vntez-id.vercel.app</span>
+            <span>vntez-iam.vercel.app</span>
           </div>
         </div>
 

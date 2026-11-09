@@ -34,7 +34,7 @@ export function DeveloperHubHeader({
           >
             <VntezLogo size={24} />
             <span className="font-display font-bold text-base tracking-tight text-foreground group-hover:text-primary transition-colors">
-              vntez <span className="text-primary font-mono text-xs">id</span>
+              vntez <span className="text-primary font-mono text-xs">iam</span>
             </span>
           </a>
           <span className="text-muted-foreground/30 font-light select-none">/</span>

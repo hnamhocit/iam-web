@@ -51,7 +51,7 @@ export function AuthorizeEndpointCard({ copiedKey, onCopy }: Props) {
 
       <p className="text-sm text-muted-foreground leading-relaxed font-sans">
         Màn hình xác thực và phê duyệt ủy quyền. Sau khi người dùng đồng ý, cổng
-        VNTEZ ID phát sinh mã <code>code</code> và chuyển hướng trình duyệt về{" "}
+        VNTEZ IAM phát sinh mã <code>code</code> và chuyển hướng trình duyệt về{" "}
         <code>redirect_uri?code=...&state=...</code>.
       </p>
 
@@ -91,7 +91,7 @@ export function AuthorizeEndpointCard({ copiedKey, onCopy }: Props) {
 
       <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200 overflow-x-auto">
         <pre className="whitespace-pre">
-{`GET https://vntez-id.vercel.app/oauth/authorize
+{`GET https://vntez-iam.vercel.app/oauth/authorize
   ?client_id=vntez_c18f43a315d368109d4d8aca
   &redirect_uri=https://your-app.com/callback
   &response_type=code

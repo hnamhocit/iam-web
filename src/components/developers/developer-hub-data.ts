@@ -1,14 +1,14 @@
-export const CANONICAL_GATEWAY_URL = "https://vntez-id.vercel.app";
+export const CANONICAL_GATEWAY_URL = "https://vntez-iam.vercel.app";
 
-export const MASTER_PROMPT = `Bạn là AI chuyên gia bảo mật và fullstack developer. Hãy tích hợp tính năng đăng nhập Single Sign-On (SSO) bằng VNTEZ ID qua giao thức chuẩn OAuth 2.0 PKCE (RFC 7636 & RFC 6749) vào dự án này theo quy trình dưới đây:
+export const MASTER_PROMPT = `Bạn là AI chuyên gia bảo mật và fullstack developer. Hãy tích hợp tính năng đăng nhập Single Sign-On (SSO) bằng VNTEZ IAM qua giao thức chuẩn OAuth 2.0 PKCE (RFC 7636 & RFC 6749) vào dự án này theo quy trình dưới đây:
 
 === 1. YÊU CẦU BẮT BUỘC TRƯỚC KHI TÍCH HỢP ===
 - Client ID (và Client Secret nếu là ứng dụng server bí mật) BẮT BUỘC phải được tạo và quản lý tại VNTEZ Console: https://vntez-console.vercel.app
 - Khi tạo Client trên VNTEZ Console, bạn phải đăng ký đúng Redirect URI của ứng dụng (ví dụ: https://your-domain.com/auth/callback hoặc http://localhost:3000/auth/callback khi phát triển local).
 - Điền Client ID đã được cấp vào biến môi trường VNTEZ_CLIENT_ID (thay thế placeholder <YOUR_VNTEZ_CLIENT_ID>). KHÔNG ĐƯỢC để lộ Client Secret ở ứng dụng client/frontend.
 
-=== 2. CỔNG XÁC THỰC VNTEZ ID & CÁC ENDPOINT OAUTH 2.0 ===
-Cổng xác thực định danh VNTEZ ID Gateway:
+=== 2. CỔNG XÁC THỰC VNTEZ IAM & CÁC ENDPOINT OAUTH 2.0 ===
+Cổng xác thực định danh VNTEZ IAM Gateway:
 - Base Gateway URL: ${CANONICAL_GATEWAY_URL}
 
 1. Endpoint Chuyển hướng Xác thực (GET):
@@ -56,9 +56,9 @@ Cổng xác thực định danh VNTEZ ID Gateway:
 
 === 3. QUY TRÌNH 4 BƯỚC CẦN THỰC HIỆN ===
 Bước 1: Viết hàm sinh 'code_verifier' ngẫu nhiên (43-128 ký tự base64url) và băm SHA-256 để sinh 'code_challenge'. Sinh thêm 'state' ngẫu nhiên (32 ký tự).
-Bước 2: Khi người dùng bấm "Đăng nhập bằng VNTEZ ID":
+Bước 2: Khi người dùng bấm "Đăng nhập bằng VNTEZ IAM":
    - Lưu 'state' và 'code_verifier' vào HTTP-only cookie (hoặc session bảo mật).
-   - Chuyển hướng trình duyệt tới URL xác thực của VNTEZ ID:
+   - Chuyển hướng trình duyệt tới URL xác thực của VNTEZ IAM:
      ${CANONICAL_GATEWAY_URL}/oauth/authorize?client_id=<YOUR_VNTEZ_CLIENT_ID>&redirect_uri=<REDIRECT_URI>&response_type=code&state=<STATE>&code_challenge=<CODE_CHALLENGE>&code_challenge_method=S256
 Bước 3: Tạo route callback nhận 'code' và 'state' từ URL query:
    - So khớp 'state' với state đã lưu trong cookie (nếu không khớp -> từ chối request để chống CSRF).

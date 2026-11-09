@@ -52,7 +52,7 @@ export function PkceFlowDiagram() {
               Bước 2
             </span>
             <span className="text-[11px] font-mono text-muted-foreground">
-              VNTEZ ID
+              VNTEZ IAM
             </span>
           </div>
           <h4 className="font-bold text-sm text-foreground">

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function UserinfoEndpointCard({ copiedKey, onCopy }: Props) {
-  const curlCmd = `curl -X GET "https://vntez-id.vercel.app/oauth/userinfo" \\
+  const curlCmd = `curl -X GET "https://vntez-iam.vercel.app/oauth/userinfo" \\
   -H "Authorization: Bearer <access_token>"`;
 
   return (
@@ -60,7 +60,7 @@ export function UserinfoEndpointCard({ copiedKey, onCopy }: Props) {
             {"// Request cURL:"}
           </span>
           <pre className="whitespace-pre">
-{`curl -X GET https://vntez-id.vercel.app/oauth/userinfo \\
+{`curl -X GET https://vntez-iam.vercel.app/oauth/userinfo \\
   -H "Authorization: Bearer <access_token>"`}
           </pre>
         </div>

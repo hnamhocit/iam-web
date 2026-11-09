@@ -97,7 +97,7 @@ export function NotFoundView({
                 <ShieldCheck className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-800 dark:text-white">VNTEZ ID</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white">VNTEZ IAM</p>
                 <p className="text-[10px] text-slate-400 truncate">Cổng định danh SSO</p>
               </div>
             </a>

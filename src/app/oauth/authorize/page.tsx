@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Ủy quyền truy cập (OAuth 2.0)",
-  description: "Trang xác thực và chấp thuận cấp quyền ứng dụng VNTEZ ID.",
+  description: "Trang xác thực và chấp thuận cấp quyền ứng dụng VNTEZ IAM.",
   robots: {
     index: false,
     follow: false,
@@ -68,7 +68,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     return (
       <ErrorBox
         title="response_type không được hỗ trợ"
-        desc="VNTEZ ID hiện hỗ trợ phương thức phản hồi tiêu chuẩn OAuth 2.0: response_type=code."
+        desc="VNTEZ IAM hiện hỗ trợ phương thức phản hồi tiêu chuẩn OAuth 2.0: response_type=code."
       />
     );
   }
@@ -110,7 +110,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Nếu CHƯA ĐĂNG NHẬP: Lưu lại URL authorize và chuyển user đến form login của VNTEZ ID
+  // Nếu CHƯA ĐĂNG NHẬP: Lưu lại URL authorize và chuyển user đến form login của VNTEZ IAM
   if (!user) {
     const currentQuery = new URLSearchParams();
     if (client_id) currentQuery.set("client_id", client_id);
@@ -196,7 +196,7 @@ function ErrorBox({ title, desc }: { title: string; desc: string }) {
             href="/"
             className="inline-flex items-center justify-center rounded-xl bg-secondary px-4 py-2 text-xs font-medium text-secondary-foreground hover:bg-accent transition-all"
           >
-            Quay về Trang chủ VNTEZ ID
+            Quay về Trang chủ VNTEZ IAM
           </Link>
         </div>
       </div>
