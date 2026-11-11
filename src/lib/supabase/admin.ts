@@ -46,6 +46,7 @@ export const supabaseAdmin = new Proxy({} as SupabaseClient, {
   },
 });
 
+// Legacy support (Deprecated - Use AppRecord instead)
 export interface OAuthClientRecord {
   client_id: string;
   client_secret_hash: string | null;
@@ -55,6 +56,22 @@ export interface OAuthClientRecord {
   description?: string | null;
   is_internal?: boolean;
   created_at?: string;
+}
+
+// New App Record structure (từ bảng apps)
+export interface AppRecord {
+  id: string; // ví dụ: 'vntez', 'solotype'
+  app_secret: string | null;
+  name: string;
+  redirect_uris: string[];
+  logo_url?: string | null;
+  description?: string | null;
+  status: 'active' | 'inactive';
+  is_internal: boolean;
+  roles: string[];
+  permissions?: Record<string, string[]>;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface OAuthCodeRecord {
@@ -70,21 +87,43 @@ export interface OAuthCodeRecord {
 }
 
 /**
- * Tìm ứng dụng OAuth theo client_id
+ * Tìm App theo app_id (ưu tiên bảng apps mới, fallback oauth_clients cũ)
+ */
+export async function getApp(
+  appId: string,
+): Promise<(AppRecord | OAuthClientRecord) | null> {
+  // Cố gắng lấy từ bảng apps mới trước
+  const { data: appData, error: appErr } = await supabaseAdmin
+    .from("apps")
+    .select("*")
+    .eq("id", appId)
+    .maybeSingle<AppRecord>();
+
+  if (!appErr && appData) {
+    return appData;
+  }
+
+  // Fallback: tìm trong oauth_clients (legacy)
+  const { data: legacyData } = await supabaseAdmin
+    .from("oauth_clients")
+    .select("*")
+    .eq("client_id", appId)
+    .maybeSingle<OAuthClientRecord>();
+
+  return legacyData || null;
+}
+
+/**
+ * Tìm ứng dụng OAuth theo client_id (DEPRECATED - dùng getApp thay thế)
  */
 export async function getOAuthClient(
   clientId: string,
 ): Promise<OAuthClientRecord | null> {
-  const { data, error } = await supabaseAdmin
-    .from("oauth_clients")
-    .select("*")
-    .eq("client_id", clientId)
-    .maybeSingle();
-
-  if (error || !data) {
-    return null;
+  const result = await getApp(clientId);
+  if (result && "client_id" in result) {
+    return result;
   }
-  return data as OAuthClientRecord;
+  return null;
 }
 
 /**
@@ -103,7 +142,72 @@ export async function listOAuthClients(): Promise<OAuthClientRecord[]> {
 }
 
 /**
- * Tạo mới ứng dụng OAuth client
+ * Tạo mới App trong bảng apps (mới)
+ */
+export async function createApp(app: {
+  id: string;
+  name: string;
+  redirect_uris: string[];
+  app_secret?: string | null;
+  logo_url?: string | null;
+  description?: string | null;
+  is_internal?: boolean;
+  status?: 'active' | 'inactive';
+  roles?: string[];
+  permissions?: Record<string, string[]>;
+}): Promise<{ data: AppRecord | null; error: string | null }> {
+  const payload: Record<string, any> = {
+    id: app.id,
+    name: app.name,
+    redirect_uris: app.redirect_uris,
+    status: app.status || 'active',
+    is_internal: app.is_internal || false,
+    roles: app.roles || ['user'],
+    permissions: app.permissions || {},
+  };
+
+  if (app.app_secret) {
+    payload.app_secret = app.app_secret;
+  }
+  if (app.logo_url) {
+    payload.logo_url = app.logo_url;
+  }
+  if (app.description) {
+    payload.description = app.description;
+  }
+
+  const attemptPayload = { ...payload };
+
+  // Tự động retry loại bỏ cột nếu bảng Supabase chưa migrate cột đó
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const { data, error } = await supabaseAdmin
+      .from("apps")
+      .insert([attemptPayload])
+      .select()
+      .single();
+
+    if (!error && data) {
+      return { data: data as AppRecord, error: null };
+    }
+
+    if (error) {
+      // Bắt lỗi schema cache của PostgREST
+      const match = error.message.match(
+        /Could not find the '([^']+)' column of 'apps'/i,
+      );
+      if (match && match[1] && attemptPayload[match[1]] !== undefined) {
+        delete attemptPayload[match[1]];
+        continue;
+      }
+      return { data: null, error: error.message };
+    }
+  }
+
+  return { data: null, error: "Không thể tạo ứng dụng" };
+}
+
+/**
+ * Tạo mới ứng dụng OAuth client (DEPRECATED - dùng createApp thay thế)
  */
 export async function createOAuthClient(client: {
   client_id: string;

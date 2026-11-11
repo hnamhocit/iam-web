@@ -45,7 +45,9 @@ export async function POST(req: Request) {
     const {
       grant_type,
       code,
+      app_id,
       client_id,
+      app_secret,
       client_secret,
       code_verifier,
       redirect_uri,
@@ -62,53 +64,85 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!code || !client_id) {
+    // Xác định appId (ưu tiên app_id, fallback client_id)
+    const appId = app_id || client_id;
+    if (!code || !appId) {
       return NextResponse.json(
         {
           error: "invalid_request",
-          error_description: "Thiếu code hoặc client_id",
+          error_description: "Thiếu code hoặc app_id/client_id",
         },
         { status: 400, headers: corsHeaders },
       );
     }
 
-    // 1. Kiểm tra Client
-    const { data: client, error: clientErr } = await supabaseAdmin
-      .from("oauth_clients")
+    // 1. Kiểm tra App từ bảng apps (mới) hoặc oauth_clients (legacy)
+    let client: any = null;
+    
+    // Cố gắng lấy từ bảng apps trước
+    const { data: appData } = await supabaseAdmin
+      .from("apps")
       .select("*")
-      .eq("client_id", client_id)
+      .eq("id", appId)
       .maybeSingle();
 
-    if (clientErr || !client) {
+    if (appData) {
+      client = appData;
+    } else {
+      // Fallback: tìm trong oauth_clients (legacy)
+      const { data: legacyClient } = await supabaseAdmin
+        .from("oauth_clients")
+        .select("*")
+        .eq("client_id", appId)
+        .maybeSingle();
+      client = legacyClient;
+    }
+
+    if (!client) {
       return NextResponse.json(
         {
           error: "invalid_client",
-          error_description: "Client không hợp lệ hoặc chưa đăng ký",
+          error_description: "App không hợp lệ hoặc chưa đăng ký",
         },
         { status: 401, headers: corsHeaders },
       );
     }
 
-    // Nếu client có secret, phải verify hash
-    if (client.client_secret_hash) {
-      const isValid = verifySecret(client_secret, client.client_secret_hash);
+    // 1.5 Kiểm tra app status (nếu từ bảng apps)
+    if (client.status && client.status !== "active") {
+      return NextResponse.json(
+        {
+          error: "invalid_client",
+          error_description: "App hiện không hoạt động",
+        },
+        { status: 403, headers: corsHeaders },
+      );
+    }
+
+    // 2. Xác thực Secret (app_secret mới hoặc client_secret_hash legacy)
+    const secret = app_secret || client_secret;
+    const secretHash = client.app_secret || client.client_secret_hash;
+    
+    if (secretHash) {
+      // Nếu app có secret, phải verify hash
+      const isValid = verifySecret(secret, secretHash);
       if (!isValid) {
         return NextResponse.json(
           {
             error: "unauthorized_client",
-            error_description: "client_secret không chính xác",
+            error_description: "app_secret/client_secret không chính xác",
           },
           { status: 401, headers: corsHeaders },
         );
       }
     }
 
-    // 2. Kiểm tra Auth Code
+    // 3. Kiểm tra Auth Code
     const { data: codeRecord, error: codeErr } = await supabaseAdmin
       .from("oauth_codes")
       .select("*")
       .eq("code", code)
-      .eq("client_id", client_id)
+      .eq("client_id", appId) // Tìm code với app_id/client_id
       .eq("used", false)
       .gt("expires_at", new Date().toISOString())
       .maybeSingle();
@@ -124,7 +158,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Verify PKCE nếu có code_challenge
+    // 4. Xác thực PKCE S256 nếu có code_challenge
     if (codeRecord.code_challenge) {
       if (!code_verifier) {
         return NextResponse.json(
@@ -155,16 +189,16 @@ export async function POST(req: Request) {
       }
     }
 
-    // 4. Đánh dấu code đã dùng ngay lập tức (Chống tấn công Replay Attack)
+    // 5. Đánh dấu code đã dùng ngay lập tức (Chống tấn công Replay Attack)
     await supabaseAdmin
       .from("oauth_codes")
       .update({ used: true })
       .eq("code", code);
 
-    // 5. Cấp Access Token (JWT được ký bởi VNTEZ IAM Key)
+    // 6. Cấp Access Token (JWT được ký bởi VNTEZ IAM Key)
     const { accessToken, expiresIn } = signAccessToken({
       userId: codeRecord.user_id,
-      clientId: client_id,
+      clientId: appId,
     });
 
     return NextResponse.json(

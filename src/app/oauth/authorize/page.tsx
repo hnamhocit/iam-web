@@ -84,6 +84,16 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     );
   }
 
+  // 2.5 Kiểm tra app status (nếu từ bảng apps)
+  if ("status" in client && client.status !== "active") {
+    return (
+      <ErrorBox
+        title="Ứng dụng không hoạt động"
+        desc={`Ứng dụng \"${client.name}\" hiện đang tạm dừng hoặc không khả dụng.`}
+      />
+    );
+  }
+
   // Đối chiếu redirect_uri có khớp với danh sách đã đăng ký trong oauth_clients hay không
   const isRedirectAllowed = client.redirect_uris.some((uri) => {
     try {
