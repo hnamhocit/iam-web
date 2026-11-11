@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { getOAuthClient, saveOAuthCode } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { ConsentScreen } from "@/components/oauth/consent-screen";

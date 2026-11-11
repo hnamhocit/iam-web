@@ -80,4 +80,48 @@ Bước 3: Tạo route callback nhận 'code' và 'state' từ URL query:
 Bước 4: Gửi GET request tới ${CANONICAL_GATEWAY_URL}/oauth/userinfo với header Authorization: Bearer <access_token> (kèm query ?app_id=<app_id> hoặc header X-App-Id nếu cần phân quyền riêng cho app vệ tinh) để lấy hồ sơ { sub, email, name, avatar, app_id, role, roles, permissions }, sau đó khởi tạo session và phân quyền tính năng cho ứng dụng.
 Bước 5: Xử lý Đăng xuất (Single Sign-Out):
    - Xóa session/cookie lưu access token ở app vệ tinh.
-   - Chuyển hướng người dùng tới: ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<APP_LOGIN_OR_HOME_URL> (hoặc gọi POST) để huỷ sạch phiên SSO ở IAM.`;
+   - Chuyển hướng người dùng tới: ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<APP_LOGIN_OR_HOME_URL> (hoặc gọi POST) để huỷ sạch phiên SSO ở IAM.
+
+=== 4. SDK TÍCH HỢP NHANH CHO FRONTEND/CLIENT ===
+**Cách cài đặt SDK:**
+\`\`\`bash
+npm install github:vntez-labs/vntez-sdk-ts
+\`\`\`
+
+**Cấu hình môi trường (.env.local):**
+\`\`\`
+NEXT_PUBLIC_VNTEZ_CLIENT_ID=<app_id> (ví dụ: 'solotype')
+NEXT_PUBLIC_VNTEZ_REDIRECT_URI=http://localhost:3000/auth/callback
+\`\`\`
+
+**Khởi tạo và sử dụng Auth:**
+\`\`\`typescript
+import { VntezClient } from '@vntez/sdk';
+
+export const vntez = new VntezClient({
+  appId: process.env.NEXT_PUBLIC_VNTEZ_CLIENT_ID!,
+});
+
+// 1. Đăng nhập
+await vntez.auth.signIn();
+
+// 2. Callback (/auth/callback)
+const { user, accessToken } = await vntez.auth.handleCallback();
+
+// 3. Đăng xuất
+vntez.auth.signOut();
+\`\`\`
+
+**Upload File (R2 Storage):**
+\`\`\`typescript
+// Upload nhanh file nhỏ (< 5MB)
+const res = await vntez.upload.single(file);
+
+// Upload file lớn đa phần (Uppy adapter)
+const companion = vntez.upload.getUppyCompanion();
+\`\`\`
+
+**Remote Config:**
+\`\`\`typescript
+const { enabled, config } = await vntez.config.get();
+\`\`\``;
