@@ -3,7 +3,7 @@ import { cookieDomain, normalizeSupabaseUrl } from "./domains";
 
 export function createClient() {
   const supabaseUrl = normalizeSupabaseUrl(
-    process.env.NEXT_PUBLIC_SUPABASE_URL
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
   );
   const supabaseKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
@@ -17,9 +17,10 @@ export function createClient() {
       cookieOptions: {
         domain: cookieDomain(),
         sameSite: "lax",
-        secure: typeof window !== "undefined" && window.location.protocol === "https:",
+        secure:
+          typeof window !== "undefined" &&
+          window.location.protocol === "https:",
       },
-    }
+    },
   );
 }
-

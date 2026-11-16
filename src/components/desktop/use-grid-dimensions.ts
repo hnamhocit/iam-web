@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { CELL_W, CELL_H, PAD_X, PAD_Y } from "./constants";
+import { useEffect, useRef, useState } from "react";
+import { CELL_H, CELL_W, PAD_X, PAD_Y } from "./constants";
 
 export function useGridDimensions() {
   const mainRef = useRef<HTMLElement>(null);

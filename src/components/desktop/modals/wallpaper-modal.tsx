@@ -1,8 +1,8 @@
 "use client";
 
-import { ImageIcon, X, Check } from "lucide-react";
-import { Modal } from "../modal-base";
+import { Check, ImageIcon, X } from "lucide-react";
 import { WALLPAPERS, type WallpaperKey } from "../constants";
+import { Modal } from "../modal-base";
 
 export function WallpaperModal({
   current,

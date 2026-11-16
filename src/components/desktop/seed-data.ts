@@ -1,5 +1,5 @@
-import type { AppNode } from "./types";
 import type { SystemApp } from "@/lib/app-actions";
+import type { AppNode } from "./types";
 
 export const WELCOME_TXT = `Chào mừng bạn đến với VNTEZ Desktop! 🚀
 ----------------------------------------

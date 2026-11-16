@@ -1,11 +1,11 @@
 import type { AppNode, Node } from "./types";
 
 export {
-  urlTaken,
   clonePin,
+  detachFromFolder,
   findTop,
   purgeSrc,
-  detachFromFolder,
+  urlTaken,
 } from "./layout-helpers";
 
 export const fav = (host: string) =>

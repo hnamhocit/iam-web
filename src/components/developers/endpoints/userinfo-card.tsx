@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CodeHighlighter } from "../code-highlighter";
@@ -68,8 +67,11 @@ export function UserinfoEndpointCard({ copiedKey, onCopy }: Props) {
       </div>
 
       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-        Truy vấn thông tin định danh và ma trận quyền hạn (RBAC) đã được đồng bộ.
-        Mặc định trả về quyền Root hệ thống (<code>app_id: null</code>). Để lấy quyền chuyên biệt theo từng app vệ tinh, truyền thêm query <code>?app_id=&lt;appId&gt;</code> hoặc header <code>X-App-Id: &lt;appId&gt;</code>.
+        Truy vấn thông tin định danh và ma trận quyền hạn (RBAC) đã được đồng
+        bộ. Mặc định trả về quyền Root hệ thống (<code>app_id: null</code>). Để
+        lấy quyền chuyên biệt theo từng app vệ tinh, truyền thêm query{" "}
+        <code>?app_id=&lt;appId&gt;</code> hoặc header{" "}
+        <code>X-App-Id: &lt;appId&gt;</code>.
       </p>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -78,7 +80,9 @@ export function UserinfoEndpointCard({ copiedKey, onCopy }: Props) {
             <span className="text-slate-400 font-mono font-bold text-xs">
               {"// Request cURL:"}
             </span>
-            <span className="text-[11px] font-mono text-cyan-400">cURL (REST)</span>
+            <span className="text-[11px] font-mono text-cyan-400">
+              cURL (REST)
+            </span>
           </div>
           <CodeHighlighter code={curlCmd} language="curl" />
         </div>
@@ -88,7 +92,9 @@ export function UserinfoEndpointCard({ copiedKey, onCopy }: Props) {
             <span className="text-emerald-400 font-mono font-bold text-xs">
               {"// Profile & Scoped RBAC JSON (200 OK):"}
             </span>
-            <span className="text-[11px] font-mono text-emerald-400">JSON (200 OK)</span>
+            <span className="text-[11px] font-mono text-emerald-400">
+              JSON (200 OK)
+            </span>
           </div>
           <CodeHighlighter code={profileJson} language="json" />
         </div>

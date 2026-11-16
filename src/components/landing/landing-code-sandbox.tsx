@@ -24,9 +24,6 @@ export function LandingCodeSandbox() {
     <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary font-mono">
-            Tích hợp nhanh
-          </div>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
             Tích hợp với 3 dòng mã hoặc 1 Prompt AI
           </h2>
@@ -40,7 +37,7 @@ export function LandingCodeSandbox() {
           variant="outline"
           size="sm"
           asChild
-          className="shrink-0 rounded-2xl h-10 px-5 text-xs font-semibold gap-2 border-border/80"
+          className="shrink-0 rounded-xl h-9 px-4 text-xs font-medium gap-2 border-border"
         >
           <Link href="/developers">
             <Terminal className="h-3.5 w-3.5 text-primary" />
@@ -50,8 +47,8 @@ export function LandingCodeSandbox() {
         </Button>
       </div>
 
-      {/* Modern IDE Container */}
-      <div className="rounded-3xl border border-zinc-800 bg-[#090d16] shadow-2xl overflow-hidden text-zinc-200">
+      {/* Modern Flat IDE Container */}
+      <div className="rounded-2xl border border-zinc-800 bg-[#090d16] overflow-hidden text-zinc-200">
         {/* Top Bar: macOS dots + Tabs + Copy */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 bg-[#05080f] px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto">

@@ -82,10 +82,7 @@ export function LandingFeatures() {
       {/* Background glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[650px] rounded-full bg-primary/5 dark:bg-primary/10 blur-[160px]" />
 
-      <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold text-primary uppercase tracking-wider font-mono">
-          Tính năng cốt lõi
-        </div>
+      <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
         <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
           Được thiết kế cho Hệ sinh thái Doanh nghiệp Hiện đại
         </h2>
@@ -95,14 +92,14 @@ export function LandingFeatures() {
         </p>
       </div>
 
-      {/* Modern Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Modern Flat Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {features.map((f) => {
           const Icon = f.icon;
           return (
             <div
               key={f.title}
-              className={`group relative rounded-3xl border border-border/80 bg-card/75 dark:bg-card/50 p-7 sm:p-8 shadow-lg shadow-black/[0.02] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${f.border} flex flex-col justify-between`}
+              className={`group relative rounded-2xl border border-border bg-card p-6 sm:p-7 transition-colors ${f.border} flex flex-col justify-between`}
             >
               <div>
                 <div className="flex items-center justify-between mb-5">

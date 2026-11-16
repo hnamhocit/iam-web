@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Sparkles, RefreshCw, Zap, Coffee, X } from "lucide-react";
+import { Coffee, RefreshCw, Sparkles, X, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Modal } from "../modal-base";
 import type { MappedUser } from "../types";
 

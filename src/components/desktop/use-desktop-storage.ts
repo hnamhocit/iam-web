@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import {
-  WALLPAPER_KEY,
-  SOUND_KEY,
-  POS_KEY,
-  WALLPAPERS,
-} from "./constants";
+import { useEffect, useRef, useState } from "react";
+import { POS_KEY, SOUND_KEY, WALLPAPER_KEY, WALLPAPERS } from "./constants";
 import type { PosMap, WallpaperKey } from "./types";
 
 export function useDesktopStorage(initialPosMap: PosMap) {

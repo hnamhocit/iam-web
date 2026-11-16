@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { LogIn, LogOut, FileCode, Sparkles } from "lucide-react";
+import { FileCode, LogIn, LogOut, Sparkles } from "lucide-react";
 import { ModeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { VntezLogo } from "@/components/ui/vntez-logo";
@@ -37,7 +36,9 @@ export function DeveloperHubHeader({
               vntez <span className="text-primary font-mono text-xs">iam</span>
             </span>
           </a>
-          <span className="text-muted-foreground/30 font-light select-none">/</span>
+          <span className="text-muted-foreground/30 font-light select-none">
+            /
+          </span>
           <span className="text-xs sm:text-sm font-semibold text-foreground/80 whitespace-nowrap">
             Developers
           </span>
@@ -52,13 +53,13 @@ export function DeveloperHubHeader({
               "inline-flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-medium transition-all cursor-pointer",
               activeTab === "api"
                 ? "bg-background text-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+                : "text-muted-foreground hover:text-foreground hover:bg-background/40",
             )}
           >
             <FileCode
               className={cn(
                 "h-3.5 w-3.5",
-                activeTab === "api" ? "text-primary" : "text-muted-foreground"
+                activeTab === "api" ? "text-primary" : "text-muted-foreground",
               )}
             />
             <span>Tài liệu API</span>
@@ -71,13 +72,15 @@ export function DeveloperHubHeader({
               "inline-flex items-center gap-1.5 rounded-md px-3 py-1 text-xs font-medium transition-all cursor-pointer",
               activeTab === "prompts"
                 ? "bg-background text-foreground font-semibold shadow-xs"
-                : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+                : "text-muted-foreground hover:text-foreground hover:bg-background/40",
             )}
           >
             <Sparkles
               className={cn(
                 "h-3.5 w-3.5",
-                activeTab === "prompts" ? "text-primary" : "text-muted-foreground"
+                activeTab === "prompts"
+                  ? "text-primary"
+                  : "text-muted-foreground",
               )}
             />
             <span>Prompts AI</span>
@@ -153,13 +156,13 @@ export function DeveloperHubHeader({
             "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors",
             activeTab === "api"
               ? "bg-background text-foreground font-semibold shadow-xs"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-foreground",
           )}
         >
           <FileCode
             className={cn(
               "h-3.5 w-3.5",
-              activeTab === "api" ? "text-primary" : "text-muted-foreground"
+              activeTab === "api" ? "text-primary" : "text-muted-foreground",
             )}
           />
           <span>Tài liệu API</span>
@@ -171,13 +174,15 @@ export function DeveloperHubHeader({
             "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors",
             activeTab === "prompts"
               ? "bg-background text-foreground font-semibold shadow-xs"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-foreground",
           )}
         >
           <Sparkles
             className={cn(
               "h-3.5 w-3.5",
-              activeTab === "prompts" ? "text-primary" : "text-muted-foreground"
+              activeTab === "prompts"
+                ? "text-primary"
+                : "text-muted-foreground",
             )}
           />
           <span>Prompts AI</span>

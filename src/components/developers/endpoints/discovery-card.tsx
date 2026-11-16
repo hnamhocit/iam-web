@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CodeHighlighter } from "../code-highlighter";
@@ -51,8 +50,8 @@ export function DiscoveryEndpointCard({ copiedKey, onCopy }: Props) {
 
       <p className="text-sm text-muted-foreground leading-relaxed font-sans">
         Metadata cấu hình chuẩn OpenID Connect. Thư viện OAuth Client (NextAuth,
-        Passport, Auth.js) có thể đọc endpoint này để tự động cấu hình toàn bộ URL
-        xác thực.
+        Passport, Auth.js) có thể đọc endpoint này để tự động cấu hình toàn bộ
+        URL xác thực.
       </p>
 
       <div className="rounded-xl bg-[#080d16] border border-white/[0.08] p-5 sm:p-6 overflow-x-auto">

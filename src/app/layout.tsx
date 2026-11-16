@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import {
+  Be_Vietnam_Pro,
+  JetBrains_Mono,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { cn } from "@/lib/utils";
 import { TopProgressBar } from "@/components/ui/top-progress-bar";
+import { cn } from "@/lib/utils";
 
 // Primary Font for Body & UI: 100% Vietnamese support, pristine baseline and diacritics
 const beVietnamPro = Be_Vietnam_Pro({
@@ -109,7 +113,9 @@ export const metadata: Metadata = {
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/logo-192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
     shortcut: ["/favicon.ico"],
   },
   manifest: "/manifest.webmanifest",
@@ -196,7 +202,7 @@ export default function RootLayout({
         beVietnamPro.variable,
         plusJakartaSans.variable,
         jetbrainsMono.variable,
-        "font-sans antialiased selection:bg-[#fb291a]/20 selection:text-[#fb291a]"
+        "font-sans antialiased selection:bg-[#fb291a]/20 selection:text-[#fb291a]",
       )}
       suppressHydrationWarning
     >

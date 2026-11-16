@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { Copy, Check, ShieldAlert, Zap } from "lucide-react";
+import { Check, Copy, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CodeHighlighter } from "../code-highlighter";
@@ -40,12 +39,18 @@ curl -X POST "https://vntez-iam.vercel.app/auth/logout" \\
             GET / POST
           </span>
           <h3 className="font-mono text-xl sm:text-2xl font-bold text-foreground">
-            /auth/logout <span className="text-muted-foreground text-sm font-normal font-sans">(hoặc /oauth/logout)</span>
+            /auth/logout{" "}
+            <span className="text-muted-foreground text-sm font-normal font-sans">
+              (hoặc /oauth/logout)
+            </span>
           </h3>
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="font-mono text-xs text-primary border-primary/30">
+          <Badge
+            variant="outline"
+            className="font-mono text-xs text-primary border-primary/30"
+          >
             SSO Single Sign-Out (RFC RP-Initiated)
           </Badge>
           <Button
@@ -67,10 +72,17 @@ curl -X POST "https://vntez-iam.vercel.app/auth/logout" \\
       <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs sm:text-sm text-foreground space-y-1.5 leading-relaxed">
         <div className="flex items-center gap-2 font-bold text-amber-600 dark:text-amber-400">
           <ShieldAlert className="h-4 w-4 shrink-0" />
-          <span>Tại sao không nên kết nối Supabase trực tiếp để đăng xuất?</span>
+          <span>
+            Tại sao không nên kết nối Supabase trực tiếp để đăng xuất?
+          </span>
         </div>
         <p className="text-muted-foreground text-xs leading-relaxed">
-          Ứng dụng vệ tinh <strong>không cần và không nên</strong> cài đặt SDK Supabase hay giữ API Key để gọi <code>supabase.auth.signOut()</code> thủ công. Điều này làm lộ cấu hình backend và khiến phiên SSO giữa các ứng dụng bị lệch nhau. Hãy chuyển hướng người dùng hoặc gọi tới endpoint <code>/auth/logout</code> của VNTEZ IAM để toàn bộ cookie SSO được xóa sạch đồng bộ.
+          Ứng dụng vệ tinh <strong>không cần và không nên</strong> cài đặt SDK
+          Supabase hay giữ API Key để gọi <code>supabase.auth.signOut()</code>{" "}
+          thủ công. Điều này làm lộ cấu hình backend và khiến phiên SSO giữa các
+          ứng dụng bị lệch nhau. Hãy chuyển hướng người dùng hoặc gọi tới
+          endpoint <code>/auth/logout</code> của VNTEZ IAM để toàn bộ cookie SSO
+          được xóa sạch đồng bộ.
         </p>
       </div>
 
@@ -89,17 +101,29 @@ curl -X POST "https://vntez-iam.vercel.app/auth/logout" \\
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
-                <td className="p-3 font-mono font-semibold text-primary">redirect_url</td>
-                <td className="p-3 font-mono text-muted-foreground">string (tùy chọn)</td>
+                <td className="p-3 font-mono font-semibold text-primary">
+                  redirect_url
+                </td>
+                <td className="p-3 font-mono text-muted-foreground">
+                  string (tùy chọn)
+                </td>
                 <td className="p-3 text-muted-foreground">
-                  URL ứng dụng tiếp nhận người dùng sau khi huỷ phiên. Phải thuộc whitelist tên miền được cấp phép (<code>*.vntez.cloud</code>, <code>*.vercel.app</code>, localhost...).
+                  URL ứng dụng tiếp nhận người dùng sau khi huỷ phiên. Phải
+                  thuộc whitelist tên miền được cấp phép (
+                  <code>*.vntez.cloud</code>, <code>*.vercel.app</code>,
+                  localhost...).
                 </td>
               </tr>
               <tr>
-                <td className="p-3 font-mono font-semibold text-primary">post_logout_redirect_uri</td>
-                <td className="p-3 font-mono text-muted-foreground">string (tùy chọn)</td>
+                <td className="p-3 font-mono font-semibold text-primary">
+                  post_logout_redirect_uri
+                </td>
+                <td className="p-3 font-mono text-muted-foreground">
+                  string (tùy chọn)
+                </td>
                 <td className="p-3 text-muted-foreground">
-                  Bí danh chuẩn OpenID Connect RP-Initiated Logout (tương đương với <code>redirect_url</code>).
+                  Bí danh chuẩn OpenID Connect RP-Initiated Logout (tương đương
+                  với <code>redirect_url</code>).
                 </td>
               </tr>
             </tbody>
@@ -113,7 +137,9 @@ curl -X POST "https://vntez-iam.vercel.app/auth/logout" \\
             <span className="text-slate-400 font-mono font-bold text-xs">
               {"// Request Logout Ví dụ:"}
             </span>
-            <span className="text-[11px] font-mono text-cyan-400">cURL / HTTP</span>
+            <span className="text-[11px] font-mono text-cyan-400">
+              cURL / HTTP
+            </span>
           </div>
           <CodeHighlighter code={curlCmd} language="curl" />
         </div>
@@ -123,7 +149,9 @@ curl -X POST "https://vntez-iam.vercel.app/auth/logout" \\
             <span className="text-emerald-400 font-mono font-bold text-xs">
               {"// Response JSON khi gọi API qua POST hoặc Accept JSON:"}
             </span>
-            <span className="text-[11px] font-mono text-emerald-400">JSON (200 OK)</span>
+            <span className="text-[11px] font-mono text-emerald-400">
+              JSON (200 OK)
+            </span>
           </div>
           <CodeHighlighter code={responseJson} language="json" />
         </div>

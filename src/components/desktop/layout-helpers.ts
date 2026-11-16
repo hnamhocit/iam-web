@@ -1,3 +1,11 @@
+import type { SystemApp, UserApp } from "@/lib/app-actions";
+import { fav, hostOf, srcOf, uid } from "./desktop-utils";
+import {
+  FALLBACK_SYSTEM_APPS,
+  SYS_MYPC_NODE,
+  SYS_TRASH_NODE,
+  WELCOME_TXT,
+} from "./seed-data";
 import type {
   AppNode,
   FileNode,
@@ -8,14 +16,6 @@ import type {
   SlotPos,
   Zone,
 } from "./types";
-import type { SystemApp, UserApp } from "@/lib/app-actions";
-import { fav, hostOf, srcOf, uid } from "./desktop-utils";
-import {
-  FALLBACK_SYSTEM_APPS,
-  SYS_MYPC_NODE,
-  SYS_TRASH_NODE,
-  WELCOME_TXT,
-} from "./seed-data";
 
 export function mapSystemAppToNode(app: SystemApp): AppNode {
   const host = hostOf(app.url);
@@ -82,7 +82,7 @@ export function mapUserAppToNode(app: UserApp): AppNode {
 
 export function buildLayoutFromApps(
   systemApps: SystemApp[] = [],
-  userApps: UserApp[] = []
+  userApps: UserApp[] = [],
 ): { layout: Layout; initialPosMap: PosMap } {
   const dockItems: { order: number; node: AppNode }[] = [
     { order: 0, node: SYS_MYPC_NODE },
@@ -97,7 +97,7 @@ export function buildLayoutFromApps(
 
   const allocateSlot = (currentPosMap: PosMap): SlotPos => {
     const occupied = new Set(
-      Object.values(currentPosMap).map((p) => `${p.col}-${p.row}`)
+      Object.values(currentPosMap).map((p) => `${p.col}-${p.row}`),
     );
     for (let c = 0; c < 20; c++) {
       for (let r = 0; r < 8; r++) {
@@ -209,7 +209,7 @@ export function purgeSrc(l: Layout, src: string): Layout {
     arr.map((n) =>
       n.kind === "folder"
         ? { ...n, children: n.children.filter((c) => srcOf(c) !== src) }
-        : n
+        : n,
     );
   const dissolve = (arr: Node[]): Node[] => {
     const res: Node[] = [];
@@ -230,7 +230,7 @@ export function detachFromFolder(
   l0: Layout,
   folderId: string,
   itemId: string,
-  zone: Zone
+  zone: Zone,
 ): Layout {
   const l: Layout = { desktop: [...l0.desktop], dock: [...l0.dock] };
   const f = l[zone].find((n) => n.id === folderId) as FolderNode | undefined;

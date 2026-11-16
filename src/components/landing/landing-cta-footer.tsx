@@ -13,9 +13,9 @@ export function LandingCtaFooter() {
         {/* Ambient Glow */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[550px] rounded-full bg-primary/10 dark:bg-primary/15 blur-[140px]" />
 
-        <div className="relative z-10 rounded-3xl border border-border/80 bg-card/75 dark:bg-card/50 p-8 sm:p-14 shadow-2xl backdrop-blur-2xl space-y-6">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-8 ring-primary/5 shadow-xs">
-            <VntezLogo size={32} />
+        <div className="relative z-10 rounded-2xl border border-border bg-card p-8 sm:p-12 space-y-6">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <VntezLogo size={28} />
           </div>
 
           <div className="space-y-3 max-w-2xl mx-auto">
@@ -29,11 +29,11 @@ export function LandingCtaFooter() {
             </p>
           </div>
 
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button
               size="lg"
               asChild
-              className="w-full sm:w-auto rounded-2xl px-7 h-12 text-sm sm:text-base font-bold shadow-lg shadow-primary/20 gap-2"
+              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-bold gap-2"
             >
               <Link href="/developers">
                 <span>Vào Developer Hub</span>
@@ -44,7 +44,7 @@ export function LandingCtaFooter() {
               variant="outline"
               size="lg"
               asChild
-              className="w-full sm:w-auto rounded-2xl px-7 h-12 text-sm sm:text-base font-semibold gap-2 border-border/80 bg-background/50 hover:bg-background/80"
+              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-medium gap-2 border-border bg-background hover:bg-muted/50"
             >
               <Link href="/login">
                 <span>Đăng nhập tài khoản</span>

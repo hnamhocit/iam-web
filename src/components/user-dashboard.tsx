@@ -1,34 +1,34 @@
 "use client";
 
+import {
+  Calendar,
+  Check,
+  Code2,
+  Copy,
+  ExternalLink,
+  Fingerprint,
+  KeyRound,
+  LogOut,
+  Mail,
+  ShieldCheck,
+  Sparkles,
+  User,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ModeToggle } from "@/components/ThemeToggle";
-import { signOut } from "@/lib/auth-actions";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Code2,
-  LogOut,
-  ShieldCheck,
-  User,
-  KeyRound,
-  ExternalLink,
-  Copy,
-  Check,
-  Sparkles,
-  Calendar,
-  Mail,
-  Fingerprint,
-  Zap,
-} from "lucide-react";
+import { signOut } from "@/lib/auth-actions";
 
 export interface DashboardUser {
   id: string;
@@ -78,7 +78,11 @@ export function UserDashboard({ user }: UserDashboardProps) {
               <span className="text-sm font-semibold">VNTEZ IAM</span>
             </Link>
             <span className="text-muted-foreground/40 hidden sm:inline">/</span>
-            <Badge variant="outline" size="sm" className="hidden sm:inline-flex gap-1.5">
+            <Badge
+              variant="outline"
+              size="sm"
+              className="hidden sm:inline-flex gap-1.5"
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Đã đăng nhập
             </Badge>
@@ -135,7 +139,11 @@ export function UserDashboard({ user }: UserDashboardProps) {
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       Xác thực thành công
                     </Badge>
-                    <Badge variant="secondary" size="sm" className="uppercase font-mono">
+                    <Badge
+                      variant="secondary"
+                      size="sm"
+                      className="uppercase font-mono"
+                    >
                       {user.provider}
                     </Badge>
                   </div>
@@ -162,8 +170,12 @@ export function UserDashboard({ user }: UserDashboardProps) {
                       <Code2 className="h-4 w-4" />
                     </div>
                     <div className="text-left">
-                      <div className="text-xs font-semibold text-foreground">Developer Hub</div>
-                      <div className="text-[11px] text-muted-foreground">Quản lý OAuth Clients</div>
+                      <div className="text-xs font-semibold text-foreground">
+                        Developer Hub
+                      </div>
+                      <div className="text-[11px] text-muted-foreground">
+                        Quản lý OAuth Clients
+                      </div>
                     </div>
                   </div>
                   <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -178,8 +190,12 @@ export function UserDashboard({ user }: UserDashboardProps) {
                       <Zap className="h-4 w-4" />
                     </div>
                     <div className="text-left">
-                      <div className="text-xs font-semibold text-foreground">Hạ tầng Edge SSO</div>
-                      <div className="text-[11px] text-muted-foreground">Cloudflare Global Network</div>
+                      <div className="text-xs font-semibold text-foreground">
+                        Hạ tầng Edge SSO
+                      </div>
+                      <div className="text-[11px] text-muted-foreground">
+                        Cloudflare Global Network
+                      </div>
                     </div>
                   </div>
                   <ExternalLink className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -198,7 +214,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
                     <span className="flex items-center gap-1.5">
                       <Mail className="h-3.5 w-3.5" /> Email
                     </span>
-                    <span className="font-mono text-foreground font-medium">{user.email || "—"}</span>
+                    <span className="font-mono text-foreground font-medium">
+                      {user.email || "—"}
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between py-1 border-b border-border">
@@ -206,7 +224,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
                       <Fingerprint className="h-3.5 w-3.5" /> User ID
                     </span>
                     <div className="flex items-center gap-1.5 font-mono text-[11px] text-foreground">
-                      <span className="max-w-[140px] sm:max-w-[180px] truncate">{user.id}</span>
+                      <span className="max-w-[140px] sm:max-w-[180px] truncate">
+                        {user.id}
+                      </span>
                       <Button
                         variant="ghost"
                         size="icon-sm"
@@ -214,7 +234,11 @@ export function UserDashboard({ user }: UserDashboardProps) {
                         className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
                         title="Copy User ID"
                       >
-                        {copiedId ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
+                        {copiedId ? (
+                          <Check className="h-3 w-3 text-emerald-500" />
+                        ) : (
+                          <Copy className="h-3 w-3" />
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -223,7 +247,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
                     <span className="flex items-center gap-1.5">
                       <Calendar className="h-3.5 w-3.5" /> Identity Provider
                     </span>
-                    <span className="capitalize text-foreground font-medium">{user.provider}</span>
+                    <span className="capitalize text-foreground font-medium">
+                      {user.provider}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -231,7 +257,8 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
             <CardFooter className="pt-0">
               <p className="text-[11px] text-muted-foreground text-center sm:text-left leading-relaxed w-full">
-                💡 Cổng định danh trung tâm VNTEZ IAM bảo vệ tài khoản và phiên làm việc của bạn trên toàn bộ ứng dụng trong hệ sinh thái.
+                💡 Cổng định danh trung tâm VNTEZ IAM bảo vệ tài khoản và phiên
+                làm việc của bạn trên toàn bộ ứng dụng trong hệ sinh thái.
               </p>
             </CardFooter>
           </Card>
@@ -241,15 +268,26 @@ export function UserDashboard({ user }: UserDashboardProps) {
       {/* Footer */}
       <footer className="border-t border-border py-4 text-center text-xs text-muted-foreground">
         <div className="mx-auto flex max-w-5xl flex-col sm:flex-row items-center justify-between gap-2 px-4">
-          <p>© {new Date().getFullYear()} VNTEZ IAM — Single Sign-On Platform</p>
+          <p>
+            © {new Date().getFullYear()} VNTEZ IAM — Single Sign-On Platform
+          </p>
           <div className="flex items-center gap-4 text-xs">
-            <Link href="/developers" className="hover:text-foreground transition-colors">
+            <Link
+              href="/developers"
+              className="hover:text-foreground transition-colors"
+            >
               Developers
             </Link>
-            <Link href="/terms" className="hover:text-foreground transition-colors">
+            <Link
+              href="/terms"
+              className="hover:text-foreground transition-colors"
+            >
               Điều khoản
             </Link>
-            <Link href="/privacy" className="hover:text-foreground transition-colors">
+            <Link
+              href="/privacy"
+              className="hover:text-foreground transition-colors"
+            >
               Bảo mật
             </Link>
           </div>

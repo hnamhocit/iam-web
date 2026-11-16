@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { LogOut } from "lucide-react";
+import { useState } from "react";
 import { ModeToggle } from "@/components/ThemeToggle";
 import { signOut } from "@/lib/auth-actions";
 import type { MappedUser } from "./types";

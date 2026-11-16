@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { connection } from "next/server";
+import { Suspense } from "react";
 import { DeveloperHub } from "@/components/developers/developer-hub";
 import { createClient } from "@/lib/supabase/server";
 
@@ -32,7 +32,8 @@ async function DevelopersContent() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-iam.vercel.app";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-iam.vercel.app";
 
   let mappedUser = null;
   if (user) {

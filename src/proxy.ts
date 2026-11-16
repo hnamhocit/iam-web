@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
-import { cookieDomain, normalizeSupabaseUrl } from "@/lib/supabase/domains";
+import { type NextRequest, NextResponse } from "next/server";
 import { safeReturnTo } from "@/lib/redirect";
+import { cookieDomain, normalizeSupabaseUrl } from "@/lib/supabase/domains";
 
 // Các route công khai không bị chặn redirect về /login
 const PUBLIC_PREFIXES = [
@@ -22,7 +22,9 @@ const PUBLIC_PREFIXES = [
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const supabaseUrl = normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const supabaseUrl = normalizeSupabaseUrl(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+  );
   const supabaseKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||

@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { Layout, PosMap, Zone, FolderNode } from "./types";
-import { srcOf, clonePin } from "./desktop-utils";
-import { playUiSound } from "./sound-synth";
 import { updateUserApp } from "@/lib/app-actions";
+import { clonePin, srcOf } from "./desktop-utils";
+import { playUiSound } from "./sound-synth";
+import type { FolderNode, Layout, PosMap, Zone } from "./types";
 
 export function handlePlaceItem({
   id,
@@ -65,7 +65,9 @@ export function handlePlaceItem({
       if (
         id === "sys-mypc" ||
         id === "welcome-file" ||
-        layout.desktop.some((n) => n.id === id && n.kind === "app" && n.isSystem)
+        layout.desktop.some(
+          (n) => n.id === id && n.kind === "app" && n.isSystem,
+        )
       ) {
         showNotification("Mục hệ thống không thể xóa vào Thùng rác");
         playUiSound("pop", soundEnabled);

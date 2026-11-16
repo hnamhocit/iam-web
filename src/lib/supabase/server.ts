@@ -14,12 +14,12 @@ export async function createClient(request?: Request) {
   }
 
   if (!host && request) {
-    host = request.headers.get("x-forwarded-host") || request.headers.get("host");
+    host =
+      request.headers.get("x-forwarded-host") || request.headers.get("host");
   }
 
   const supabaseUrl = normalizeSupabaseUrl(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    process.env.SUPABASE_URL
+    process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL,
   );
   const supabaseKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||

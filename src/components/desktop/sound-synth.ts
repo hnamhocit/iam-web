@@ -1,6 +1,6 @@
 export function playUiSound(
   type: "pop" | "trash" | "restore" | "click",
-  enabled = true
+  enabled = true,
 ) {
   if (!enabled || typeof window === "undefined") return;
   try {

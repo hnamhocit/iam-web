@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CANONICAL_GATEWAY_URL } from "../developer-hub-data";
 import { CodeHighlighter } from "../code-highlighter";
+import { CANONICAL_GATEWAY_URL } from "../developer-hub-data";
 
 interface Props {
   copiedKey: string | null;
@@ -63,24 +62,28 @@ export function AuthorizeEndpointCard({ copiedKey, onCopy }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-muted-foreground">
           <div>
             <code className="text-foreground font-semibold">app_id</code>{" "}
-            <span className="text-[10px] text-primary font-mono">(hoặc client_id)</span>:
-            Mã định danh ứng dụng trong bảng apps (bắt buộc)
+            <span className="text-[10px] text-primary font-mono">
+              (hoặc client_id)
+            </span>
+            : Mã định danh ứng dụng trong bảng apps (bắt buộc)
           </div>
           <div>
             <code className="text-foreground font-semibold">redirect_uri</code>:
             URL callback đã đăng ký (bắt buộc)
           </div>
           <div>
-            <code className="text-foreground font-semibold">response_type</code>:
-            Cố định là <code>code</code> (bắt buộc)
+            <code className="text-foreground font-semibold">response_type</code>
+            : Cố định là <code>code</code> (bắt buộc)
           </div>
           <div>
             <code className="text-foreground font-semibold">state</code>: Chuỗi
             ngẫu nhiên 32 ký tự chống CSRF (bắt buộc)
           </div>
           <div>
-            <code className="text-foreground font-semibold">code_challenge</code>:
-            SHA-256 base64url của verifier (bắt buộc)
+            <code className="text-foreground font-semibold">
+              code_challenge
+            </code>
+            : SHA-256 base64url của verifier (bắt buộc)
           </div>
           <div>
             <code className="text-foreground font-semibold">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function TopProgressBar({
   color = "from-red-600 via-rose-500 to-amber-500",

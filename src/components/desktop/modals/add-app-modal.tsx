@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { X } from "lucide-react";
+import { useState } from "react";
+import { isUrl, urlTaken } from "../desktop-utils";
 import { Modal } from "../modal-base";
 import type { Layout } from "../types";
-import { isUrl, urlTaken } from "../desktop-utils";
 
 export function AddAppModal({
   layout,

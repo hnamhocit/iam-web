@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
+import type React from "react";
 
 export function SysIcon({
   emoji,
@@ -68,8 +68,8 @@ export function TrashSysIcon({
         isOver
           ? "scale-110 bg-rose-500/20 ring-2 ring-rose-500 shadow-[0_0_24px_rgba(244,63,94,0.4)]"
           : selected
-          ? "bg-primary/20 ring-1 ring-primary/45 shadow-sm"
-          : "hover:bg-black/5 dark:hover:bg-white/10"
+            ? "bg-primary/20 ring-1 ring-primary/45 shadow-sm"
+            : "hover:bg-black/5 dark:hover:bg-white/10"
       }`}
     >
       <div className="relative flex h-14 w-14 items-center justify-center">

@@ -1,26 +1,26 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { findTop, uid } from "./desktop-utils";
+import { buildLayoutFromApps } from "./layout-helpers";
 import type {
-  SystemApp,
-  UserApp,
+  FileNode,
+  FolderNode,
   Layout,
   PosMap,
   SlotPos,
-  FileNode,
-  FolderNode,
-  Zone,
+  SystemApp,
   Toast,
+  UserApp,
+  Zone,
 } from "./types";
-import { uid, findTop } from "./desktop-utils";
-import { buildLayoutFromApps } from "./layout-helpers";
-import { useDesktopStorage } from "./use-desktop-storage";
-import { useDesktopTrash } from "./use-desktop-trash";
+import { useDesktopContextMenu } from "./use-desktop-context-menu";
 import { useDesktopCrud } from "./use-desktop-crud";
 import { useDesktopDrag } from "./use-desktop-drag";
-import { useDesktopContextMenu } from "./use-desktop-context-menu";
-import { useGridDimensions } from "./use-grid-dimensions";
 import { useDesktopShortcuts } from "./use-desktop-shortcuts";
+import { useDesktopStorage } from "./use-desktop-storage";
+import { useDesktopTrash } from "./use-desktop-trash";
+import { useGridDimensions } from "./use-grid-dimensions";
 
 export function useDesktopState({
   initialSystemApps = [],
@@ -227,7 +227,9 @@ export function useDesktopState({
   const handleSaveFile = (id: string, name: string, content: string) => {
     crudLogic.saveFile(id, name, content);
     setOpenFile((prev) =>
-      prev?.id === id ? { ...prev, name, content, updatedAt: Date.now() } : prev,
+      prev?.id === id
+        ? { ...prev, name, content, updatedAt: Date.now() }
+        : prev,
     );
   };
 

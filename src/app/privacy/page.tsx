@@ -15,13 +15,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Chính sách bảo mật | VNTEZ IAM",
-    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
+    description:
+      "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
     url: "/privacy",
   },
   twitter: {
     card: "summary",
     title: "Chính sách bảo mật | VNTEZ IAM",
-    description: "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
+    description:
+      "Chính sách bảo mật dữ liệu cá nhân của người dùng VNTEZ IAM và toàn bộ hệ sinh thái VNTEZ.",
   },
 };
 

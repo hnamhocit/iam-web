@@ -123,7 +123,7 @@ export function OAuthErrorView({
 
       {/* Main Error Centerpiece */}
       <main className="relative z-10 flex flex-1 items-center justify-center p-4 sm:p-6 my-8">
-        <div className="w-full max-w-xl rounded-3xl border border-destructive/25 dark:border-destructive/35 bg-card/85 dark:bg-card/70 p-6 sm:p-9 shadow-2xl backdrop-blur-2xl text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">
+        <div className="w-full max-w-xl rounded-2xl border border-destructive/30 bg-card p-6 sm:p-8 text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">
           {/* Glowing Shield Icon */}
           <div className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/10 text-destructive ring-8 ring-destructive/5 dark:bg-destructive/20 dark:ring-destructive/10">
             <span className="absolute inset-0 rounded-2xl bg-destructive/20 animate-ping opacity-25" />

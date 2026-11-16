@@ -23,7 +23,9 @@ export async function GET(request: Request) {
       : "https");
   const origin = forwardedHost
     ? `${forwardedProto}://${forwardedHost}`
-    : requestUrl.origin || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    : requestUrl.origin ||
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      "http://localhost:3000";
 
   // 1. Kiểm tra nếu chính OAuth provider hoặc Supabase trả về lỗi
   if (errorParam) {

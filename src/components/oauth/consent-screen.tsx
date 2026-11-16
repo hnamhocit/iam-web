@@ -86,7 +86,7 @@ export function ConsentScreen({ client, user, params }: ConsentScreenProps) {
       <div className="pointer-events-none absolute -top-40 -left-40 h-[450px] w-[450px] rounded-full bg-primary/10 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 -right-40 h-[450px] w-[450px] rounded-full bg-sky-500/10 blur-[120px]" />
 
-      <Card className="relative z-10 w-full max-w-[460px] border-border bg-card/90 shadow-2xl backdrop-blur-xl">
+      <Card className="relative z-10 w-full max-w-[460px] border-border bg-card rounded-2xl">
         <CardHeader className="text-center pb-4">
           {/* Header / Brand Connection */}
           <div className="flex items-center justify-center gap-3 mb-4">

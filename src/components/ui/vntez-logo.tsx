@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
 
 export interface VntezLogoProps {
-  className?: string
-  size?: number
+  className?: string;
+  size?: number;
 }
 
 /**
@@ -64,5 +64,5 @@ export function VntezLogo({ className = "", size = 32 }: VntezLogoProps) {
         fill="url(#vntez-accent-gradient)"
       />
     </svg>
-  )
+  );
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import type { Layout, Node, PosMap, SlotPos, TrashItem, Zone } from "./types";
-import { uid, purgeSrc, srcOf, findTop } from "./desktop-utils";
-import { playUiSound } from "./sound-synth";
+import { useState } from "react";
 import { deleteUserApp } from "@/lib/app-actions";
+import { findTop, purgeSrc, srcOf, uid } from "./desktop-utils";
+import { playUiSound } from "./sound-synth";
+import type { Layout, Node, PosMap, SlotPos, TrashItem, Zone } from "./types";
 
 export function useDesktopTrash({
   layout,

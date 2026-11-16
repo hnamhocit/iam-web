@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import type { Layout, Node, FileNode, PosMap, SlotPos, Zone } from "./types";
-import { uid, srcOf, clonePin } from "./desktop-utils";
-import { playUiSound } from "./sound-synth";
-import { mapUserAppToNode } from "./layout-helpers";
+import { useState } from "react";
 import { addUserApp, updateUserApp } from "@/lib/app-actions";
+import { clonePin, srcOf, uid } from "./desktop-utils";
+import { mapUserAppToNode } from "./layout-helpers";
+import { playUiSound } from "./sound-synth";
+import type { FileNode, Layout, Node, PosMap, SlotPos, Zone } from "./types";
 
 export function useDesktopCrud({
   layout,
@@ -252,7 +252,9 @@ export function useDesktopCrud({
       updateUserApp(srcOf(n), {
         is_pinned: willPin,
         dock_order: willPin ? layout.dock.length : 0,
-      }).catch((err: unknown) => console.warn("Lỗi đồng bộ ghim lên Supabase:", err));
+      }).catch((err: unknown) =>
+        console.warn("Lỗi đồng bộ ghim lên Supabase:", err),
+      );
     }
   };
 

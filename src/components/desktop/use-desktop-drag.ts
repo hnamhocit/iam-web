@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import type { Dispatch, SetStateAction, RefObject } from "react";
-import type { Layout, PosMap, SlotPos, Zone } from "./types";
-import { CELL_W, CELL_H, PAD_X, PAD_Y } from "./constants";
-import { clonePin, findTop, detachFromFolder } from "./desktop-utils";
-import { playUiSound } from "./sound-synth";
+import type { Dispatch, RefObject, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { updateUserApp } from "@/lib/app-actions";
+import { CELL_H, CELL_W, PAD_X, PAD_Y } from "./constants";
+import { clonePin, detachFromFolder, findTop } from "./desktop-utils";
 import { handlePlaceItem } from "./drag-placement";
+import { playUiSound } from "./sound-synth";
+import type { Layout, PosMap, SlotPos, Zone } from "./types";
 
 export function useDesktopDrag({
   layout,
@@ -139,7 +139,7 @@ export function useDesktopDrag({
         return;
       }
       const top = findTop(layout, id);
-      const node = top ? (layout[top.z as keyof Layout][top.i]) : null;
+      const node = top ? layout[top.z as keyof Layout][top.i] : null;
       if (node) {
         setLayout((l) => ({ ...l, dock: [...l.dock, clonePin(node)] }));
         playUiSound("pop", soundEnabled);

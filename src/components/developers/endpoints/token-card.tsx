@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CodeHighlighter } from "../code-highlighter";
@@ -65,9 +64,9 @@ export function TokenEndpointCard({ copiedKey, onCopy }: Props) {
       </div>
 
       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-        Gửi mã xác thực kèm <code>code_verifier</code> gốc lên server để nhận JWT
-        Access Token. Cổng xác thực sẽ đối soát băm SHA-256 và lập tức thu hồi mã
-        authorization code để chống tấn công phát lại (Replay Attack).
+        Gửi mã xác thực kèm <code>code_verifier</code> gốc lên server để nhận
+        JWT Access Token. Cổng xác thực sẽ đối soát băm SHA-256 và lập tức thu
+        hồi mã authorization code để chống tấn công phát lại (Replay Attack).
       </p>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -76,7 +75,9 @@ export function TokenEndpointCard({ copiedKey, onCopy }: Props) {
             <span className="text-slate-400 font-mono font-bold text-xs">
               {"// Request cURL:"}
             </span>
-            <span className="text-[11px] font-mono text-cyan-400">cURL (POST)</span>
+            <span className="text-[11px] font-mono text-cyan-400">
+              cURL (POST)
+            </span>
           </div>
           <CodeHighlighter code={curlCmd} language="curl" />
         </div>
@@ -86,7 +87,9 @@ export function TokenEndpointCard({ copiedKey, onCopy }: Props) {
             <span className="text-emerald-400 font-mono font-bold text-xs">
               {"// Token Response (200 OK):"}
             </span>
-            <span className="text-[11px] font-mono text-emerald-400">JSON (200 OK)</span>
+            <span className="text-[11px] font-mono text-emerald-400">
+              JSON (200 OK)
+            </span>
           </div>
           <CodeHighlighter code={responseJson} language="json" />
         </div>

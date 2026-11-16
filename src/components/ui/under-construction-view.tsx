@@ -1,7 +1,14 @@
 "use client";
 
+import {
+  ArrowLeft,
+  Bell,
+  CheckCircle2,
+  Construction,
+  Layers,
+  Sparkles,
+} from "lucide-react";
 import { useState } from "react";
-import { Construction, ArrowLeft, Bell, CheckCircle2, Sparkles, Layers } from "lucide-react";
 
 export function UnderConstructionView({
   featureName = "Tính năng này",
@@ -42,7 +49,8 @@ export function UnderConstructionView({
           {featureName} đang được phát triển
         </h1>
         <p className="mx-auto mt-2 max-w-md text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Đội ngũ kỹ sư VNTEZ đang hoàn thiện các pipeline kiến trúc cuối cùng trước khi đưa vào sản xuất thương mại.
+          Đội ngũ kỹ sư VNTEZ đang hoàn thiện các pipeline kiến trúc cuối cùng
+          trước khi đưa vào sản xuất thương mại.
         </p>
 
         {/* Development Progress Bar */}
@@ -51,7 +59,9 @@ export function UnderConstructionView({
             <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
               <Layers className="h-3.5 w-3.5 text-primary" /> Tiến độ hoàn thiện
             </span>
-            <span className="font-mono font-bold text-primary">{progressPercent}%</span>
+            <span className="font-mono font-bold text-primary">
+              {progressPercent}%
+            </span>
           </div>
           <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
             <div
@@ -66,7 +76,9 @@ export function UnderConstructionView({
           {subscribed ? (
             <div className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500/10 p-3 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="h-4 w-4" />
-              <span>Đã lưu! Hệ thống sẽ gửi email ngay khi tính năng ra mắt.</span>
+              <span>
+                Đã lưu! Hệ thống sẽ gửi email ngay khi tính năng ra mắt.
+              </span>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="flex gap-2">

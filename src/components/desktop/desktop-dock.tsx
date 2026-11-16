@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useMotionValue } from "framer-motion";
-import type { Node, FileNode } from "./types";
+import { motion, type useMotionValue } from "framer-motion";
 import { DockMagnify } from "./dock-magnify";
+import type { FileNode, Node } from "./types";
 
 export function DesktopDock({
   dockNodes,

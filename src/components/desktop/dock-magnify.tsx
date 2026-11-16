@@ -1,11 +1,16 @@
 "use client";
 
+import {
+  motion,
+  type useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import type { Node, FileNode, FolderNode, AppNode } from "./types";
 import { launch } from "./desktop-utils";
+import { FileGlyph, FolderGlyph, Glyph } from "./icons/glyphs";
 import { MyPcDockIcon, TrashDockIcon } from "./icons/system-dock-icons";
-import { FolderGlyph, FileGlyph, Glyph } from "./icons/glyphs";
+import type { AppNode, FileNode, FolderNode, Node } from "./types";
 
 export function DockMagnify({
   node,

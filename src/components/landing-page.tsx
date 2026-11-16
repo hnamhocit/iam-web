@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
+import { LandingCodeSandbox } from "./landing/landing-code-sandbox";
+import { LandingCtaFooter } from "./landing/landing-cta-footer";
+import { LandingEndpoints } from "./landing/landing-endpoints";
+import { LandingFeatures } from "./landing/landing-features";
 import { LandingHeader } from "./landing/landing-header";
 import { LandingHero } from "./landing/landing-hero";
-import { LandingFeatures } from "./landing/landing-features";
-import { LandingCodeSandbox } from "./landing/landing-code-sandbox";
-import { LandingEndpoints } from "./landing/landing-endpoints";
-import { LandingCtaFooter } from "./landing/landing-cta-footer";
 
 export { MASTER_AI_INTEGRATION_PROMPT } from "./landing/code-examples-data";
 

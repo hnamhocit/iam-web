@@ -16,12 +16,14 @@ export function DesktopWallpaper({
           isDark ? wallpaper.darkBg : wallpaper.lightBg
         }`}
       />
-      {(isDark ? wallpaper.darkBlobs : wallpaper.lightBlobs).map((blobCls: string, i: number) => (
-        <div
-          key={i}
-          className={`absolute rounded-full transition-all duration-700 ${blobCls}`}
-        />
-      ))}
+      {(isDark ? wallpaper.darkBlobs : wallpaper.lightBlobs).map(
+        (blobCls: string, i: number) => (
+          <div
+            key={i}
+            className={`absolute rounded-full transition-all duration-700 ${blobCls}`}
+          />
+        ),
+      )}
       {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 
 interface CodeHighlighterProps {
   code: string;
@@ -32,7 +32,7 @@ function highlightCurlLine(line: string, index: number) {
       parts.push(
         <span key={keyIdx++} className="text-slate-300">
           {line.slice(lastIndex, match.index)}
-        </span>
+        </span>,
       );
     }
 
@@ -42,42 +42,45 @@ function highlightCurlLine(line: string, index: number) {
       parts.push(
         <span key={keyIdx++} className="text-cyan-400 font-bold">
           {token}
-        </span>
+        </span>,
       );
     } else if (match[2]) {
       // flags (-X, -H, -d)
       parts.push(
         <span key={keyIdx++} className="text-amber-400 font-semibold">
           {token}
-        </span>
+        </span>,
       );
     } else if (match[3]) {
       // HTTP verbs
       parts.push(
         <span key={keyIdx++} className="text-emerald-400 font-bold">
           {token}
-        </span>
+        </span>,
       );
     } else if (match[4]) {
       // URL
       parts.push(
-        <span key={keyIdx++} className="text-sky-300 underline underline-offset-2 decoration-sky-500/40">
+        <span
+          key={keyIdx++}
+          className="text-sky-300 underline underline-offset-2 decoration-sky-500/40"
+        >
           {token}
-        </span>
+        </span>,
       );
     } else if (match[5]) {
       // String in quotes
       parts.push(
         <span key={keyIdx++} className="text-teal-300">
           {token}
-        </span>
+        </span>,
       );
     } else if (match[6]) {
       // Backslash at end of line
       parts.push(
         <span key={keyIdx++} className="text-slate-500 font-bold">
           {token}
-        </span>
+        </span>,
       );
     } else {
       parts.push(<span key={keyIdx++}>{token}</span>);
@@ -90,7 +93,7 @@ function highlightCurlLine(line: string, index: number) {
     parts.push(
       <span key={keyIdx++} className="text-slate-300">
         {line.slice(lastIndex)}
-      </span>
+      </span>,
     );
   }
 
@@ -122,7 +125,7 @@ function highlightJsonLine(line: string, index: number) {
       parts.push(
         <span key={keyIdx++} className="text-slate-400">
           {line.slice(lastIndex, match.index)}
-        </span>
+        </span>,
       );
     }
 
@@ -132,12 +135,12 @@ function highlightJsonLine(line: string, index: number) {
       parts.push(
         <span key={keyIdx++} className="text-sky-300 font-medium">
           &quot;{match[2]}&quot;
-        </span>
+        </span>,
       );
       parts.push(
         <span key={keyIdx++} className="text-slate-400">
           :{" "}
-        </span>
+        </span>,
       );
     } else if (match[3]) {
       // "string value"
@@ -145,38 +148,46 @@ function highlightJsonLine(line: string, index: number) {
       parts.push(
         <span
           key={keyIdx++}
-          className={isWildcard ? "text-amber-300 font-bold" : "text-emerald-300"}
+          className={
+            isWildcard ? "text-amber-300 font-bold" : "text-emerald-300"
+          }
         >
           {token}
-        </span>
+        </span>,
       );
     } else if (match[4]) {
       // number
       parts.push(
         <span key={keyIdx++} className="text-amber-400 font-mono">
           {token}
-        </span>
+        </span>,
       );
     } else if (match[5]) {
       // boolean
       parts.push(
-        <span key={keyIdx++} className="text-purple-400 font-semibold font-mono">
+        <span
+          key={keyIdx++}
+          className="text-purple-400 font-semibold font-mono"
+        >
           {token}
-        </span>
+        </span>,
       );
     } else if (match[6]) {
       // null
       parts.push(
-        <span key={keyIdx++} className="text-rose-400 italic font-semibold font-mono">
+        <span
+          key={keyIdx++}
+          className="text-rose-400 italic font-semibold font-mono"
+        >
           {token}
-        </span>
+        </span>,
       );
     } else if (match[7]) {
       // syntax
       parts.push(
         <span key={keyIdx++} className="text-slate-400 font-bold">
           {token}
-        </span>
+        </span>,
       );
     } else {
       parts.push(<span key={keyIdx++}>{token}</span>);
@@ -189,7 +200,7 @@ function highlightJsonLine(line: string, index: number) {
     parts.push(
       <span key={keyIdx++} className="text-slate-400">
         {line.slice(lastIndex)}
-      </span>
+      </span>,
     );
   }
 
@@ -207,7 +218,10 @@ export function CodeHighlighter({
 }: CodeHighlighterProps) {
   const lines = code.trim().split("\n");
 
-  const isJson = language === "json" || code.trim().startsWith("{") || code.trim().startsWith("[");
+  const isJson =
+    language === "json" ||
+    code.trim().startsWith("{") ||
+    code.trim().startsWith("[");
 
   return (
     <div
@@ -215,7 +229,7 @@ export function CodeHighlighter({
     >
       <pre className="whitespace-pre">
         {lines.map((line, idx) =>
-          isJson ? highlightJsonLine(line, idx) : highlightCurlLine(line, idx)
+          isJson ? highlightJsonLine(line, idx) : highlightCurlLine(line, idx),
         )}
       </pre>
     </div>

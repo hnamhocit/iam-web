@@ -1,26 +1,26 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import {
-  FileText,
-  FolderOpen,
-  ExternalLink,
-  Undo2,
   ArrowDown,
   ArrowRight,
   ArrowUpDown,
+  Download,
+  ExternalLink,
+  FileText,
+  FolderOpen,
   Grid as GridIcon,
   Image as ImageIcon,
-  Trash,
   Monitor,
-  Download,
+  Pencil,
   Pin,
   PinOff,
-  Pencil,
+  Trash,
+  Undo2,
 } from "lucide-react";
-import type { Layout, Node, Zone, FileNode, AppNode, TrashItem } from "./types";
+import { useMemo, useState } from "react";
 import type { Ctx, CtxItem } from "./context-menu";
 import { launch, srcOf } from "./desktop-utils";
+import type { AppNode, FileNode, Layout, Node, TrashItem, Zone } from "./types";
 
 export function useDesktopContextMenu({
   layout,

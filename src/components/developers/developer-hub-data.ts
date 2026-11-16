@@ -1,11 +1,11 @@
 export const CANONICAL_GATEWAY_URL = "https://vntez-iam.vercel.app";
 
-export const MASTER_PROMPT = `Bạn là AI chuyên gia bảo mật và fullstack developer. Hãy tích hợp tính năng đăng nhập Single Sign-On (SSO) bằng VNTEZ IAM qua giao thức chuẩn OAuth 2.0 PKCE (RFC 7636 & RFC 6749) vào dự án này theo quy trình dưới đây:
+export const MASTER_PROMPT = `Bạn là AI chuyên gia bảo mật và fullstack developer. Hãy tích hợp tính năng đăng nhập Single Sign-On (SSO) bằng VNTEZ IAM qua giao thức chuẩn OAuth 2.0 PKCE (RFC 7636 & RFC 6749) vào dự án này theo quy trình chuẩn dưới đây:
 
 === 1. YÊU CẦU BẮT BUỘC TRƯỚC KHI TÍCH HỢP ===
-- Client ID (và Client Secret nếu là ứng dụng server bí mật) BẮT BUỘC phải được tạo và quản lý tại VNTEZ Console: https://vntez-console.vercel.app
-- Khi tạo Client trên VNTEZ Console, bạn phải đăng ký đúng Redirect URI của ứng dụng (ví dụ: https://your-domain.com/auth/callback hoặc http://localhost:3000/auth/callback khi phát triển local).
-- Điền Client ID đã được cấp vào biến môi trường VNTEZ_CLIENT_ID (thay thế placeholder <YOUR_VNTEZ_CLIENT_ID>). KHÔNG ĐƯỢC để lộ Client Secret ở ứng dụng client/frontend.
+- App ID (hoặc Client ID) BẮT BUỘC là định danh của ứng dụng trong bảng Apps của VNTEZ (ví dụ: 'vntez', 'solotype', 'workers-hub').
+- Cấu hình Redirect URI của ứng dụng phải khớp chính xác với Redirect URI đã đăng ký (ví dụ: https://your-domain.com/auth/callback hoặc http://localhost:3000/auth/callback khi phát triển local).
+- Điền App ID vào biến môi trường VNTEZ_APP_ID hoặc NEXT_PUBLIC_VNTEZ_APP_ID (thay thế placeholder <YOUR_APP_ID>). KHÔNG ĐƯỢC lưu Client Secret ở frontend.
 
 === 2. CỔNG XÁC THỰC VNTEZ IAM & CÁC ENDPOINT OAUTH 2.0 ===
 Cổng xác thực định danh VNTEZ IAM Gateway:
@@ -14,7 +14,7 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
 1. Endpoint Chuyển hướng Xác thực (GET):
    URL: ${CANONICAL_GATEWAY_URL}/oauth/authorize
    Tham số Query:
-   * client_id: Client ID được cấp từ VNTEZ Console
+   * app_id: App ID của ứng dụng (hoặc client_id)
    * redirect_uri: URL nhận callback đã đăng ký (phải khớp 100%)
    * response_type: "code"
    * state: Chuỗi ngẫu nhiên cryptographically secure (32 ký tự) chống tấn công CSRF
@@ -23,12 +23,12 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
 
 2. Endpoint Đổi Token (POST):
    URL: ${CANONICAL_GATEWAY_URL}/oauth/token
-   Header: Content-Type: application/json (hoặc application/x-www-form-urlencoded)
+   Header: Content-Type: application/json
    Payload Body:
    {
      "grant_type": "authorization_code",
      "code": "<auth_code_nhan_duoc_tu_redirect>",
-     "client_id": "<YOUR_VNTEZ_CLIENT_ID>",
+     "app_id": "<YOUR_APP_ID>",
      "code_verifier": "<original_code_verifier>",
      "redirect_uri": "<redirect_uri_da_dang_ky>"
    }
@@ -52,7 +52,7 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
      "name": "Hoàng Nam",
      "avatar": "https://avatars.githubusercontent.com/u/102873",
      "picture": "https://avatars.githubusercontent.com/u/102873",
-     "app_id": null, // null nếu là Root Console, hoặc ID app vệ tinh (ví dụ: "solotype")
+     "app_id": "solotype", // null nếu là Root, hoặc ID app vệ tinh (ví dụ: "solotype")
      "role": "admin", // Vai trò chính trong app này
      "roles": ["admin"], // Danh sách vai trò trong app này
      "permissions": ["*:*"] // Quyền hạn tương ứng trong app này
@@ -62,7 +62,7 @@ Cổng xác thực định danh VNTEZ IAM Gateway:
    URL: ${CANONICAL_GATEWAY_URL}/auth/logout (hoặc /oauth/logout)
    Tham số Query hoặc Body JSON:
    * redirect_url (hoặc post_logout_redirect_uri): URL chuyển hướng sau khi đăng xuất
-   * LƯU Ý BẢO MẬT: Ứng dụng vệ tinh TUYỆT ĐỐI KHÔNG kết nối trực tiếp vào Supabase để gọi supabase.auth.signOut(). Chỉ cần điều hướng người dùng hoặc gọi API tới ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<YOUR_APP_LOGIN_URL> để xóa phiên làm việc đồng bộ trên toàn bộ hệ thống SSO.
+   * LƯU Ý BẢO MẬT: Ứng dụng vệ tinh TUYỆT ĐỐI KHÔNG kết nối trực tiếp vào Supabase để gọi signOut(). Chỉ cần điều hướng người dùng hoặc gọi API tới ${CANONICAL_GATEWAY_URL}/auth/logout?redirect_url=<YOUR_APP_LOGIN_URL> để xóa phiên làm việc đồng bộ trên toàn bộ hệ thống SSO.
 
 5. OpenID Connect Discovery:
    URL: ${CANONICAL_GATEWAY_URL}/.well-known/openid-configuration
@@ -72,7 +72,7 @@ Bước 1: Viết hàm sinh 'code_verifier' ngẫu nhiên (43-128 ký tự base6
 Bước 2: Khi người dùng bấm "Đăng nhập bằng VNTEZ IAM":
    - Lưu 'state' và 'code_verifier' vào HTTP-only cookie (hoặc session bảo mật).
    - Chuyển hướng trình duyệt tới URL xác thực của VNTEZ IAM:
-     ${CANONICAL_GATEWAY_URL}/oauth/authorize?client_id=<YOUR_VNTEZ_CLIENT_ID>&redirect_uri=<REDIRECT_URI>&response_type=code&state=<STATE>&code_challenge=<CODE_CHALLENGE>&code_challenge_method=S256
+     ${CANONICAL_GATEWAY_URL}/oauth/authorize?app_id=<YOUR_APP_ID>&redirect_uri=<REDIRECT_URI>&response_type=code&state=<STATE>&code_challenge=<CODE_CHALLENGE>&code_challenge_method=S256
 Bước 3: Tạo route callback nhận 'code' và 'state' từ URL query:
    - So khớp 'state' với state đã lưu trong cookie (nếu không khớp -> từ chối request để chống CSRF).
    - Đọc 'code_verifier' đã lưu.
@@ -90,7 +90,7 @@ npm install github:vntez-labs/vntez-sdk-ts
 
 **Cấu hình môi trường (.env.local):**
 \`\`\`
-NEXT_PUBLIC_VNTEZ_CLIENT_ID=<app_id> (ví dụ: 'solotype')
+NEXT_PUBLIC_VNTEZ_APP_ID=<app_id> (ví dụ: 'solotype')
 NEXT_PUBLIC_VNTEZ_REDIRECT_URI=http://localhost:3000/auth/callback
 \`\`\`
 
@@ -99,7 +99,7 @@ NEXT_PUBLIC_VNTEZ_REDIRECT_URI=http://localhost:3000/auth/callback
 import { VntezClient } from '@vntez/sdk';
 
 export const vntez = new VntezClient({
-  appId: process.env.NEXT_PUBLIC_VNTEZ_CLIENT_ID!,
+  appId: process.env.NEXT_PUBLIC_VNTEZ_APP_ID!,
 });
 
 // 1. Đăng nhập
@@ -111,17 +111,4 @@ const { user, accessToken } = await vntez.auth.handleCallback();
 // 3. Đăng xuất
 vntez.auth.signOut();
 \`\`\`
-
-**Upload File (R2 Storage):**
-\`\`\`typescript
-// Upload nhanh file nhỏ (< 5MB)
-const res = await vntez.upload.single(file);
-
-// Upload file lớn đa phần (Uppy adapter)
-const companion = vntez.upload.getUppyCompanion();
-\`\`\`
-
-**Remote Config:**
-\`\`\`typescript
-const { enabled, config } = await vntez.config.get();
-\`\`\``;
+`;

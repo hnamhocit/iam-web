@@ -1,9 +1,9 @@
 "use client";
 
 import { RotateCcw, Trash, X } from "lucide-react";
+import { FileGlyph, FolderGlyph, Glyph } from "../icons/glyphs";
 import { Modal } from "../modal-base";
 import type { TrashItem } from "../types";
-import { FolderGlyph, FileGlyph, Glyph } from "../icons/glyphs";
 
 export function TrashWindow({
   trash,

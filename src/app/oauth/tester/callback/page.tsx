@@ -1,17 +1,17 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
-import Link from "next/link";
 import {
-  CheckCircle2,
   ArrowRight,
+  Check,
+  CheckCircle2,
+  Copy,
+  ExternalLink,
   Key,
   User,
-  Copy,
-  Check,
-  ExternalLink,
 } from "lucide-react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 function CallbackContent() {
   const searchParams = useSearchParams();

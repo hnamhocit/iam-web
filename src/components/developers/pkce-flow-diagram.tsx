@@ -1,4 +1,3 @@
-import React from "react";
 import { Layers } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -73,7 +72,9 @@ export function PkceFlowDiagram() {
               App ➔ Gateway
             </span>
           </div>
-          <h4 className="font-bold text-sm text-foreground">Đổi mã lấy Token</h4>
+          <h4 className="font-bold text-sm text-foreground">
+            Đổi mã lấy Token
+          </h4>
           <p className="text-xs text-muted-foreground leading-relaxed">
             Gửi POST tới <code>/oauth/token</code> cùng <code>code</code> và{" "}
             <code>code_verifier</code> để nhận JWT Access Token.

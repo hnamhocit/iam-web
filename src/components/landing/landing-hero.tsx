@@ -52,17 +52,6 @@ export function LandingHero() {
         }}
       />
 
-      {/* Pill Badge */}
-      <div className="relative z-10 mb-6 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 dark:bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary backdrop-blur-md shadow-xs">
-        <span className="relative flex size-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-          <span className="relative inline-flex rounded-full size-2 bg-primary" />
-        </span>
-        <span className="tracking-tight">
-          Nền tảng Định danh Tập trung & SSO OAuth 2.0 PKCE 2.0
-        </span>
-      </div>
-
       {/* Main Headline */}
       <h1 className="relative z-10 font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.15] max-w-5xl mx-auto">
         <span>Một định danh duy nhất cho</span>{" "}
@@ -84,7 +73,7 @@ export function LandingHero() {
         <Button
           size="lg"
           asChild
-          className="rounded-2xl shadow-lg shadow-primary/25 gap-2 text-sm sm:text-base font-bold px-7 h-12"
+          className="rounded-xl gap-2 text-sm sm:text-base font-bold px-7 h-11"
         >
           <Link href="/developers">
             <span>Khám phá Developer Hub</span>
@@ -96,7 +85,7 @@ export function LandingHero() {
           variant="outline"
           size="lg"
           asChild
-          className="rounded-2xl text-sm sm:text-base font-semibold px-7 h-12 backdrop-blur-md bg-card/60 hover:bg-card/90"
+          className="rounded-xl text-sm sm:text-base font-medium px-7 h-11 border-border bg-card hover:bg-muted/50"
         >
           <Link href="/login">
             <span>Đăng nhập tài khoản</span>
@@ -107,7 +96,7 @@ export function LandingHero() {
           variant="ghost"
           size="lg"
           asChild
-          className="rounded-2xl text-xs sm:text-sm font-medium px-4 h-12 text-muted-foreground hover:text-foreground gap-1.5"
+          className="rounded-xl text-xs sm:text-sm font-medium px-4 h-11 text-muted-foreground hover:text-foreground gap-1.5"
         >
           <Link href="/oauth/tester/callback">
             <Terminal className="h-4 w-4 text-primary" />
@@ -117,7 +106,7 @@ export function LandingHero() {
       </div>
 
       {/* HERO VISUAL MOCKUP: Live SSO & Token Inspector Window */}
-      <div className="relative z-10 mt-14 mx-auto max-w-5xl rounded-3xl border border-border/80 bg-card/80 dark:bg-card/60 shadow-2xl backdrop-blur-2xl overflow-hidden text-left">
+      <div className="relative z-10 mt-12 mx-auto max-w-5xl rounded-2xl border border-border bg-card overflow-hidden text-left">
         {/* macOS Window Top Bar */}
         <div className="flex items-center justify-between border-b border-border/60 bg-muted/40 px-4 sm:px-6 py-3">
           <div className="flex items-center gap-2">

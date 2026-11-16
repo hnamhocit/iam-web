@@ -1,10 +1,16 @@
 "use client";
 
+import {
+  Code2,
+  Grid as GridIcon,
+  Image as ImageIcon,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import Link from "next/link";
-import { Code2, Grid as GridIcon, Volume2, VolumeX, Image as ImageIcon } from "lucide-react";
 import { MenuClock } from "./menu-clock";
-import { UserMenu } from "./user-menu";
 import type { MappedUser } from "./types";
+import { UserMenu } from "./user-menu";
 
 export function DesktopMenubar({
   user,

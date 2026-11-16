@@ -14,13 +14,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Điều khoản sử dụng | VNTEZ IAM",
-    description: "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
+    description:
+      "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
     url: "/terms",
   },
   twitter: {
     card: "summary",
     title: "Điều khoản sử dụng | VNTEZ IAM",
-    description: "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
+    description:
+      "Điều khoản sử dụng dịch vụ VNTEZ IAM và hệ sinh thái dịch vụ kỹ thuật số VNTEZ.",
   },
 };
 

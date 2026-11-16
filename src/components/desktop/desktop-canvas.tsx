@@ -1,10 +1,10 @@
 "use client";
 
 import type { RefObject } from "react";
-import type { Node, PosMap, SlotPos, FileNode } from "./types";
-import { CELL_W, CELL_H, PAD_X, PAD_Y } from "./constants";
-import { SysIcon, TrashSysIcon } from "./icons/system-icons";
+import { CELL_H, CELL_W, PAD_X, PAD_Y } from "./constants";
 import { DesktopIcon } from "./icons/desktop-icon";
+import { SysIcon, TrashSysIcon } from "./icons/system-icons";
+import type { FileNode, Node, PosMap, SlotPos } from "./types";
 
 export function DesktopCanvas({
   mainRef,
@@ -62,7 +62,11 @@ export function DesktopCanvas({
   onMainDragLeave: () => void;
   onMainDrop: (e: React.DragEvent) => void;
   onContextMenu: (e: React.MouseEvent) => void;
-  onDragStart: (e: React.DragEvent, id: string, zone?: "desktop" | "dock") => void;
+  onDragStart: (
+    e: React.DragEvent,
+    id: string,
+    zone?: "desktop" | "dock",
+  ) => void;
   onDragEnd: () => void;
   onDropNode: (e: React.DragEvent, targetId: string) => void;
   onOpenMyPc: () => void;

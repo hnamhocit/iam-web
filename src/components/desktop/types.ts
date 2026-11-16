@@ -47,7 +47,12 @@ export type FolderNode = {
 
 export type Node = AppNode | FileNode | FolderNode;
 export type Layout = { desktop: Node[]; dock: Node[] };
-export type TrashItem = { id: string; node: Node; origin: Zone; deletedAt: number };
+export type TrashItem = {
+  id: string;
+  node: Node;
+  origin: Zone;
+  deletedAt: number;
+};
 export type Toast = {
   id: string;
   message: string;

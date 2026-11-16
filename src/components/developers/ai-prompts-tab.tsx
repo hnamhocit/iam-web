@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { Bot, Copy, Check } from "lucide-react";
+import { Bot, Check, Copy } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from "@/components/ui/card";
 import { MASTER_PROMPT } from "./developer-hub-data";
 
@@ -33,7 +33,8 @@ export function AiPromptsTab() {
                   Master Integration Prompt (Dùng cho mọi AI Assistant)
                 </CardTitle>
                 <CardDescription>
-                  Copy và dán trực tiếp vào Cursor Composer, Claude Code, Windsurf hoặc ChatGPT
+                  Copy và dán trực tiếp vào Cursor Composer, Claude Code,
+                  Windsurf hoặc ChatGPT
                 </CardDescription>
               </div>
             </div>

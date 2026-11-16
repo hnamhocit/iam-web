@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { connection } from "next/server";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { LoginContent } from "@/components/login-content";
-import { createClient } from "@/lib/supabase/server";
 import { safeReturnTo } from "@/lib/redirect";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Đăng nhập",

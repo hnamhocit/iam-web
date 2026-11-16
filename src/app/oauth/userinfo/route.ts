@@ -78,10 +78,15 @@ async function getScopedUserRolesAndPerms(
       .in("role_id", roleDbKeys);
 
     if (permsData && permsData.length > 0) {
-      permissions = Array.from(new Set(permsData.map((p: any) => p.permission)));
+      permissions = Array.from(
+        new Set(permsData.map((p: any) => p.permission)),
+      );
     }
   } catch (err) {
-    console.warn("[/oauth/userinfo] Không thể truy vấn iam_role_permissions:", err);
+    console.warn(
+      "[/oauth/userinfo] Không thể truy vấn iam_role_permissions:",
+      err,
+    );
   }
 
   if (isSuperAdmin || userEmail === "hnamhocit@gmail.com") {
@@ -125,7 +130,11 @@ async function handleUserInfo(req: Request) {
       req.headers.get("X-App-Id") ||
       url.searchParams.get("app_id") ||
       (payload as any).app_id ||
-      (payload.aud && payload.aud !== "vntez-console-app" && payload.aud !== "root" ? payload.aud : null);
+      (payload.aud &&
+      payload.aud !== "vntez-console-app" &&
+      payload.aud !== "root"
+        ? payload.aud
+        : null);
 
     const targetAppId =
       rawAppId &&
@@ -141,7 +150,11 @@ async function handleUserInfo(req: Request) {
     const userEmail = user?.email || payload.email || "";
     const userId = user?.id || payload.sub;
 
-    const rbac = await getScopedUserRolesAndPerms(userId, userEmail, targetAppId);
+    const rbac = await getScopedUserRolesAndPerms(
+      userId,
+      userEmail,
+      targetAppId,
+    );
 
     if (user) {
       return NextResponse.json(

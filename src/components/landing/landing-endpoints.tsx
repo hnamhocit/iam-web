@@ -52,11 +52,8 @@ export function LandingEndpoints() {
       id="endpoints"
       className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border/50"
     >
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div className="space-y-2.5 max-w-2xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold text-primary uppercase tracking-wider font-mono">
-            REST API Architecture
-          </div>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div className="space-y-2 max-w-2xl">
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
             4 Endpoints Chuẩn REST Kết nối Độc lập
           </h2>
@@ -70,7 +67,7 @@ export function LandingEndpoints() {
           variant="outline"
           size="sm"
           asChild
-          className="rounded-2xl h-10 px-5 text-xs font-semibold shrink-0 gap-2 border-border/80"
+          className="rounded-xl h-9 px-4 text-xs font-medium shrink-0 gap-2 border-border"
         >
           <Link href="/developers">
             <Code2 className="h-3.5 w-3.5 text-primary" />
@@ -80,11 +77,11 @@ export function LandingEndpoints() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {endpoints.map((ep) => (
           <div
             key={ep.path}
-            className="group relative rounded-3xl border border-border/80 bg-card/75 dark:bg-card/50 p-6 shadow-md shadow-black/[0.02] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/40 flex flex-col justify-between space-y-5"
+            className="group relative rounded-2xl border border-border bg-card p-5 transition-colors hover:border-border flex flex-col justify-between space-y-4"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { AuthorizeEndpointCard } from "./endpoints/authorize-card";
+import { DiscoveryEndpointCard } from "./endpoints/discovery-card";
+import { LogoutEndpointCard } from "./endpoints/logout-card";
 import { TokenEndpointCard } from "./endpoints/token-card";
 import { UserinfoEndpointCard } from "./endpoints/userinfo-card";
-import { LogoutEndpointCard } from "./endpoints/logout-card";
-import { DiscoveryEndpointCard } from "./endpoints/discovery-card";
 
 export function EndpointsSpecCards() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);

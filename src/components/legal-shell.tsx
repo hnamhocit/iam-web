@@ -1,9 +1,9 @@
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ModeToggle } from "@/components/ThemeToggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
 
 export type LegalAccent = "primary" | "success" | "info";
 
@@ -79,7 +79,9 @@ export function LegalChip({
 }) {
   const a = A[accent];
   return (
-    <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${a.chip}`}>
+    <span
+      className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${a.chip}`}
+    >
       {children}
     </span>
   );
@@ -118,7 +120,11 @@ export function LegalShell({
 
         <header className="mb-12">
           <div className="mb-4 flex items-center gap-3">
-            <img src="/logo.svg" alt="VNTEZ IAM" className="h-7 w-7 rounded-md" />
+            <img
+              src="/logo.svg"
+              alt="VNTEZ IAM"
+              className="h-7 w-7 rounded-md"
+            />
             <span
               className={`font-mono text-xs uppercase tracking-[0.22em] font-bold ${a.badge}`}
             >
@@ -130,7 +136,9 @@ export function LegalShell({
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">
             Cập nhật lần cuối:{" "}
-            <span className="font-mono text-foreground/90 font-medium">{updatedAt}</span>
+            <span className="font-mono text-foreground/90 font-medium">
+              {updatedAt}
+            </span>
           </p>
         </header>
 

@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import { useMotionValue } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { WALLPAPERS } from "./desktop/constants";
-import type { MappedUser, SystemApp, UserApp } from "./desktop/types";
-import { useDesktopState } from "./desktop/use-desktop-state";
-import { DesktopWallpaper } from "./desktop/desktop-wallpaper";
-import { DesktopMenubar } from "./desktop/desktop-menubar";
+import { ContextMenu } from "./desktop/context-menu";
 import { DesktopCanvas } from "./desktop/desktop-canvas";
 import { DesktopDock } from "./desktop/desktop-dock";
+import { DesktopMenubar } from "./desktop/desktop-menubar";
 import { DesktopToast } from "./desktop/desktop-toast";
-import { ContextMenu } from "./desktop/context-menu";
+import { DesktopWallpaper } from "./desktop/desktop-wallpaper";
 import { AddAppModal } from "./desktop/modals/add-app-modal";
 import { FileEditorModal } from "./desktop/modals/file-editor-modal";
 import { FolderWindow } from "./desktop/modals/folder-window";
-import { TrashWindow } from "./desktop/modals/trash-window";
 import { MyPcModal } from "./desktop/modals/my-pc-modal";
+import { TrashWindow } from "./desktop/modals/trash-window";
 import { WallpaperModal } from "./desktop/modals/wallpaper-modal";
+import type { MappedUser, SystemApp, UserApp } from "./desktop/types";
+import { useDesktopState } from "./desktop/use-desktop-state";
 
 export function AccountDashboard({
   user,
@@ -103,7 +103,9 @@ export function AccountDashboard({
           const id = e.dataTransfer.getData("text/plain");
           if (id && id !== "sys-trash") {
             if (id === "sys-mypc" || id === "welcome-file") {
-              state.showNotification("Mục hệ thống không thể xóa vào Thùng rác");
+              state.showNotification(
+                "Mục hệ thống không thể xóa vào Thùng rác",
+              );
             } else {
               state.moveToTrash(id);
             }
@@ -132,10 +134,7 @@ export function AccountDashboard({
       />
 
       {/* ================= TOAST NOTIFICATION ================= */}
-      <DesktopToast
-        toast={state.toast}
-        onClose={() => state.setToast(null)}
-      />
+      <DesktopToast toast={state.toast} onClose={() => state.setToast(null)} />
 
       {/* ================= OVERLAYS & MODALS ================= */}
       {state.ctx && (

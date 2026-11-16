@@ -112,7 +112,7 @@ export async function POST(request: Request) {
   const target = returnTo
     ? returnTo.startsWith("/")
       ? `${origin}${returnTo}`
-    : returnTo
+      : returnTo
     : null;
 
   return NextResponse.json(

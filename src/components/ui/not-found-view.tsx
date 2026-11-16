@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowLeft, Home, BookOpen, LayoutDashboard, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  Home,
+  LayoutDashboard,
+  ShieldCheck,
+} from "lucide-react";
 
 export function NotFoundView({
   appName = "VNTEZ Ecosystem",
@@ -30,7 +36,8 @@ export function NotFoundView({
           Không tìm thấy trang yêu cầu
         </h1>
         <p className="mx-auto mt-2.5 max-w-md text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Đường dẫn bạn truy cập có thể đã thay đổi, bị xóa hoặc tạm thời không khả dụng trong hệ sinh thái {appName}.
+          Đường dẫn bạn truy cập có thể đã thay đổi, bị xóa hoặc tạm thời không
+          khả dụng trong hệ sinh thái {appName}.
         </p>
 
         {/* Action Buttons */}
@@ -71,8 +78,12 @@ export function NotFoundView({
                 <BookOpen className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-800 dark:text-white">Tài liệu API</p>
-                <p className="text-[10px] text-slate-400 truncate">Hướng dẫn tích hợp</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white">
+                  Tài liệu API
+                </p>
+                <p className="text-[10px] text-slate-400 truncate">
+                  Hướng dẫn tích hợp
+                </p>
               </div>
             </a>
 
@@ -84,8 +95,12 @@ export function NotFoundView({
                 <LayoutDashboard className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-800 dark:text-white">Console</p>
-                <p className="text-[10px] text-slate-400 truncate">Quản trị hạ tầng</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white">
+                  Console
+                </p>
+                <p className="text-[10px] text-slate-400 truncate">
+                  Quản trị hạ tầng
+                </p>
               </div>
             </a>
 
@@ -97,8 +112,12 @@ export function NotFoundView({
                 <ShieldCheck className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-800 dark:text-white">VNTEZ IAM</p>
-                <p className="text-[10px] text-slate-400 truncate">Cổng định danh SSO</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white">
+                  VNTEZ IAM
+                </p>
+                <p className="text-[10px] text-slate-400 truncate">
+                  Cổng định danh SSO
+                </p>
               </div>
             </a>
           </div>

@@ -1,4 +1,5 @@
 import type { PosMap, WallpaperKey } from "./types";
+
 export type { WallpaperKey } from "./types";
 
 export type Wallpaper = {

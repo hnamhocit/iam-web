@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
-import type { AppNode, FileNode, FolderNode, Node } from "../types";
-import { Glyph, FileGlyph, FolderGlyph } from "./glyphs";
+import type React from "react";
 import { launch } from "../desktop-utils";
+import type { AppNode, FileNode, FolderNode, Node } from "../types";
+import { FileGlyph, FolderGlyph, Glyph } from "./glyphs";
 
 export function DesktopIcon({
   node,

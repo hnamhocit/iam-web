@@ -27,7 +27,7 @@ export async function getVntezLoginUrl(redirectUri: string) {
   cookies().set('vntez_state', state, { httpOnly: true, secure: true });
 
   const params = new URLSearchParams({
-    client_id: process.env.VNTEZ_CLIENT_ID!,
+    app_id: process.env.NEXT_PUBLIC_VNTEZ_APP_ID || process.env.VNTEZ_CLIENT_ID!,
     redirect_uri: redirectUri,
     response_type: 'code',
     state: state,
@@ -45,7 +45,7 @@ export async function exchangeCodeForToken(code: string, verifier: string, redir
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       grant_type: 'authorization_code',
-      client_id: process.env.VNTEZ_CLIENT_ID!,
+      app_id: process.env.NEXT_PUBLIC_VNTEZ_APP_ID || process.env.VNTEZ_CLIENT_ID!,
       code,
       code_verifier: verifier,
       redirect_uri: redirectUri,
@@ -57,21 +57,22 @@ export async function exchangeCodeForToken(code: string, verifier: string, redir
 
 // 3. Truy vấn hồ sơ & ma trận quyền hạn (RBAC) theo app_id
 export async function getUserInfo(accessToken: string, appId?: string) {
-  const url = appId
-    ? \`https://vntez-iam.vercel.app/oauth/userinfo?app_id=\${encodeURIComponent(appId)}\`
+  const targetAppId = appId || process.env.NEXT_PUBLIC_VNTEZ_APP_ID;
+  const url = targetAppId
+    ? \`https://vntez-iam.vercel.app/oauth/userinfo?app_id=\${encodeURIComponent(targetAppId)}\`
     : 'https://vntez-iam.vercel.app/oauth/userinfo';
 
   const res = await fetch(url, {
     headers: {
       Authorization: \`Bearer \${accessToken}\`,
-      ...(appId ? { 'X-App-Id': appId } : {}),
+      ...(targetAppId ? { 'X-App-Id': targetAppId } : {}),
     },
   });
 
   return res.json(); // { sub, email, email_verified, name, avatar, picture, app_id, role, roles, permissions }
 }
 
-// 4. Đăng xuất SSO tập trung (KHÔNG kết nối Supabase thủ công)
+// 4. Đăng xuất SSO tập trung (Single Sign-Out)
 export function getVntezLogoutUrl(redirectUrl = 'https://your-app.com/login') {
   return \`https://vntez-iam.vercel.app/auth/logout?redirect_url=\${encodeURIComponent(redirectUrl)}\`;
 }`,
@@ -85,7 +86,7 @@ curl -X POST "https://vntez-iam.vercel.app/oauth/token" \\
   -H "Content-Type: application/json" \\
   -d '{
     "grant_type": "authorization_code",
-    "client_id": "vntez_c18f43a315d368109d4d8aca",
+    "app_id": "vntez",
     "code": "AUTH_CODE_RECEIVED",
     "code_verifier": "ORIGINAL_CODE_VERIFIER",
     "redirect_uri": "https://your-app.com/callback"

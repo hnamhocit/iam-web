@@ -1,10 +1,10 @@
 "use client";
 
 import { FolderOpen, X } from "lucide-react";
-import { Modal } from "../modal-base";
-import type { FolderNode, FileNode, AppNode, Zone } from "../types";
-import { FileGlyph, Glyph } from "../icons/glyphs";
 import { launch } from "../desktop-utils";
+import { FileGlyph, Glyph } from "../icons/glyphs";
+import { Modal } from "../modal-base";
+import type { AppNode, FileNode, FolderNode, Zone } from "../types";
 
 export function FolderWindow({
   folder,
