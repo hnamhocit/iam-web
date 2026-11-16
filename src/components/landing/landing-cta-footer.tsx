@@ -13,16 +13,16 @@ export function LandingCtaFooter() {
         {/* Ambient Glow (Dark Mode Only) */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[550px] rounded-full bg-primary/15 blur-[140px] hidden dark:block" />
 
-        <div className="relative z-10 rounded-2xl border border-border bg-card p-8 sm:p-12 space-y-6">
+        <div className="relative z-10 rounded-2xl border border-[#E7E5E4] dark:border-stone-800 bg-white dark:bg-card p-8 sm:p-12 shadow-[0_2px_12px_rgba(28,25,23,0.04)] dark:shadow-none space-y-6">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <VntezLogo size={28} />
           </div>
 
           <div className="space-y-3 max-w-2xl mx-auto">
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#1C1917] dark:text-white leading-tight">
               Sẵn sàng kết nối ứng dụng với VNTEZ IAM?
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
+            <p className="text-sm sm:text-base text-[#57534E] dark:text-stone-300 leading-relaxed font-sans">
               Đăng ký ứng dụng trong cổng quản trị, cấu hình Redirect URI và
               hoàn tất kết nối Single Sign-On chuẩn quốc tế trong chưa đầy 5
               phút.
@@ -33,7 +33,7 @@ export function LandingCtaFooter() {
             <Button
               size="lg"
               asChild
-              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-bold gap-2"
+              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-bold gap-2 bg-[#F03E2F] hover:bg-[#D93224] text-white shadow-[0_4px_14px_rgba(240,62,47,0.22)] border-0 cursor-pointer"
             >
               <Link href="/developers">
                 <span>Vào Developer Hub</span>
@@ -44,10 +44,11 @@ export function LandingCtaFooter() {
               variant="outline"
               size="lg"
               asChild
-              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-medium gap-2 border-border bg-background hover:bg-muted/50"
+              className="w-full sm:w-auto rounded-xl px-6 h-11 text-sm sm:text-base font-medium gap-2 border-stone-200 dark:border-stone-800 bg-white dark:bg-card hover:bg-stone-50 dark:hover:bg-stone-800/50 text-[#1C1917] dark:text-stone-100 shadow-[0_1px_2px_rgba(28,25,23,0.03)] cursor-pointer"
             >
               <Link href="/login">
-                <span>Đăng nhập tài khoản</span>
+                <span>Đăng nhập</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -63,7 +64,7 @@ export function LandingCtaFooter() {
               <Link href="/" className="flex items-center gap-2.5 group w-fit">
                 <VntezLogo size={28} />
                 <div className="flex items-center gap-1.5 font-bold tracking-tight">
-                  <span className="text-lg bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                  <span className="text-lg text-[#F03E2F] group-hover:opacity-90 transition-opacity">
                     VNTEZ
                   </span>
                   <span className="rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.2 text-[10px] font-mono font-bold text-primary">

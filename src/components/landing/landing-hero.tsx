@@ -72,26 +72,23 @@ export function LandingHero() {
       <div className="pointer-events-none absolute top-48 left-1/4 h-[350px] w-[350px] rounded-full bg-sky-500/15 blur-[140px] hidden dark:block" />
       <div className="pointer-events-none absolute top-48 right-1/4 h-[350px] w-[350px] rounded-full bg-indigo-500/15 blur-[140px] hidden dark:block" />
 
-      {/* Subtle Dot Grid */}
+      {/* Subtle Warm Stone Dot Grid fading smoothly into #FAF9F6 */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.25] dark:opacity-[0.16] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_90%)]"
+        className="pointer-events-none absolute inset-0 text-[#D6D3D1] opacity-45 dark:text-foreground dark:opacity-[0.14] [mask-image:linear-gradient(to_bottom,black_15%,black_45%,transparent_75%)]"
         style={{
-          backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(currentColor 1.25px, transparent 1.25px)",
           backgroundSize: "32px 32px",
         }}
       />
 
       {/* Main Headline: Who I-Am? */}
-      <h1 className="relative z-10 font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-foreground leading-[1.1] max-w-4xl mx-auto">
-        Who{" "}
-        <span className="bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent">
-          I-Am
-        </span>
-        ?
+      <h1 className="relative z-10 font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-[#1C1917] dark:text-white leading-[1.1] max-w-4xl mx-auto">
+        Who <span className="text-[#F03E2F]">I-Am</span>
+        <span className="text-[#1C1917] dark:text-white">?</span>
       </h1>
 
       {/* Subtitle: Natural, human, friendly */}
-      <p className="relative z-10 mx-auto mt-6 max-w-2xl text-base sm:text-xl text-muted-foreground leading-relaxed font-sans">
+      <p className="relative z-10 mx-auto mt-6 max-w-2xl text-base sm:text-xl text-[#57534E] dark:text-stone-300 leading-relaxed font-sans">
         Đăng nhập một chạm để kết nối với tất cả ứng dụng trong hệ sinh thái
         VNTEZ. Nhanh chóng, mượt mà và không còn nỗi lo phải nhớ từng mật khẩu.
       </p>
@@ -101,7 +98,7 @@ export function LandingHero() {
         <Button
           size="lg"
           asChild
-          className="rounded-xl gap-2 text-sm sm:text-base font-bold px-7 h-11 cursor-pointer"
+          className="rounded-xl gap-2 text-sm sm:text-base font-bold px-7 h-11 cursor-pointer bg-[#F03E2F] hover:bg-[#D93224] text-white shadow-[0_4px_14px_rgba(240,62,47,0.22)] border-0 transition-all"
         >
           <Link href="/developers">
             <span>Khám phá Developer Hub</span>
@@ -110,13 +107,13 @@ export function LandingHero() {
         </Button>
 
         <Button
-          variant="outline"
           size="lg"
           asChild
-          className="rounded-xl text-sm sm:text-base font-medium px-7 h-11 border-border bg-card hover:bg-muted/50 cursor-pointer"
+          className="rounded-xl gap-2 text-sm sm:text-base font-bold px-7 h-11 cursor-pointer bg-[#F03E2F] hover:bg-[#D93224] text-white shadow-[0_4px_14px_rgba(240,62,47,0.22)] border-0 transition-all"
         >
           <Link href="/login">
-            <span>Đăng nhập tài khoản</span>
+            <span>Đăng nhập</span>
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>
@@ -128,29 +125,22 @@ export function LandingHero() {
           return (
             <div
               key={item.title}
-              className={`group relative rounded-2xl border border-border bg-card p-6 transition-colors ${item.border} flex flex-col justify-between space-y-4`}
+              className={`group relative rounded-2xl border border-[#E7E5E4] dark:border-stone-800 bg-white dark:bg-card p-6 shadow-[0_2px_12px_rgba(28,25,23,0.04)] dark:shadow-none transition-all duration-200 ${item.border} flex flex-col justify-between space-y-4`}
             >
               <div className="space-y-3">
                 <div
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl ${item.bg} ${item.color} ring-4 ring-border/30 transition-transform group-hover:scale-105 duration-200`}
+                  className={`flex h-11 w-11 items-center justify-center rounded-xl ${item.bg} ${item.color} ring-4 ring-stone-100 dark:ring-stone-800/60 transition-transform group-hover:scale-105 duration-200`}
                 >
                   <Icon className="h-5 w-5" />
                 </div>
 
-                <h3 className="font-display text-base sm:text-lg font-bold text-foreground transition-colors group-hover:text-primary">
+                <h3 className="font-display text-base sm:text-lg font-bold text-[#1C1917] dark:text-stone-100 transition-colors group-hover:text-primary">
                   {item.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[#57534E] dark:text-stone-400 leading-relaxed font-sans">
                   {item.desc}
                 </p>
-              </div>
-
-              <div className="pt-3 border-t border-border/40 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
-                <span className="flex items-center gap-1.5 text-foreground/80 font-medium">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  <span>Sẵn sàng sử dụng</span>
-                </span>
               </div>
             </div>
           );

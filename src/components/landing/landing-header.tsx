@@ -24,7 +24,7 @@ export function LandingHeader({ user }: LandingHeaderProps = {}) {
           <Link href="/" className="flex items-center gap-2.5 group">
             <VntezLogo size={28} />
             <div className="flex items-center gap-1.5 font-bold tracking-tight">
-              <span className="text-base sm:text-lg bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+              <span className="text-base sm:text-lg text-[#F03E2F] transition-opacity group-hover:opacity-90">
                 VNTEZ
               </span>
               <span className="rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.2 text-[11px] font-mono font-bold text-primary">
@@ -115,7 +115,7 @@ export function LandingHeader({ user }: LandingHeaderProps = {}) {
               <Button
                 size="sm"
                 asChild
-                className="rounded-xl h-8 px-3.5 text-xs font-semibold shadow-sm shadow-primary/20 gap-1.5"
+                className="rounded-xl h-8 px-3.5 text-xs font-semibold bg-[#F03E2F] hover:bg-[#D93224] text-white shadow-[0_4px_14px_rgba(240,62,47,0.22)] border-0 gap-1.5 cursor-pointer"
               >
                 <Link href="/login">
                   <span>Đăng nhập</span>

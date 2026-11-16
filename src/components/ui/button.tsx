@@ -9,13 +9,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-transparent bg-primary text-primary-foreground hover:bg-brand-hover active:bg-[#c81b0f]",
+          "border border-transparent bg-primary text-primary-foreground hover:bg-[#D93224] active:bg-[#c81b0f] shadow-[0_4px_14px_rgba(240,62,47,0.22)]",
         outline:
-          "border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0c121e] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white",
+          "border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0c121e] text-stone-800 dark:text-stone-200 hover:bg-stone-100/70 dark:hover:bg-stone-800/80 hover:border-stone-300 dark:hover:border-stone-700 hover:text-stone-900 dark:hover:text-white shadow-[0_1px_2px_rgba(28,25,23,0.03)]",
         secondary:
-          "border border-transparent bg-secondary text-secondary-foreground hover:bg-slate-200 dark:hover:bg-slate-800",
+          "border border-transparent bg-secondary text-secondary-foreground hover:bg-stone-200/80 dark:hover:bg-stone-800",
         ghost:
-          "border border-transparent hover:bg-slate-100 hover:text-foreground dark:hover:bg-slate-800/60",
+          "border border-transparent hover:bg-stone-100 hover:text-foreground dark:hover:bg-stone-800/60",
         destructive:
           "border border-transparent bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30",
         link: "border-transparent text-primary underline-offset-4 hover:underline",

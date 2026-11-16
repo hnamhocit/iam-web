@@ -54,10 +54,10 @@ export function LandingEndpoints() {
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div className="space-y-2 max-w-2xl">
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1C1917] dark:text-white">
             4 Endpoints Chuẩn REST Kết nối Độc lập
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-[#57534E] dark:text-stone-300 leading-relaxed">
             Tuân thủ hoàn toàn đặc tả OAuth 2.0 (RFC 6749) và OpenID Connect
             Core. Tương thích ngay với mọi thư viện HTTP tiêu chuẩn.
           </p>
@@ -67,7 +67,7 @@ export function LandingEndpoints() {
           variant="outline"
           size="sm"
           asChild
-          className="rounded-xl h-9 px-4 text-xs font-medium shrink-0 gap-2 border-border"
+          className="rounded-xl h-9 px-4 text-xs font-medium shrink-0 gap-2 border-stone-200 dark:border-stone-800 bg-white dark:bg-card hover:bg-stone-50 text-[#1C1917] dark:text-stone-100 shadow-[0_1px_2px_rgba(28,25,23,0.03)] cursor-pointer"
         >
           <Link href="/developers">
             <Code2 className="h-3.5 w-3.5 text-primary" />
@@ -81,7 +81,7 @@ export function LandingEndpoints() {
         {endpoints.map((ep) => (
           <div
             key={ep.path}
-            className="group relative rounded-2xl border border-border bg-card p-5 transition-colors hover:border-border flex flex-col justify-between space-y-4"
+            className="group relative rounded-2xl border border-[#E7E5E4] dark:border-stone-800 bg-white dark:bg-card p-5 shadow-[0_2px_12px_rgba(28,25,23,0.04)] dark:shadow-none transition-all flex flex-col justify-between space-y-4"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -90,21 +90,21 @@ export function LandingEndpoints() {
                 >
                   {ep.method}
                 </span>
-                <span className="font-mono text-xs text-muted-foreground/60 font-semibold">
+                <span className="font-mono text-xs text-[#78716C] dark:text-stone-400 font-semibold">
                   Bước {ep.step}
                 </span>
               </div>
 
               <div>
-                <h4 className="font-mono text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                <h4 className="font-mono text-sm font-bold text-[#1C1917] dark:text-stone-100 group-hover:text-primary transition-colors">
                   {ep.path}
                 </h4>
-                <p className="text-xs font-semibold text-foreground/80 mt-1">
+                <p className="text-xs font-semibold text-[#1C1917]/90 dark:text-stone-200 mt-1">
                   {ep.title}
                 </p>
               </div>
 
-              <p className="text-xs text-muted-foreground leading-relaxed font-sans">
+              <p className="text-xs text-[#57534E] dark:text-stone-400 leading-relaxed font-sans">
                 {ep.desc}
               </p>
             </div>

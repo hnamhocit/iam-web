@@ -49,11 +49,11 @@ export function LoginContent() {
 
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-between bg-background text-foreground overflow-hidden">
-      {/* Background Subtle Dot Grid with Smooth Radial Fade */}
+      {/* Background Subtle Warm Stone Dot Grid with Smooth Radial Fade */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.22] dark:opacity-[0.14] [mask-image:radial-gradient(ellipse_at_top,black_40%,transparent_75%)]"
+        className="pointer-events-none absolute inset-0 text-[#D6D3D1] opacity-45 dark:text-foreground dark:opacity-[0.14] [mask-image:radial-gradient(ellipse_at_top,black_40%,transparent_75%)]"
         style={{
-          backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(currentColor 1.25px, transparent 1.25px)",
           backgroundSize: "28px 28px",
         }}
       />
@@ -70,7 +70,7 @@ export function LoginContent() {
           >
             <VntezLogo size={28} />
             <div className="flex items-center gap-1.5 font-bold tracking-tight">
-              <span className="text-lg bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent">
+              <span className="text-lg text-[#F03E2F]">
                 VNTEZ
               </span>
               <span className="text-sm font-semibold text-foreground/80">
@@ -113,21 +113,18 @@ export function LoginContent() {
         <div className="w-full max-w-[400px] space-y-6">
           {/* Headline & Warm Human Copy */}
           <div className="space-y-2 text-center">
-            <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-              Who{" "}
-              <span className="bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent">
-                I-Am
-              </span>
-              ?
+            <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1C1917] dark:text-stone-100">
+              Who <span className="text-[#F03E2F]">I-Am</span>
+              <span className="text-[#1C1917] dark:text-stone-100">?</span>
             </h1>
-            <p className="text-sm text-muted-foreground leading-relaxed font-sans max-w-sm mx-auto">
+            <p className="text-sm text-[#57534E] dark:text-stone-300 leading-relaxed font-sans max-w-sm mx-auto">
               Đăng nhập một chạm để vào toàn bộ ứng dụng của bạn. Nhanh gọn,
               liền mạch và không cần nhớ thêm mật khẩu.
             </p>
           </div>
 
           {/* Elevated Login Card */}
-          <div className="rounded-2xl border border-border/80 bg-card p-6 sm:p-8 shadow-lg shadow-black/[0.03] dark:shadow-none space-y-5">
+          <div className="rounded-2xl border border-[#E7E5E4] dark:border-stone-800 bg-white dark:bg-card p-6 sm:p-8 shadow-[0_2px_12px_rgba(28,25,23,0.04)] dark:shadow-none space-y-5">
             {/* OAuth Authorize Context Banner */}
             {isOAuthLogin && (
               <div className="rounded-xl border border-primary/30 bg-primary/5 p-3 text-xs text-primary flex items-start gap-2.5">
@@ -185,18 +182,18 @@ export function LoginContent() {
             </div>
 
             {/* Refined Legal Footer Links */}
-            <p className="text-center text-[11px] text-muted-foreground leading-relaxed pt-2">
+            <p className="text-center text-[11px] text-[#78716C] dark:text-stone-400 leading-relaxed pt-2">
               Bằng việc tiếp tục, bạn đồng ý với{" "}
               <Link
                 href="/terms"
-                className="text-muted-foreground hover:text-foreground hover:underline transition-colors font-medium"
+                className="text-[#78716C] dark:text-stone-400 hover:text-[#1C1917] dark:hover:text-stone-200 hover:underline transition-colors font-medium"
               >
                 Điều khoản
               </Link>{" "}
               và{" "}
               <Link
                 href="/privacy"
-                className="text-muted-foreground hover:text-foreground hover:underline transition-colors font-medium"
+                className="text-[#78716C] dark:text-stone-400 hover:text-[#1C1917] dark:hover:text-stone-200 hover:underline transition-colors font-medium"
               >
                 Bảo mật
               </Link>

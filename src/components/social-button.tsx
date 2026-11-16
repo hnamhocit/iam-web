@@ -69,9 +69,9 @@ export function SocialButton({
 
   const providerStyles = {
     google:
-      "hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-900/60",
+      "hover:border-stone-400 dark:hover:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-900/60",
     github:
-      "hover:border-neutral-500 dark:hover:border-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900/60",
+      "hover:border-stone-500 dark:hover:border-stone-500 hover:bg-stone-50 dark:hover:bg-stone-900/60",
     facebook:
       "hover:border-blue-500 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-950/25",
   }[provider];
@@ -83,7 +83,7 @@ export function SocialButton({
       onClick={handleClick}
       disabled={isAnyLoading}
       className={cn(
-        "group relative flex h-11 w-full items-center justify-between rounded-xl border border-border/80 bg-card px-4 text-sm font-medium text-foreground transition-all duration-200 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+        "group relative flex h-11 w-full items-center justify-between rounded-xl border border-[#E7E5E4] dark:border-stone-800 bg-white dark:bg-card px-4 text-sm font-medium text-[#1C1917] dark:text-stone-100 shadow-[0_1px_3px_rgba(28,25,23,0.03)] transition-all duration-200 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
         providerStyles,
         className,
       )}
@@ -97,7 +97,7 @@ export function SocialButton({
         </span>
       </div>
 
-      <ArrowRight className="h-4 w-4 text-muted-foreground/50 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-foreground shrink-0 ml-2" />
+      <ArrowRight className="h-4 w-4 text-[#78716C] dark:text-stone-400 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[#1C1917] dark:group-hover:text-stone-100 shrink-0 ml-2" />
 
       {isThisLoading && (
         <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-background/90 backdrop-blur-sm">
