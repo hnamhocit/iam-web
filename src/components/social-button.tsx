@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { safeReturnTo } from "@/lib/redirect";
@@ -68,11 +69,11 @@ export function SocialButton({
 
   const providerStyles = {
     google:
-      "hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-900/50",
+      "hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-900/60",
     github:
-      "hover:border-neutral-500 dark:hover:border-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900/50",
+      "hover:border-neutral-500 dark:hover:border-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900/60",
     facebook:
-      "hover:border-blue-500 dark:hover:border-blue-600 hover:bg-blue-50/40 dark:hover:bg-blue-950/20",
+      "hover:border-blue-500 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-950/25",
   }[provider];
 
   return (
@@ -82,17 +83,21 @@ export function SocialButton({
       onClick={handleClick}
       disabled={isAnyLoading}
       className={cn(
-        "group relative flex h-11 w-full items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+        "group relative flex h-11 w-full items-center justify-between rounded-xl border border-border/80 bg-card px-4 text-sm font-medium text-foreground transition-all duration-200 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
         providerStyles,
         className,
       )}
     >
-      <span className="flex h-5 w-5 items-center justify-center shrink-0">
-        {icon}
-      </span>
-      <span className="tracking-tight text-foreground font-medium">
-        {label}
-      </span>
+      <div className="flex items-center gap-3 min-w-0">
+        <span className="flex h-5 w-5 items-center justify-center shrink-0">
+          {icon}
+        </span>
+        <span className="tracking-tight text-foreground font-medium truncate">
+          {label}
+        </span>
+      </div>
+
+      <ArrowRight className="h-4 w-4 text-muted-foreground/50 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-foreground shrink-0 ml-2" />
 
       {isThisLoading && (
         <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-background/90 backdrop-blur-sm">
