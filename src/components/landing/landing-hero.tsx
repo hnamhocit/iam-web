@@ -8,7 +8,6 @@ import {
   Key,
   Lock,
   ShieldCheck,
-  Terminal,
   Zap,
 } from "lucide-react";
 import Link from "next/link";
@@ -38,10 +37,10 @@ export function LandingHero() {
 
   return (
     <section className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 text-center overflow-hidden">
-      {/* Background Ambient Glow & Light Orbs */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[450px] w-[750px] rounded-full bg-[#fb291a]/15 dark:bg-[#fb291a]/20 blur-[150px]" />
-      <div className="pointer-events-none absolute top-48 left-1/4 h-[350px] w-[350px] rounded-full bg-sky-500/10 dark:bg-sky-500/15 blur-[140px]" />
-      <div className="pointer-events-none absolute top-48 right-1/4 h-[350px] w-[350px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 blur-[140px]" />
+      {/* Background Ambient Glow & Light Orbs (Dark Mode Only to keep Light Mode clean & crisp) */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[450px] w-[750px] rounded-full bg-[#fb291a]/20 blur-[150px] hidden dark:block" />
+      <div className="pointer-events-none absolute top-48 left-1/4 h-[350px] w-[350px] rounded-full bg-sky-500/15 blur-[140px] hidden dark:block" />
+      <div className="pointer-events-none absolute top-48 right-1/4 h-[350px] w-[350px] rounded-full bg-indigo-500/15 blur-[140px] hidden dark:block" />
 
       {/* Subtle Dot Grid */}
       <div
@@ -89,18 +88,6 @@ export function LandingHero() {
         >
           <Link href="/login">
             <span>Đăng nhập tài khoản</span>
-          </Link>
-        </Button>
-
-        <Button
-          variant="ghost"
-          size="lg"
-          asChild
-          className="rounded-xl text-xs sm:text-sm font-medium px-4 h-11 text-muted-foreground hover:text-foreground gap-1.5"
-        >
-          <Link href="/oauth/tester/callback">
-            <Terminal className="h-4 w-4 text-primary" />
-            <span>OAuth Tester</span>
           </Link>
         </Button>
       </div>

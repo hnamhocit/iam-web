@@ -10,8 +10,8 @@ export function LandingCtaFooter() {
     <>
       {/* 6. PRE-FOOTER CTA SECTION */}
       <section className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center overflow-hidden">
-        {/* Ambient Glow */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[550px] rounded-full bg-primary/10 dark:bg-primary/15 blur-[140px]" />
+        {/* Ambient Glow (Dark Mode Only) */}
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[550px] rounded-full bg-primary/15 blur-[140px] hidden dark:block" />
 
         <div className="relative z-10 rounded-2xl border border-border bg-card p-8 sm:p-12 space-y-6">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -108,14 +108,6 @@ export function LandingCtaFooter() {
                   >
                     REST API Endpoints
                   </a>
-                </li>
-                <li>
-                  <Link
-                    href="/oauth/tester/callback"
-                    className="hover:text-primary transition-colors"
-                  >
-                    OAuth 2.0 Tester
-                  </Link>
                 </li>
                 <li>
                   <a

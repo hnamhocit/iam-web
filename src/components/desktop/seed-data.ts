@@ -47,8 +47,8 @@ export const FALLBACK_SYSTEM_APPS: SystemApp[] = [
     created_at: new Date().toISOString(),
   },
   {
-    id: "sys-oauth-tester",
-    name: "OAuth Tester",
+    id: "sys-dev-hub",
+    name: "Developer Hub",
     url: "/developers",
     icon_url: null,
     is_pinned: true,

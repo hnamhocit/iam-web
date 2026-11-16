@@ -24,41 +24,47 @@ export default function AppleIcon() {
       <svg
         width="132"
         height="132"
-        viewBox="0 0 48 48"
+        viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>VNTEZ IAM</title>
         <defs>
           <linearGradient
-            id="vntez-grad-apple"
-            x1="4"
-            y1="4"
-            x2="44"
-            y2="44"
-            gradientUnits="userSpaceOnUse"
+            id="vntez-fire"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
           >
-            <stop offset="0%" stopColor="#06B6D4" />
-            <stop offset="45%" stopColor="#6366F1" />
-            <stop offset="100%" stopColor="#A855F7" />
+            <stop offset="0%" stopColor="#f77241" />
+            <stop offset="35%" stopColor="#fb291a" />
+            <stop offset="70%" stopColor="#e3062a" />
+            <stop offset="100%" stopColor="#b60343" />
+          </linearGradient>
+          <linearGradient
+            id="vntez-accent"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#ff7a50" />
+            <stop offset="100%" stopColor="#eb0c29" />
           </linearGradient>
         </defs>
-        <rect
-          x="4"
-          y="4"
-          width="40"
-          height="40"
-          rx="12"
-          fill="#090D16"
-          stroke="url(#vntez-grad-apple)"
-          strokeWidth="2.5"
+        <path
+          d="M 12 18 L 36 18 L 52 74 L 38 88 L 12 18 Z"
+          fill="url(#vntez-fire)"
         />
         <path
-          d="M14 15L24 33L34 15H29L24 25.5L19 15H14Z"
-          fill="url(#vntez-grad-apple)"
+          d="M 38 88 L 52 74 L 74 38 L 86 38 L 54 88 L 38 88 Z"
+          fill="url(#vntez-fire)"
         />
-        <circle cx="24" cy="20" r="2.2" fill="#06B6D4" />
-        <circle cx="34" cy="34" r="2.5" fill="#06B6D4" />
+        <path
+          d="M 76 18 L 94 18 L 82 32 L 68 32 L 76 18 Z"
+          fill="url(#vntez-accent)"
+        />
       </svg>
     </div>,
     {

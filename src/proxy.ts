@@ -10,7 +10,6 @@ const PUBLIC_PREFIXES = [
   "/privacy",
   "/oauth/token",
   "/oauth/userinfo",
-  "/oauth/tester",
   "/developers",
   "/.well-known",
   "/auth/callback",

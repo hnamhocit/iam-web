@@ -1,6 +1,13 @@
 "use client";
 
-import { Code2, Home, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  Code2,
+  Home,
+  Lock,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -48,7 +55,7 @@ export function LoginContent() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-background text-foreground lg:grid lg:grid-cols-2">
+    <div className="relative min-h-screen w-full bg-background text-foreground lg:grid lg:grid-cols-12">
       {/* Top Floating Action Header */}
       <div className="absolute right-4 top-4 z-50 lg:right-8 lg:top-8 flex items-center gap-2 rounded-xl border border-border bg-background/90 p-1.5 backdrop-blur-md">
         <Button
@@ -77,14 +84,18 @@ export function LoginContent() {
         <ModeToggle />
       </div>
 
-      {/* LEFT COLUMN: Clean Minimal Branding */}
-      <div className="relative hidden border-r border-border bg-muted/20 p-10 xl:p-14 lg:flex lg:flex-col lg:justify-between">
-        {/* Subtle grid pattern */}
+      {/* LEFT COLUMN: Rich Brand Showcase Panel (Deep, High-Contrast & Premium) */}
+      <div className="relative hidden lg:col-span-6 xl:col-span-5 bg-[#080c14] text-white p-10 xl:p-14 lg:flex lg:flex-col lg:justify-between overflow-hidden border-r border-white/[0.08]">
+        {/* Ambient Brand Glowing Mesh */}
+        <div className="pointer-events-none absolute -left-20 -top-20 h-[450px] w-[450px] rounded-full bg-[#fb291a]/20 blur-[130px]" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-sky-500/15 blur-[140px]" />
+
+        {/* High-Tech Dot Matrix */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.18] dark:opacity-[0.12]"
+          className="pointer-events-none absolute inset-0 opacity-[0.14]"
           style={{
             backgroundImage:
-              "radial-gradient(currentColor 1px, transparent 1px)",
+              "radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)",
             backgroundSize: "28px 28px",
           }}
         />
@@ -94,43 +105,94 @@ export function LoginContent() {
           href="/"
           className="relative z-10 flex items-center gap-3 transition-opacity hover:opacity-90 w-fit"
         >
-          <VntezLogo size={32} />
+          <VntezLogo size={34} />
           <div className="flex items-center gap-2">
             <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent">
               VNTEZ
             </span>
-            <span className="rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs font-mono font-bold text-primary">
+            <span className="rounded-md border border-primary/40 bg-primary/20 px-2 py-0.5 text-xs font-mono font-bold text-primary">
               IAM
             </span>
           </div>
         </Link>
 
-        {/* Hero Headline: Concise & Punchy */}
-        <div className="relative z-10 my-auto max-w-lg space-y-4">
-          <h1 className="text-3xl xl:text-4xl font-extrabold tracking-tight text-foreground leading-[1.25]">
-            Một tài khoản cho toàn bộ hệ sinh thái VNTEZ.
-          </h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Đăng nhập một lần an toàn bằng chuẩn OAuth 2.0 PKCE để truy cập liền
-            mạch vào mọi ứng dụng và dịch vụ.
-          </p>
+        {/* Center Hero Narrative & Feature Pillars */}
+        <div className="relative z-10 my-auto max-w-lg space-y-8">
+          <div className="space-y-3">
+            <h1 className="text-3xl xl:text-4xl font-extrabold tracking-tight text-white leading-[1.2]">
+              Một tài khoản cho toàn bộ hệ sinh thái VNTEZ.
+            </h1>
+            <p className="text-sm text-zinc-400 leading-relaxed font-sans">
+              Hạ tầng xác thực định danh tập trung chuẩn OAuth 2.0 PKCE, bảo vệ
+              người dùng và đồng bộ phiên làm việc tức thì trên toàn bộ ứng
+              dụng.
+            </p>
+          </div>
+
+          {/* Value Pillars */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/15 border border-primary/30 text-primary shrink-0 mt-0.5">
+                <ShieldCheck className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-xs font-bold text-zinc-200">
+                  Zero-Trust PKCE S256
+                </p>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Bảo vệ chống tấn công replay và đánh cắp mã ủy quyền ngay cả
+                  trên client public.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shrink-0 mt-0.5">
+                <Zap className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-xs font-bold text-zinc-200">
+                  Cloudflare Edge Gateway &lt;15ms
+                </p>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Phân tán trên 300+ trung tâm dữ liệu toàn cầu, sẵn sàng phục
+                  vụ với độ trễ tối thiểu.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shrink-0 mt-0.5">
+                <CheckCircle2 className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-xs font-bold text-zinc-200">
+                  SSO Liền Mạch Một Chạm
+                </p>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Đăng nhập một lần, truy cập an toàn Console, Workers Hub,
+                  SoloType và mọi dịch vụ.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Left Bottom Footer */}
-        <div className="relative z-10 flex items-center justify-between border-t border-border pt-4 text-xs font-mono text-muted-foreground">
+        {/* Bottom Status Indicator */}
+        <div className="relative z-10 flex items-center justify-between border-t border-white/[0.08] pt-4 text-xs font-mono text-zinc-400">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            <span>Cloudflare Edge Network: Online</span>
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-zinc-300">Cloudflare Edge: Operational</span>
           </div>
-          <span className="text-[11px] text-muted-foreground/80">v2.0.0</span>
+          <span className="text-[11px] text-zinc-500">v2.0.0</span>
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Flat Login Form */}
-      <div className="relative flex min-h-screen items-center justify-center p-4 sm:p-8 lg:p-14">
-        <div className="relative z-10 w-full max-w-[400px] rounded-2xl border border-border bg-card p-6 sm:p-8 space-y-6">
+      {/* RIGHT COLUMN: Seamless Flat Login Form (No Box Border, Direct On Background) */}
+      <div className="relative lg:col-span-6 xl:col-span-7 flex min-h-screen items-center justify-center p-6 sm:p-12 lg:p-16">
+        <div className="relative z-10 w-full max-w-[380px] space-y-6">
           {/* Mobile-only Brand Header */}
-          <div className="flex lg:hidden items-center justify-between border-b border-border pb-4">
+          <div className="flex lg:hidden items-center justify-between border-b border-border pb-4 mb-2">
             <Link href="/" className="flex items-center gap-2.5">
               <VntezLogo size={28} />
               <div className="flex items-center gap-1.5">
@@ -144,9 +206,9 @@ export function LoginContent() {
             </Link>
           </div>
 
-          {/* Form Header */}
-          <div className="space-y-1.5 text-center lg:text-left">
-            <h2 className="font-display text-2xl font-extrabold tracking-tight text-foreground">
+          {/* Form Title & Subtitle */}
+          <div className="space-y-1.5 text-left">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
               Đăng nhập
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -193,8 +255,8 @@ export function LoginContent() {
             </div>
           )}
 
-          {/* Social Login Buttons */}
-          <div className="space-y-2.5">
+          {/* Social Login Buttons (Seamless Flat Style) */}
+          <div className="space-y-3 pt-1">
             <SocialButton
               provider="google"
               label="Tiếp tục với Google"
@@ -210,6 +272,12 @@ export function LoginContent() {
               label="Tiếp tục với Facebook"
               icon={<FacebookIcon />}
             />
+          </div>
+
+          {/* Subtle Security Footnote */}
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-mono text-muted-foreground pt-1">
+            <Lock className="h-3 w-3 text-emerald-500" />
+            <span>Mã hóa bảo mật PKCE RFC 7636</span>
           </div>
 
           {/* Legal / Policy Footer */}

@@ -58,7 +58,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://vntez-iam.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL &&
+  !process.env.NEXT_PUBLIC_SITE_URL.includes("localhost") &&
+  !process.env.NEXT_PUBLIC_SITE_URL.includes("127.0.0.1")
+    ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")
+    : process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://iam.vntez.com";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -74,25 +80,27 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
+    default: "VNTEZ IAM — Cổng Định Danh & Xác Thực SSO OAuth 2.0 PKCE",
     template: "%s | VNTEZ IAM",
   },
   description:
-    "Một định danh cho toàn bộ hệ sinh thái kỹ thuật VNTEZ. Nền tảng xác thực tập trung OAuth 2.0 PKCE, bảo mật và liền mạch.",
+    "Cổng xác thực định danh tập trung SSO chuẩn quốc tế OAuth 2.0 & RFC 7636 PKCE trên hạ tầng Cloudflare Workers Edge. Tốc độ phản hồi <15ms, bảo mật đa lớp và tích hợp liền mạch cho toàn bộ hệ sinh thái VNTEZ.",
   applicationName: "VNTEZ IAM",
-  authors: [{ name: "VNTEZ Cloud", url: siteUrl }],
+  authors: [{ name: "VNTEZ Cloud", url: "https://vntez.com" }],
   generator: "Next.js",
   keywords: [
     "VNTEZ IAM",
     "VNTEZ ID",
-    "VNTEZ Cloud",
-    "SSO",
+    "VNTEZ SSO",
     "Single Sign-On",
     "Identity Provider",
-    "Xác thực tập trung",
-    "OAuth2",
+    "OAuth 2.0",
     "PKCE",
+    "RFC 7636",
+    "Xác thực tập trung",
+    "Cloudflare Workers",
     "Bảo mật tài khoản",
+    "VNTEZ Cloud",
   ],
   creator: "VNTEZ Cloud",
   publisher: "VNTEZ Cloud",
@@ -102,16 +110,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
     languages: {
-      "vi-VN": "/",
+      "vi-VN": siteUrl,
     },
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/logo-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -123,11 +131,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "vi_VN",
     alternateLocale: ["en_US"],
-    url: "/",
+    url: siteUrl,
     siteName: "VNTEZ IAM",
-    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
+    title: "VNTEZ IAM — Cổng Định Danh & Xác Thực SSO OAuth 2.0 PKCE",
     description:
-      "Một định danh cho toàn bộ hệ sinh thái của bạn. Xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
+      "Cổng xác thực định danh tập trung SSO chuẩn quốc tế OAuth 2.0 & RFC 7636 PKCE trên hạ tầng Cloudflare Workers Edge cho toàn bộ hệ sinh thái VNTEZ.",
     images: [
       {
         url: "/opengraph-image",
@@ -140,9 +148,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "VNTEZ IAM — Unified Identity & OAuth 2.0 Platform",
+    title: "VNTEZ IAM — Cổng Định Danh & Xác Thực SSO OAuth 2.0 PKCE",
     description:
-      "Một định danh cho toàn bộ hệ sinh thái của bạn. Xác thực tập trung theo chuẩn OAuth 2.0 PKCE S256 và OpenID Connect.",
+      "Cổng xác thực định danh tập trung SSO chuẩn quốc tế OAuth 2.0 & RFC 7636 PKCE trên hạ tầng Cloudflare Workers Edge.",
     images: ["/opengraph-image"],
     creator: "@vntezcloud",
   },

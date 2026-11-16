@@ -79,8 +79,8 @@ export function LandingFeatures() {
       id="features"
       className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[650px] rounded-full bg-primary/5 dark:bg-primary/10 blur-[160px]" />
+      {/* Background glow (Dark mode only) */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[650px] rounded-full bg-primary/10 blur-[160px] hidden dark:block" />
 
       <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
         <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
