@@ -1,26 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import {
-  CheckCircle2,
-  ShieldCheck,
   ArrowRight,
-  UserCircle,
-  AlertTriangle,
-  ExternalLink,
+  CheckCircle2,
   Lock,
+  ShieldCheck,
+  UserCircle,
 } from "lucide-react";
-import { authorizeAppAction } from "@/lib/oauth/actions";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { authorizeAppAction } from "@/lib/oauth/actions";
 
 interface ConsentScreenProps {
   client: {
@@ -163,7 +161,8 @@ export function ConsentScreen({ client, user, params }: ConsentScreenProps) {
                     Hồ sơ công khai & Địa chỉ Email
                   </div>
                   <p className="text-muted-foreground text-[11px] mt-0.5">
-                    Cho phép ứng dụng đọc mã định danh, họ tên, email và ảnh đại diện của bạn.
+                    Cho phép ứng dụng đọc mã định danh, họ tên, email và ảnh đại
+                    diện của bạn.
                   </p>
                 </div>
               </div>
@@ -175,7 +174,8 @@ export function ConsentScreen({ client, user, params }: ConsentScreenProps) {
                     Xác thực một chạm (OAuth 2.0 PKCE)
                   </div>
                   <p className="text-muted-foreground text-[11px] mt-0.5">
-                    Tự động duy trì phiên đăng nhập an toàn qua hạ tầng Cloudflare Edge toàn cầu.
+                    Tự động duy trì phiên đăng nhập an toàn qua hạ tầng
+                    Cloudflare Edge toàn cầu.
                   </p>
                 </div>
               </div>

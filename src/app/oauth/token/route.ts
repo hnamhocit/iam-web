@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase/admin";
 import { signAccessToken } from "@/lib/oauth/jwt";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 // CORS headers cho phép app vệ tinh (kể cả SPA trên domain khác) gọi API
 const corsHeaders = {
@@ -76,33 +76,22 @@ export async function POST(req: Request) {
       );
     }
 
-    // 1. Kiểm tra App từ bảng apps (mới) hoặc oauth_clients (legacy)
-    let client: any = null;
-    
-    // Cố gắng lấy từ bảng apps trước
-    const { data: appData } = await supabaseAdmin
+    // 1. Kiểm tra App từ bảng apps theo app_id / id
+    const { data: client, error: clientErr } = await supabaseAdmin
       .from("apps")
       .select("*")
       .eq("id", appId)
       .maybeSingle();
 
-    if (appData) {
-      client = appData;
-    } else {
-      // Fallback: tìm trong oauth_clients (legacy)
-      const { data: legacyClient } = await supabaseAdmin
-        .from("oauth_clients")
-        .select("*")
-        .eq("client_id", appId)
-        .maybeSingle();
-      client = legacyClient;
+    if (clientErr) {
+      console.error("[/oauth/token] Lỗi truy vấn bảng apps:", clientErr);
     }
 
     if (!client) {
       return NextResponse.json(
         {
           error: "invalid_client",
-          error_description: "App không hợp lệ hoặc chưa đăng ký",
+          error_description: `Ứng dụng '${appId}' không hợp lệ hoặc chưa được đăng ký trong hệ thống`,
         },
         { status: 401, headers: corsHeaders },
       );
@@ -122,7 +111,7 @@ export async function POST(req: Request) {
     // 2. Xác thực Secret (app_secret mới hoặc client_secret_hash legacy)
     const secret = app_secret || client_secret;
     const secretHash = client.app_secret || client.client_secret_hash;
-    
+
     if (secretHash) {
       // Nếu app có secret, phải verify hash
       const isValid = verifySecret(secret, secretHash);

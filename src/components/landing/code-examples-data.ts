@@ -1,4 +1,4 @@
-import { Sparkles, Code2, Terminal } from "lucide-react";
+import { Code2, Sparkles, Terminal } from "lucide-react";
 import { MASTER_PROMPT } from "@/components/developers/developer-hub-data";
 
 export const MASTER_AI_INTEGRATION_PROMPT = MASTER_PROMPT;

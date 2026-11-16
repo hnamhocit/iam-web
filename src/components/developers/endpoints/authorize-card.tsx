@@ -62,8 +62,9 @@ export function AuthorizeEndpointCard({ copiedKey, onCopy }: Props) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-muted-foreground">
           <div>
-            <code className="text-foreground font-semibold">client_id</code>:
-            Client ID đã được cấp (bắt buộc)
+            <code className="text-foreground font-semibold">app_id</code>{" "}
+            <span className="text-[10px] text-primary font-mono">(hoặc client_id)</span>:
+            Mã định danh ứng dụng trong bảng apps (bắt buộc)
           </div>
           <div>
             <code className="text-foreground font-semibold">redirect_uri</code>:

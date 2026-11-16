@@ -1,21 +1,22 @@
 "use server";
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { revalidatePath } from "next/cache";
 import {
-  getOAuthClient,
-  saveOAuthCode,
-  createOAuthClient,
+  createApp,
   deleteOAuthClient,
+  getApp,
+  saveOAuthCode,
 } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import { ADMIN_USER_ID, isUserAdmin } from "./constants";
+import { ADMIN_USER_ID } from "./constants";
 
 /**
  * Server Action xử lý người dùng nhấn "Cho phép / Ủy quyền"
  */
 export async function authorizeAppAction(params: {
-  clientId: string;
+  clientId?: string;
+  appId?: string;
   redirectUri: string;
   state?: string;
   codeChallenge?: string;
@@ -30,9 +31,20 @@ export async function authorizeAppAction(params: {
     throw new Error("Người dùng chưa đăng nhập");
   }
 
-  const client = await getOAuthClient(params.clientId);
+  const targetAppId = params.appId || params.clientId;
+  if (!targetAppId) {
+    throw new Error("Thiếu mã định danh ứng dụng (app_id)");
+  }
+
+  const client = await getApp(targetAppId);
   if (!client) {
-    throw new Error("Ứng dụng không tồn tại");
+    throw new Error(`Ứng dụng "${targetAppId}" không tồn tại`);
+  }
+
+  if (client.status && client.status !== "active") {
+    throw new Error(
+      `Ứng dụng "${client.name}" hiện đang tạm ngừng hoặc không khả dụng`,
+    );
   }
 
   // Đối chiếu redirect_uri có khớp với danh sách đã đăng ký
@@ -59,7 +71,7 @@ export async function authorizeAppAction(params: {
   // 4. Lưu vào bảng oauth_codes
   const saved = await saveOAuthCode({
     code: authCode,
-    client_id: params.clientId,
+    client_id: targetAppId,
     user_id: user.id,
     code_challenge: params.codeChallenge || null,
     code_challenge_method: params.codeChallengeMethod || "S256",
@@ -77,6 +89,7 @@ export async function authorizeAppAction(params: {
   if (params.state) {
     redirectUrl.searchParams.set("state", params.state);
   }
+  redirectUrl.searchParams.set("app_id", targetAppId);
 
   return { redirectUrl: redirectUrl.toString() };
 }
@@ -91,7 +104,9 @@ export async function createClientAction(formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user || user.id !== ADMIN_USER_ID) {
-    return { error: "Chỉ Quản trị viên (Admin) mới có quyền tạo ứng dụng Client." };
+    return {
+      error: "Chỉ Quản trị viên (Admin) mới có quyền tạo ứng dụng Client.",
+    };
   }
 
   const name = formData.get("name")?.toString().trim();
@@ -128,13 +143,14 @@ export async function createClientAction(formData: FormData) {
       .digest("hex");
   }
 
-  const { data, error } = await createOAuthClient({
-    client_id: clientId,
+  const { data, error } = await createApp({
+    id: clientId,
     name,
     redirect_uris,
-    client_secret_hash: clientSecretHash,
+    app_secret: clientSecretHash,
     description: description || undefined,
     is_internal: false,
+    status: "active",
   });
 
   if (error || !data) {
@@ -161,7 +177,9 @@ export async function deleteClientAction(clientId: string) {
   } = await supabase.auth.getUser();
 
   if (!user || user.id !== ADMIN_USER_ID) {
-    return { error: "Chỉ Quản trị viên (Admin) mới có quyền xóa ứng dụng Client." };
+    return {
+      error: "Chỉ Quản trị viên (Admin) mới có quyền xóa ứng dụng Client.",
+    };
   }
 
   const success = await deleteOAuthClient(clientId);

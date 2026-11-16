@@ -1,60 +1,80 @@
-import React from "react";
+"use client";
+
+import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { VntezLogo } from "@/components/ui/vntez-logo";
-import { ArrowRight } from "lucide-react";
 
 export function LandingCtaFooter() {
   return (
     <>
       {/* 6. PRE-FOOTER CTA SECTION */}
-      <section className="mx-auto max-w-4xl px-6 py-24 sm:py-28 text-center">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-          Sẵn sàng kết nối ứng dụng với VNTEZ IAM?
-        </h2>
-        <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-sans max-w-2xl mx-auto">
-          Tạo tài khoản OAuth Client, cấu hình Redirect URI và bắt đầu xác thực người dùng trong hệ sinh thái VNTEZ trong chưa đầy 5 phút.
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/developers"
-            className={buttonVariants({
-              variant: "default",
-              size: "lg",
-              className: "w-full sm:w-auto rounded-full px-8 py-3.5 text-base font-bold shadow-md gap-2",
-            })}
-          >
-            <span>Vào Developer Hub</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/login"
-            className={buttonVariants({
-              variant: "outline",
-              size: "lg",
-              className: "w-full sm:w-auto rounded-full px-8 py-3.5 text-base font-semibold gap-2",
-            })}
-          >
-            Đăng nhập tài khoản
-          </Link>
+      <section className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center overflow-hidden">
+        {/* Ambient Glow */}
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[550px] rounded-full bg-primary/10 dark:bg-primary/15 blur-[140px]" />
+
+        <div className="relative z-10 rounded-3xl border border-border/80 bg-card/75 dark:bg-card/50 p-8 sm:p-14 shadow-2xl backdrop-blur-2xl space-y-6">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-8 ring-primary/5 shadow-xs">
+            <VntezLogo size={32} />
+          </div>
+
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+              Sẵn sàng kết nối ứng dụng với VNTEZ IAM?
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
+              Đăng ký ứng dụng trong cổng quản trị, cấu hình Redirect URI và
+              hoàn tất kết nối Single Sign-On chuẩn quốc tế trong chưa đầy 5
+              phút.
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <Button
+              size="lg"
+              asChild
+              className="w-full sm:w-auto rounded-2xl px-7 h-12 text-sm sm:text-base font-bold shadow-lg shadow-primary/20 gap-2"
+            >
+              <Link href="/developers">
+                <span>Vào Developer Hub</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto rounded-2xl px-7 h-12 text-sm sm:text-base font-semibold gap-2 border-border/80 bg-background/50 hover:bg-background/80"
+            >
+              <Link href="/login">
+                <span>Đăng nhập tài khoản</span>
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* 7. FOOTER */}
-      <footer className="bg-slate-50/70 dark:bg-[#060a10] py-16 text-slate-600 dark:text-slate-400 border-t border-black/[0.04] dark:border-white/[0.04] transition-colors">
-        <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+      <footer className="border-t border-border/60 bg-muted/20 py-16 text-muted-foreground transition-colors">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             {/* Col 1: Brand & Status */}
             <div className="space-y-4">
               <Link href="/" className="flex items-center gap-2.5 group w-fit">
-                <VntezLogo size={26} />
-                <span className="font-display text-xl font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-[#fb291a] transition-colors">
-                  vntez <span className="text-[#fb291a] font-mono text-sm ml-0.5">iam</span>
-                </span>
+                <VntezLogo size={28} />
+                <div className="flex items-center gap-1.5 font-bold tracking-tight">
+                  <span className="text-lg bg-gradient-to-r from-[#ff7a50] via-[#fb291a] to-[#e3062a] bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                    VNTEZ
+                  </span>
+                  <span className="rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.2 text-[10px] font-mono font-bold text-primary">
+                    IAM
+                  </span>
+                </div>
               </Link>
 
-              <p className="text-slate-600 dark:text-slate-400 max-w-xs leading-relaxed font-sans text-sm">
-                Nền tảng định danh trung tâm và xác thực bảo mật OAuth 2.0 PKCE cho hệ sinh thái công nghệ VNTEZ.
+              <p className="text-muted-foreground max-w-xs leading-relaxed font-sans text-xs">
+                Nền tảng định danh trung tâm và xác thực bảo mật OAuth 2.0 PKCE
+                cho hệ sinh thái công nghệ VNTEZ.
               </p>
 
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400">
@@ -68,28 +88,44 @@ export function LandingCtaFooter() {
 
             {/* Col 2: Developers */}
             <div className="space-y-3">
-              <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white">
-                Developers
+              <h4 className="font-display text-sm font-bold text-foreground">
+                Lập trình viên
               </h4>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-xs text-muted-foreground">
                 <li>
-                  <Link href="/developers" className="hover:text-[#fb291a] transition-colors">
-                    Developer Hub
+                  <Link
+                    href="/developers"
+                    className="hover:text-primary transition-colors flex items-center gap-1"
+                  >
+                    <span>Developer Hub</span>
+                    <ArrowRight className="h-3 w-3 opacity-60" />
                   </Link>
                 </li>
                 <li>
-                  <a href="#endpoints" className="hover:text-[#fb291a] transition-colors">
+                  <a
+                    href="#endpoints"
+                    className="hover:text-primary transition-colors"
+                  >
                     REST API Endpoints
                   </a>
+                </li>
+                <li>
+                  <Link
+                    href="/oauth/tester/callback"
+                    className="hover:text-primary transition-colors"
+                  >
+                    OAuth 2.0 Tester
+                  </Link>
                 </li>
                 <li>
                   <a
                     href="/.well-known/openid-configuration"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-[#fb291a] transition-colors"
+                    className="hover:text-primary transition-colors flex items-center gap-1"
                   >
-                    OpenID Configuration
+                    <span>OpenID Configuration</span>
+                    <ExternalLink className="h-3 w-3 opacity-60" />
                   </a>
                 </li>
               </ul>
@@ -97,76 +133,87 @@ export function LandingCtaFooter() {
 
             {/* Col 3: Ecosystem */}
             <div className="space-y-3">
-              <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white">
+              <h4 className="font-display text-sm font-bold text-foreground">
                 Hệ sinh thái VNTEZ
               </h4>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-xs text-muted-foreground">
                 <li>
                   <a
-                    href="https://vntez.net"
+                    href="https://vntez.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-[#fb291a] transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
-                    VNTEZ Platform
+                    VNTEZ Portal
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://vntez.net/products#storage"
+                    href="https://console.vntez.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-[#fb291a] transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
-                    Edge S3 Storage
+                    VNTEZ Console
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://vntez.net/products#bman-pos"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-[#fb291a] transition-colors"
-                  >
-                    BMAN POS Core
-                  </a>
+                  <span className="text-muted-foreground/80">
+                    SoloType (Typing Engine)
+                  </span>
+                </li>
+                <li>
+                  <span className="text-muted-foreground/80">
+                    Workers Hub (Telemetry)
+                  </span>
                 </li>
               </ul>
             </div>
 
-            {/* Col 4: Legal */}
+            {/* Col 4: Pháp lý & An toàn */}
             <div className="space-y-3">
-              <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white">
-                Chính sách & Pháp lý
+              <h4 className="font-display text-sm font-bold text-foreground">
+                Pháp lý & An toàn
               </h4>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-xs text-muted-foreground">
                 <li>
-                  <Link href="/terms" className="hover:text-[#fb291a] transition-colors">
+                  <Link
+                    href="/terms"
+                    className="hover:text-primary transition-colors"
+                  >
                     Điều khoản sử dụng
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:text-[#fb291a] transition-colors">
+                  <Link
+                    href="/privacy"
+                    className="hover:text-primary transition-colors"
+                  >
                     Chính sách bảo mật
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="https://github.com/hnamhocit"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-[#fb291a] transition-colors"
-                  >
-                    GitHub @hnamhocit
-                  </a>
+                  <span className="text-muted-foreground/80">
+                    Chuẩn RFC 7636 PKCE S256
+                  </span>
+                </li>
+                <li>
+                  <span className="text-muted-foreground/80">
+                    Chuẩn OpenID Connect Core
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-black/[0.04] dark:border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} VNTEZ LABS — Single Sign-On Platform</p>
-            <p>Hạ tầng định danh phân tán tốc độ cao</p>
+          <div className="mt-12 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+            <p>
+              © {new Date().getFullYear()} VNTEZ Identity & Access Management.
+              Mọi quyền được bảo lưu.
+            </p>
+            <p className="font-mono text-[11px] text-muted-foreground/80">
+              Secured by Cloudflare Workers & Supabase Auth
+            </p>
           </div>
         </div>
       </footer>

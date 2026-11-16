@@ -1,16 +1,15 @@
+import crypto from "node:crypto";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
-import crypto from "node:crypto";
-import { getOAuthClient, saveOAuthCode } from "@/lib/supabase/admin";
-import { createClient } from "@/lib/supabase/server";
 import { ConsentScreen } from "@/components/oauth/consent-screen";
-import { ShieldAlert } from "lucide-react";
-import Link from "next/link";
+import { OAuthErrorView } from "@/components/oauth/oauth-error-view";
+import { getApp, saveOAuthCode } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Ủy quyền truy cập (OAuth 2.0)",
+  title: "Ủy quyền truy cập (OAuth 2.0 / SSO)",
   description: "Trang xác thực và chấp thuận cấp quyền ứng dụng VNTEZ IAM.",
   robots: {
     index: false,
@@ -20,6 +19,7 @@ export const metadata: Metadata = {
 
 interface AuthorizePageProps {
   searchParams: Promise<{
+    app_id?: string;
     client_id?: string;
     redirect_uri?: string;
     response_type?: string;
@@ -27,7 +27,6 @@ interface AuthorizePageProps {
     code_challenge?: string;
     code_challenge_method?: string;
     scope?: string;
-    app_id?: string;
   }>;
 }
 
@@ -35,6 +34,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
   await connection();
   const params = await searchParams;
   const {
+    app_id,
     client_id,
     redirect_uri,
     response_type,
@@ -42,60 +42,81 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     code_challenge,
     code_challenge_method,
     scope,
-    app_id,
   } = params;
 
-  // 1. Kiểm tra tham số bắt buộc
-  if (!client_id) {
+  // Xác định app identifier: ưu tiên app_id, tương thích ngược client_id
+  const targetAppId = app_id || client_id;
+
+  // 1. Kiểm tra các tham số bắt buộc theo chuẩn OAuth 2.0 PKCE
+  if (!targetAppId) {
     return (
-      <ErrorBox
-        title="Thiếu tham số client_id"
-        desc="Yêu cầu OAuth 2.0 phải chứa định danh ứng dụng (client_id)."
+      <OAuthErrorView
+        title="Thiếu mã định danh ứng dụng"
+        desc="Yêu cầu ủy quyền OAuth 2.0 / SSO phải chứa tham số nhận diện ứng dụng (app_id hoặc client_id)."
+        errorCode="MISSING_APP_ID"
+        redirectUri={redirect_uri}
+        hint="Truyền tham số ?app_id=<app_id> hoặc ?client_id=<client_id> vào URL ủy quyền."
       />
     );
   }
 
   if (!redirect_uri) {
     return (
-      <ErrorBox
+      <OAuthErrorView
         title="Thiếu tham số redirect_uri"
-        desc="Yêu cầu OAuth 2.0 phải chứa URL phản hồi (redirect_uri)."
+        desc="Yêu cầu ủy quyền OAuth 2.0 phải chứa địa chỉ URL phản hồi (redirect_uri)."
+        errorCode="MISSING_REDIRECT_URI"
+        appId={targetAppId}
+        hint="Cung cấp ?redirect_uri=<url> hợp lệ đã được đăng ký trong cấu hình ứng dụng."
       />
     );
   }
 
   if (response_type !== "code") {
     return (
-      <ErrorBox
-        title="response_type không được hỗ trợ"
-        desc="VNTEZ IAM hiện hỗ trợ phương thức phản hồi tiêu chuẩn OAuth 2.0: response_type=code."
+      <OAuthErrorView
+        title="Phương thức phản hồi không hỗ trợ"
+        desc="VNTEZ IAM hiện hỗ trợ phương thức phản hồi tiêu chuẩn OAuth 2.0 Authorization Code Flow: response_type=code."
+        errorCode="UNSUPPORTED_RESPONSE_TYPE"
+        appId={targetAppId}
+        redirectUri={redirect_uri}
+        hint="Thiết lập tham số ?response_type=code trong yêu cầu ủy quyền."
       />
     );
   }
 
-  // 2. Tìm kiếm và kiểm tra Client trong bảng oauth_clients
-  const client = await getOAuthClient(client_id);
-  if (!client) {
+  // 2. Tìm kiếm ứng dụng từ bảng apps theo app_id / id
+  const app = await getApp(targetAppId);
+  if (!app) {
     return (
-      <ErrorBox
+      <OAuthErrorView
         title="Ứng dụng không tồn tại"
-        desc={`Không tìm thấy ứng dụng với client_id: "${client_id}". Vui lòng kiểm tra lại cấu hình client trong VNTEZ Developer Portal.`}
+        desc={`Không tìm thấy ứng dụng với mã định danh "${targetAppId}" trong hệ sinh thái VNTEZ IAM. Vui lòng kiểm tra lại cấu hình app_id trong VNTEZ Developer Portal.`}
+        errorCode="APP_NOT_FOUND"
+        appId={targetAppId}
+        redirectUri={redirect_uri}
+        hint="Kiểm tra xem app_id đã được thêm vào bảng apps của VNTEZ hoặc đã kích hoạt hay chưa."
       />
     );
   }
 
-  // 2.5 Kiểm tra app status (nếu từ bảng apps)
-  if ("status" in client && client.status !== "active") {
+  // 2.5 Kiểm tra trạng thái ứng dụng (status active)
+  if (app.status && app.status !== "active") {
     return (
-      <ErrorBox
-        title="Ứng dụng không hoạt động"
-        desc={`Ứng dụng \"${client.name}\" hiện đang tạm dừng hoặc không khả dụng.`}
+      <OAuthErrorView
+        title="Ứng dụng đang tạm ngưng"
+        desc={`Ứng dụng "${app.name}" hiện đang ở trạng thái bảo trì hoặc tạm thời ngừng cung cấp dịch vụ.`}
+        errorCode="APP_INACTIVE"
+        appId={targetAppId}
+        redirectUri={redirect_uri}
+        hint="Liên hệ Quản trị viên hệ thống để kích hoạt lại trạng thái hoạt động của ứng dụng."
       />
     );
   }
 
-  // Đối chiếu redirect_uri có khớp với danh sách đã đăng ký trong oauth_clients hay không
-  const isRedirectAllowed = client.redirect_uris.some((uri) => {
+  // Đối chiếu redirect_uri có khớp với danh sách URI đã đăng ký trong bảng apps
+  const registeredUris = app.redirect_uris || [];
+  const isRedirectAllowed = registeredUris.some((uri) => {
     try {
       const u1 = new URL(uri);
       const u2 = new URL(redirect_uri);
@@ -107,23 +128,28 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
 
   if (!isRedirectAllowed) {
     return (
-      <ErrorBox
+      <OAuthErrorView
         title="Redirect URI không được phép"
-        desc={`Địa chỉ "${redirect_uri}" không khớp với bất kỳ Redirect URI nào được đăng ký cho ứng dụng "${client.name}".`}
+        desc={`Địa chỉ phản hồi "${redirect_uri}" không khớp với bất kỳ Redirect URI nào đã đăng ký cho ứng dụng "${app.name}".`}
+        errorCode="UNAUTHORIZED_REDIRECT_URI"
+        appId={targetAppId}
+        redirectUri={redirect_uri}
+        hint={`Danh sách URI hợp lệ đã cấu hình: ${registeredUris.length > 0 ? registeredUris.join(", ") : "(Chưa có URI nào được cấu hình)"}`}
       />
     );
   }
 
-  // 3. Kiểm tra session hiện tại của user qua Supabase Auth
+  // 3. Kiểm tra phiên đăng nhập hiện tại qua Supabase Auth
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Nếu CHƯA ĐĂNG NHẬP: Lưu lại URL authorize và chuyển user đến form login của VNTEZ IAM
+  // Nếu CHƯA ĐĂNG NHẬP: Lưu lại toàn bộ query param và chuyển hướng tới form Login
   if (!user) {
     const currentQuery = new URLSearchParams();
-    if (client_id) currentQuery.set("client_id", client_id);
+    currentQuery.set("app_id", targetAppId);
+    currentQuery.set("client_id", targetAppId);
     if (redirect_uri) currentQuery.set("redirect_uri", redirect_uri);
     if (response_type) currentQuery.set("response_type", response_type);
     if (state) currentQuery.set("state", state);
@@ -131,21 +157,20 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     if (code_challenge_method)
       currentQuery.set("code_challenge_method", code_challenge_method);
     if (scope) currentQuery.set("scope", scope);
-    if (app_id !== undefined) currentQuery.set("app_id", app_id);
 
     const fullAuthorizeUrl = `/oauth/authorize?${currentQuery.toString()}`;
     redirect(`/login?redirect_url=${encodeURIComponent(fullAuthorizeUrl)}`);
   }
 
   // Nếu ĐÃ ĐĂNG NHẬP:
-  // Tự động bypass nếu là ứng dụng nội bộ thuộc VNTEZ
-  if (client.is_internal) {
+  // Tự động bypass consent screen nếu là ứng dụng nội bộ VNTEZ
+  if (app.is_internal) {
     const authCode = crypto.randomBytes(32).toString("hex");
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
 
     await saveOAuthCode({
       code: authCode,
-      client_id,
+      client_id: targetAppId,
       user_id: user.id,
       code_challenge: code_challenge || null,
       code_challenge_method: code_challenge_method || "S256",
@@ -156,7 +181,7 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
     const targetUrl = new URL(redirect_uri);
     targetUrl.searchParams.set("code", authCode);
     if (state) targetUrl.searchParams.set("state", state);
-    if (app_id !== undefined) targetUrl.searchParams.set("app_id", app_id);
+    targetUrl.searchParams.set("app_id", targetAppId);
 
     redirect(targetUrl.toString());
   }
@@ -173,10 +198,10 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
   return (
     <ConsentScreen
       client={{
-        client_id: client.client_id,
-        name: client.name,
-        logo_url: client.logo_url,
-        description: client.description,
+        client_id: app.id,
+        name: app.name,
+        logo_url: app.logo_url || (app as any).avatar_url || null,
+        description: app.description,
       }}
       user={mappedUser}
       params={{
@@ -187,30 +212,6 @@ async function AuthorizeContent({ searchParams }: AuthorizePageProps) {
         scope,
       }}
     />
-  );
-}
-
-function ErrorBox({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="flex min-h-screen w-full items-center justify-center p-4 bg-background text-foreground">
-      <div className="w-full max-w-md rounded-2xl border border-destructive/30 bg-destructive/5 p-6 sm:p-8 backdrop-blur-md shadow-xl text-center space-y-4">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive">
-          <ShieldAlert className="h-7 w-7" />
-        </div>
-        <h2 className="text-xl font-bold tracking-tight text-foreground">
-          {title}
-        </h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-        <div className="pt-2">
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center rounded-xl bg-secondary px-4 py-2 text-xs font-medium text-secondary-foreground hover:bg-accent transition-all"
-          >
-            Quay về Trang chủ VNTEZ IAM
-          </Link>
-        </div>
-      </div>
-    </div>
   );
 }
 

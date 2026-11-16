@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { Check, Copy, ExternalLink, Terminal } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { ExternalLink, Copy, Check } from "lucide-react";
-import { CODE_EXAMPLES } from "./code-examples-data";
+import { useState } from "react";
 import { CodeHighlighter } from "@/components/developers/code-highlighter";
+import { Button } from "@/components/ui/button";
+import { CODE_EXAMPLES } from "./code-examples-data";
 
 export function LandingCodeSandbox() {
   const [activeTab, setActiveTab] =
@@ -21,48 +21,52 @@ export function LandingCodeSandbox() {
   };
 
   return (
-    <section className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#fb291a] mb-2">
-            Dành cho lập trình viên
+    <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary font-mono">
+            Tích hợp nhanh
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Tích hợp chỉ với 3 dòng mã hoặc 1 Prompt AI
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            Tích hợp với 3 dòng mã hoặc 1 Prompt AI
           </h2>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-            Chọn mẫu mã tích hợp hoặc sao chép Master Prompt cho Cursor, Windsurf, Claude Code để AI tự sinh mã xác thực.
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
+            Chọn mã nguồn mẫu hoặc sao chép Master Prompt cho Cursor, Windsurf,
+            Claude Code để trợ lý AI tự động cài đặt luồng xác thực an toàn.
           </p>
         </div>
 
-        <Link
-          href="/developers"
-          className={buttonVariants({
-            variant: "outline",
-            size: "sm",
-            className: "shrink-0 rounded-full gap-1.5 px-4 font-semibold",
-          })}
+        <Button
+          variant="outline"
+          size="sm"
+          asChild
+          className="shrink-0 rounded-2xl h-10 px-5 text-xs font-semibold gap-2 border-border/80"
         >
-          <span>Vào Developer Hub</span>
-          <ExternalLink className="h-3.5 w-3.5" />
-        </Link>
+          <Link href="/developers">
+            <Terminal className="h-3.5 w-3.5 text-primary" />
+            <span>Vào Developer Hub</span>
+            <ExternalLink className="h-3 w-3 opacity-60" />
+          </Link>
+        </Button>
       </div>
 
-      {/* IDE Container */}
-      <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-[#0c121e] shadow-xl overflow-hidden text-slate-200">
+      {/* Modern IDE Container */}
+      <div className="rounded-3xl border border-zinc-800 bg-[#090d16] shadow-2xl overflow-hidden text-zinc-200">
         {/* Top Bar: macOS dots + Tabs + Copy */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] bg-[#080d16] px-4 py-2.5">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 bg-[#05080f] px-4 sm:px-6 py-3">
+          <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto">
             {/* Window dots */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2 shrink-0">
               <div className="size-3 rounded-full bg-rose-500/80" />
               <div className="size-3 rounded-full bg-amber-500/80" />
               <div className="size-3 rounded-full bg-emerald-500/80" />
             </div>
 
             {/* Language Tabs */}
-            <div className="flex items-center gap-1 pl-2">
-              {(Object.keys(CODE_EXAMPLES) as (keyof typeof CODE_EXAMPLES)[]).map((key) => {
+            <div className="flex items-center gap-1.5 pl-2 overflow-x-auto">
+              {(
+                Object.keys(CODE_EXAMPLES) as (keyof typeof CODE_EXAMPLES)[]
+              ).map((key) => {
                 const item = CODE_EXAMPLES[key];
                 const Icon = item.icon;
                 const isActive = activeTab === key;
@@ -71,13 +75,13 @@ export function LandingCodeSandbox() {
                     key={key}
                     onClick={() => setActiveTab(key)}
                     type="button"
-                    className={`flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-medium transition-colors cursor-pointer ${
+                    className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-150 cursor-pointer whitespace-nowrap ${
                       isActive
-                        ? "bg-white/[0.1] text-white font-semibold"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
+                        ? "bg-zinc-800 text-white font-semibold shadow-xs border border-zinc-700/60"
+                        : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-850"
                     }`}
                   >
-                    <Icon className="h-3.5 w-3.5" />
+                    <Icon className="h-3.5 w-3.5 text-primary" />
                     <span>{item.label}</span>
                   </button>
                 );
@@ -89,12 +93,14 @@ export function LandingCodeSandbox() {
           <button
             onClick={handleCopy}
             type="button"
-            className="flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.05] hover:bg-white/[0.1] px-3 py-1 text-xs font-medium text-slate-300 hover:text-white transition-all cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-700/80 px-3.5 py-1.5 text-xs font-medium text-zinc-200 hover:text-white transition-all cursor-pointer shadow-xs"
           >
             {copied ? (
               <>
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Đã sao chép!</span>
+                <span className="text-emerald-400 font-semibold">
+                  Đã sao chép!
+                </span>
               </>
             ) : (
               <>
@@ -105,15 +111,26 @@ export function LandingCodeSandbox() {
           </button>
         </div>
 
-        {/* Code Viewer */}
-        <div className="p-5 sm:p-6 font-mono text-[18px] leading-[1.75] max-h-[520px] overflow-y-auto scrollbar-thin">
+        {/* Code View Area */}
+        <div className="p-4 sm:p-6 overflow-x-auto max-h-[500px] font-mono leading-relaxed bg-[#090d16]">
           {activeTab === "curl" ? (
             <CodeHighlighter code={activeSnippet.code} language="curl" />
           ) : (
-            <pre className="whitespace-pre-wrap text-slate-300 font-mono text-[18px] leading-[1.75]">
+            <pre className="whitespace-pre-wrap text-zinc-300 font-mono text-xs sm:text-sm leading-relaxed">
               {activeSnippet.code}
             </pre>
           )}
+        </div>
+
+        {/* Footer info in IDE */}
+        <div className="flex items-center justify-between border-t border-zinc-800 bg-[#05080f] px-4 sm:px-6 py-2.5 text-[11px] font-mono text-zinc-400">
+          <span className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span>Ready for production</span>
+          </span>
+          <span className="text-zinc-500 truncate">
+            {activeSnippet.filename}
+          </span>
         </div>
       </div>
     </section>

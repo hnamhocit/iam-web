@@ -1,4 +1,7 @@
-import { createClient as createSupabaseClient, SupabaseClient } from "@supabase/supabase-js";
+import {
+  createClient as createSupabaseClient,
+  type SupabaseClient,
+} from "@supabase/supabase-js";
 
 const DEFAULT_SUPABASE_URL = "https://placeholder-vntez-iam.supabase.co";
 const DEFAULT_SUPABASE_KEY = "placeholder-anon-key";
@@ -55,20 +58,24 @@ export interface OAuthClientRecord {
   logo_url?: string | null;
   description?: string | null;
   is_internal?: boolean;
+  status?: "active" | "inactive";
   created_at?: string;
 }
 
 // New App Record structure (từ bảng apps)
 export interface AppRecord {
   id: string; // ví dụ: 'vntez', 'solotype'
+  client_id?: string; // alias client_id = id
   app_secret: string | null;
+  client_secret_hash?: string | null;
   name: string;
   redirect_uris: string[];
   logo_url?: string | null;
+  avatar_url?: string | null;
   description?: string | null;
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   is_internal: boolean;
-  roles: string[];
+  roles?: string[];
   permissions?: Record<string, string[]>;
   created_at?: string;
   updated_at?: string;
@@ -87,12 +94,11 @@ export interface OAuthCodeRecord {
 }
 
 /**
- * Tìm App theo app_id (ưu tiên bảng apps mới, fallback oauth_clients cũ)
+ * Tìm App theo app_id / client_id từ bảng apps
  */
 export async function getApp(
   appId: string,
-): Promise<(AppRecord | OAuthClientRecord) | null> {
-  // Cố gắng lấy từ bảng apps mới trước
+): Promise<(AppRecord & { client_id: string }) | null> {
   const { data: appData, error: appErr } = await supabaseAdmin
     .from("apps")
     .select("*")
@@ -100,45 +106,62 @@ export async function getApp(
     .maybeSingle<AppRecord>();
 
   if (!appErr && appData) {
-    return appData;
+    return {
+      ...appData,
+      client_id: appData.id,
+      client_secret_hash: appData.app_secret,
+    };
   }
 
-  // Fallback: tìm trong oauth_clients (legacy)
-  const { data: legacyData } = await supabaseAdmin
-    .from("oauth_clients")
-    .select("*")
-    .eq("client_id", appId)
-    .maybeSingle<OAuthClientRecord>();
-
-  return legacyData || null;
+  return null;
 }
 
 /**
- * Tìm ứng dụng OAuth theo client_id (DEPRECATED - dùng getApp thay thế)
+ * Tìm ứng dụng OAuth theo client_id / app_id (Bảo lưu tương thích)
  */
 export async function getOAuthClient(
   clientId: string,
 ): Promise<OAuthClientRecord | null> {
   const result = await getApp(clientId);
-  if (result && "client_id" in result) {
-    return result;
+  if (result) {
+    return {
+      client_id: result.id,
+      client_secret_hash: result.app_secret || null,
+      name: result.name,
+      redirect_uris: result.redirect_uris || [],
+      logo_url: result.logo_url || result.avatar_url || null,
+      description: result.description || null,
+      is_internal: result.is_internal,
+      status: result.status,
+      created_at: result.created_at,
+    };
   }
   return null;
 }
 
 /**
- * Lấy danh sách các ứng dụng OAuth đã đăng ký
+ * Lấy danh sách các ứng dụng đã đăng ký từ bảng apps
  */
 export async function listOAuthClients(): Promise<OAuthClientRecord[]> {
   const { data, error } = await supabaseAdmin
-    .from("oauth_clients")
+    .from("apps")
     .select("*")
     .order("created_at", { ascending: false });
 
   if (error || !data) {
     return [];
   }
-  return data as OAuthClientRecord[];
+  return (data as any[]).map((app) => ({
+    client_id: app.id,
+    client_secret_hash: app.app_secret || null,
+    name: app.name,
+    redirect_uris: app.redirect_uris || [],
+    logo_url: app.logo_url || app.avatar_url || null,
+    description: app.description || null,
+    is_internal: app.is_internal,
+    status: app.status,
+    created_at: app.created_at,
+  }));
 }
 
 /**
@@ -152,7 +175,7 @@ export async function createApp(app: {
   logo_url?: string | null;
   description?: string | null;
   is_internal?: boolean;
-  status?: 'active' | 'inactive';
+  status?: "active" | "inactive";
   roles?: string[];
   permissions?: Record<string, string[]>;
 }): Promise<{ data: AppRecord | null; error: string | null }> {
@@ -160,9 +183,9 @@ export async function createApp(app: {
     id: app.id,
     name: app.name,
     redirect_uris: app.redirect_uris,
-    status: app.status || 'active',
+    status: app.status || "active",
     is_internal: app.is_internal || false,
-    roles: app.roles || ['user'],
+    roles: app.roles || ["user"],
     permissions: app.permissions || {},
   };
 
@@ -195,7 +218,7 @@ export async function createApp(app: {
       const match = error.message.match(
         /Could not find the '([^']+)' column of 'apps'/i,
       );
-      if (match && match[1] && attemptPayload[match[1]] !== undefined) {
+      if (match?.[1] && attemptPayload[match[1]] !== undefined) {
         delete attemptPayload[match[1]];
         continue;
       }
@@ -209,6 +232,15 @@ export async function createApp(app: {
 /**
  * Tạo mới ứng dụng OAuth client (DEPRECATED - dùng createApp thay thế)
  */
+export async function deleteApp(appId: string): Promise<boolean> {
+  const { error } = await supabaseAdmin.from("apps").delete().eq("id", appId);
+
+  return !error;
+}
+
+/**
+ * Tạo mới ứng dụng OAuth client (Chuyển tiếp tới createApp trên bảng apps)
+ */
 export async function createOAuthClient(client: {
   client_id: string;
   name: string;
@@ -218,66 +250,41 @@ export async function createOAuthClient(client: {
   description?: string | null;
   is_internal?: boolean;
 }): Promise<{ data: OAuthClientRecord | null; error: string | null }> {
-  // Chỉ đưa vào các trường có giá trị, tránh gửi null/undefined gây lỗi schema cache PostgREST nếu bảng chưa migrate đủ cột
-  const payload: Record<string, any> = {
-    client_id: client.client_id,
+  const res = await createApp({
+    id: client.client_id,
     name: client.name,
     redirect_uris: client.redirect_uris,
-  };
+    app_secret: client.client_secret_hash,
+    logo_url: client.logo_url,
+    description: client.description,
+    is_internal: client.is_internal,
+  });
 
-  if (client.client_secret_hash) {
-    payload.client_secret_hash = client.client_secret_hash;
-  }
-  if (client.logo_url) {
-    payload.logo_url = client.logo_url;
-  }
-  if (client.description) {
-    payload.description = client.description;
-  }
-  if (client.is_internal === true) {
-    payload.is_internal = true;
-  }
-
-  const attemptPayload = { ...payload };
-
-  // Tự động retry loại bỏ cột nếu bảng Supabase chưa migrate cột đó (tránh văng lỗi schema cache)
-  for (let attempt = 0; attempt < 4; attempt++) {
-    const { data, error } = await supabaseAdmin
-      .from("oauth_clients")
-      .insert([attemptPayload])
-      .select()
-      .single();
-
-    if (!error && data) {
-      return { data: data as OAuthClientRecord, error: null };
-    }
-
-    if (error) {
-      // Bắt lỗi schema cache của PostgREST: "Could not find the 'xyz' column of 'oauth_clients' in the schema cache"
-      const match = error.message.match(
-        /Could not find the '([^']+)' column of 'oauth_clients'/i,
-      );
-      if (match && match[1] && attemptPayload[match[1]] !== undefined) {
-        delete attemptPayload[match[1]];
-        continue;
-      }
-      return { data: null, error: error.message };
-    }
+  if (res.data) {
+    return {
+      data: {
+        client_id: res.data.id,
+        name: res.data.name,
+        redirect_uris: res.data.redirect_uris,
+        client_secret_hash: res.data.app_secret,
+        logo_url: res.data.logo_url,
+        description: res.data.description,
+        is_internal: res.data.is_internal,
+        status: res.data.status,
+        created_at: res.data.created_at,
+      },
+      error: null,
+    };
   }
 
-  return { data: null, error: "Không thể tạo ứng dụng OAuth" };
+  return { data: null, error: res.error };
 }
 
 /**
- * Xóa ứng dụng OAuth
+ * Xóa ứng dụng OAuth / App theo id
  */
 export async function deleteOAuthClient(clientId: string): Promise<boolean> {
-  const { error } = await supabaseAdmin
-    .from("oauth_clients")
-    .delete()
-    .eq("client_id", clientId);
-
-  return !error;
+  return deleteApp(clientId);
 }
 
 /**
