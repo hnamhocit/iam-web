@@ -38,6 +38,13 @@ export async function POST(req: Request) {
       for (const [key, value] of params.entries()) {
         body[key] = value;
       }
+    } else if (contentType.includes("multipart/form-data")) {
+      const formData = await req.formData().catch(() => null);
+      if (formData) {
+        for (const [key, value] of formData.entries()) {
+          body[key] = value;
+        }
+      }
     } else {
       body = await req.json().catch(() => ({}));
     }
@@ -108,25 +115,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Xác thực Secret (app_secret mới hoặc client_secret_hash legacy)
-    const secret = app_secret || client_secret;
-    const secretHash = client.app_secret || client.client_secret_hash;
-
-    if (secretHash) {
-      // Nếu app có secret, phải verify hash
-      const isValid = verifySecret(secret, secretHash);
-      if (!isValid) {
-        return NextResponse.json(
-          {
-            error: "unauthorized_client",
-            error_description: "app_secret/client_secret không chính xác",
-          },
-          { status: 401, headers: corsHeaders },
-        );
-      }
-    }
-
-    // 3. Kiểm tra Auth Code
+    // 2. Kiểm tra Auth Code
     const { data: codeRecord, error: codeErr } = await supabaseAdmin
       .from("oauth_codes")
       .select("*")
@@ -145,6 +134,38 @@ export async function POST(req: Request) {
         },
         { status: 400, headers: corsHeaders },
       );
+    }
+
+    // 3. Xác thực Secret:
+    // - Luồng PKCE (SPA/Public Client): Client xác thực qua code_verifier, KHÔNG bắt buộc app_secret.
+    // - Luồng Confidential Client (không có code_challenge): Bắt buộc xác thực app_secret/client_secret nếu app có secret.
+    const secret = app_secret || client_secret;
+    const secretHash = client.app_secret || client.client_secret_hash;
+
+    if (!codeRecord.code_challenge) {
+      if (secretHash) {
+        const isValid = verifySecret(secret, secretHash);
+        if (!isValid) {
+          return NextResponse.json(
+            {
+              error: "unauthorized_client",
+              error_description: "app_secret/client_secret không chính xác",
+            },
+            { status: 401, headers: corsHeaders },
+          );
+        }
+      }
+    } else if (secret && secretHash) {
+      const isValid = verifySecret(secret, secretHash);
+      if (!isValid) {
+        return NextResponse.json(
+          {
+            error: "unauthorized_client",
+            error_description: "app_secret/client_secret không chính xác",
+          },
+          { status: 401, headers: corsHeaders },
+        );
+      }
     }
 
     // 4. Xác thực PKCE S256 nếu có code_challenge
